@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# El cuestionario interno no es para buscadores
+Disallow: /encargo.html
+Disallow: /encargo-michelle.txt
+Disallow: /assets/_originales/
+
+Sitemap: https://michelle.35.196.253.146.sslip.io/sitemap.xml

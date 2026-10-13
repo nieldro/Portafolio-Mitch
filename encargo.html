@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Michelle · Lo que falta para el portafolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=EB+Garamond:ital,wght@0,400..600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azabache:#0A0809; --terciopelo:#1A0E12; --sangre:#6E1220;
+  --carmin:#B3121F; --oro:#B08D57; --oro-vivo:#D8B87C; --hueso:#E6DCC8;
+  --tenue:rgba(230,220,200,.6);
+  --display:"Bodoni Moda",Didot,serif; --texto:"EB Garamond",Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--azabache);color:var(--hueso);
+  font-family:var(--texto);font-size:17px;line-height:1.72}
+h1,h2,h3{margin:0;font-weight:400;font-family:var(--display);line-height:1.08}
+p{margin:0}
+ol,ul{margin:0;padding:0;list-style:none}
+.hoja{max-width:900px;margin-inline:auto;padding:clamp(2.5rem,6vw,5rem) clamp(1.2rem,4vw,3rem)}
+
+.cejilla{font-size:.68rem;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--oro);margin-bottom:1.2rem}
+.enc{border-bottom:1px solid rgba(176,141,87,.22);padding-bottom:2.6rem;margin-bottom:3rem}
+.enc h1{font-size:clamp(2.2rem,6vw,3.6rem)}
+.enc .sub{color:var(--tenue);margin-top:1.4rem;max-width:56ch}
+
+.aviso{background:var(--terciopelo);border-left:2px solid var(--oro);
+  padding:1.5rem 1.8rem;margin-bottom:3.2rem}
+.aviso p + p{margin-top:.9rem}
+.aviso strong{color:var(--oro-vivo);font-weight:400}
+
+.preguntas{margin-bottom:3rem}
+.preguntas li{display:grid;grid-template-columns:2.2rem 1fr;gap:1rem;
+  padding:1rem 0;border-bottom:1px solid rgba(176,141,87,.16)}
+.preguntas .n{font-family:var(--display);color:var(--oro);font-size:1.1rem}
+.preguntas b{font-weight:400;display:block;margin-bottom:.2rem}
+.preguntas em{color:var(--tenue);font-style:italic;font-size:.95rem}
+
+.pieza{display:grid;grid-template-columns:150px 1fr;gap:1.8rem;
+  padding:1.8rem 0;border-bottom:1px solid rgba(176,141,87,.16);
+  break-inside:avoid;page-break-inside:avoid}
+.pieza__marco{background:var(--terciopelo);border:1px solid rgba(176,141,87,.24);
+  padding:.7rem;height:150px;display:grid;place-items:center}
+.pieza__marco img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.pieza__num{font-family:var(--display);color:var(--oro);font-size:1.1rem;
+  letter-spacing:.12em;margin-bottom:.35rem}
+.pieza h3{font-size:1.35rem;margin-bottom:.3rem}
+.pieza .meta{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--tenue);margin-bottom:1.1rem}
+.renglones{display:grid;gap:1.15rem}
+.renglon{display:grid;gap:.45rem}
+.renglon span{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--oro)}
+.renglon i{display:block;height:1px;background:rgba(176,141,87,.28)}
+.renglon i + i{margin-top:1.15rem}
+
+.cierre{margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid rgba(176,141,87,.22)}
+.cierre h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:1.6rem}
+.cierre li{padding:1rem 0;border-bottom:1px solid rgba(176,141,87,.14)}
+.cierre b{font-weight:400;display:block;margin-bottom:.7rem}
+
+@media(max-width:640px){
+  .pieza{grid-template-columns:1fr}
+  .pieza__marco{height:200px;max-width:220px}
+}
+@media print{
+  body{background:#fff;color:#111}
+  .hoja{max-width:none;padding:0}
+  .cejilla,.pieza__num,.renglon span,.aviso strong{color:#7a5c2e}
+  .aviso{background:#f4f1ea;border-left-color:#7a5c2e}
+  .pieza__marco{background:#f4f1ea;border-color:#ccc}
+  .renglon i{background:#bbb}
+  .enc .sub,.pieza .meta,.preguntas em{color:#555}
+}
+</style>
+</head>
+<body>
+<div class="hoja">
+
+  <header class="enc">
+    <p class="cejilla">Portafolio · Lo que falta</p>
+    <h1>Cuéntame tus piezas</h1>
+    <p class="sub">Michelle: el sitio nuevo ya está armado con tus 13 piezas. Falta lo único que no puedo sacar de las imágenes — el encargo detrás de cada una. Con eso, cada proyecto pasa de ser una foto bonita a ser un caso, que es lo que mira quien contrata.</p>
+  </header>
+
+  <div class="aviso">
+    <p><strong>No hace falta que escribas bonito.</strong> Contesta como le contarías a alguien en un café. Yo lo redacto después.</p>
+    <p><strong>Dos o tres frases por pieza bastan.</strong> Si alguna no te acuerdas o no quieres incluirla, dilo y la sacamos — mejor doce buenas que trece a medias.</p>
+    <p><strong>Y si tienes trabajo sin subir, mándalo.</strong> Los espacios ya están hechos.</p>
+  </div>
+
+  <ol class="preguntas">
+    <li><span class="n">1</span><div><b>¿Para quién era y qué te pidieron?</b><em>Si fue cliente real, ejercicio de clase o idea tuya. Las tres cuentan — lo que no sirve es no decirlo.</em></div></li>
+    <li><span class="n">2</span><div><b>¿Cuál fue la decisión de la que estás más orgullosa?</b><em>Por qué ese color, esa forma, esa tipografía. Ahí es donde se nota el criterio.</em></div></li>
+    <li><span class="n">3</span><div><b>¿En qué terminó?</b><em>Se imprimió, salió en redes, quedó en mockup, se produjo el empaque.</em></div></li>
+  </ol>
+
+  <h2 style="font-size:1.6rem;margin-bottom:1.4rem">Las 13 piezas</h2>
+
+  <ol id="lista"></ol>
+
+  <section class="cierre">
+    <h2>Y cuatro cosas sueltas</h2>
+    <ul>
+      <li><b>¿Qué tipo de trabajo quieres que te llegue más?</b><i class="renglon"></i>
+        <div class="renglones"><div class="renglon"><i></i><i></i></div></div></li>
+      <li><b>¿Tienes piezas hechas que no subiste al portafolio viejo?</b>
+        <div class="renglones"><div class="renglon"><i></i><i></i></div></div></li>
+      <li><b>¿Estás disponible para encargos ahora, y trabajas por hora o por proyecto?</b>
+        <div class="renglones"><div class="renglon"><i></i><i></i></div></div></li>
+      <li><b>¿Qué redes quieres que aparezcan en el sitio?</b>
+        <div class="renglones"><div class="renglon"><i></i><i></i></div></div></li>
+    </ul>
+  </section>
+
+</div>
+
+<script>
+const PIEZAS = [
+  ["I","kaomi-packaging","Kaomi Arcana · Packaging conceptual","Packaging · 2025"],
+  ["II","tairons-vodka","Tairons · El vodka de los dioses","Packaging · 2025"],
+  ["III","mitchmu-cherry","MitchMu · Cherry Editorial","Publicidad · 2025"],
+  ["IV","ferrari-icons","Ferrari · The Icons of the 80s","Publicidad · 2025"],
+  ["V","kaomi-papeleria","Kaomi Arcana · Papelería ritual","Branding · 2025"],
+  ["VI","astral-papeleria","Astral · Papelería corporativa","Branding · 2025"],
+  ["VII","mitchmu-tonos","MitchMu · Colección de tonos","Social Media · 2025"],
+  ["VIII","bruma-house","Bruma House · Poltronas","Publicidad · 2025"],
+  ["IX","heladelica","Heladélica · Sabor Pistacho","Publicidad · 2025"],
+  ["X","ferrari-288gto","Ferrari 288 GTO · Race Poster","Publicidad · 2025"],
+  ["XI","ecovida-folleto","EcoVida Market · Folleto Comercial","Editorial · 2025"],
+  ["XII","algoquest","AlgoQuest · Plataforma educativa","UI/UX · 2025"],
+  ["XIII","valorant-web","Valorant · Web personalizada","UI/UX · 2025"],
+];
+
+document.getElementById('lista').innerHTML = PIEZAS.map(([num, archivo, titulo, meta]) => `
+  <li class="pieza">
+    <div class="pieza__marco">
+      <img src="assets/img/thumb/${archivo}.jpg" alt="${titulo}">
+    </div>
+    <div>
+      <p class="pieza__num">${num}</p>
+      <h3>${titulo}</h3>
+      <p class="meta">${meta}</p>
+      <div class="renglones">
+        <div class="renglon"><span>1 · Para quién y qué pedían</span><i></i><i></i></div>
+        <div class="renglon"><span>2 · La decisión de la que estás orgullosa</span><i></i><i></i></div>
+        <div class="renglon"><span>3 · En qué terminó</span><i></i></div>
+      </div>
+    </div>
+  </li>`).join('');
+</script>
+</body>
+</html>

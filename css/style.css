@@ -1,0 +1,1797 @@
+/* ═══════════════════════════════════════════════════════════
+   Michelle Herrera · Catálogo de láminas
+   Paleta y materia tomadas de su propia pieza «Kaomi Arcana»:
+   azabache, sangre de buey, carmín y hueso sobre terciopelo.
+   El oro quedó reducido a ceniza (--oro) y solo dibuja filetes:
+   los rótulos y numerales van en carmín. Negro y rojo, no dorado.
+   ═══════════════════════════════════════════════════════════ */
+
+:root{
+  /* Color */
+  --azabache:#0A0809;
+  --terciopelo:#1A0E12;
+  --terciopelo-alto:#241318;
+  --sangre:#6E1220;
+  --carmin:#B3121F;
+  --oro:#8A7E6E;
+  --oro-vivo:#C9BCA6;
+  --hueso:#E6DCC8;
+  --hueso-tenue:rgba(230,220,200,.62);
+  --hueso-fantasma:rgba(230,220,200,.18);
+
+  /* Tipografía */
+  --display:"Bodoni Moda",Didot,"Times New Roman",serif;
+  --texto:"EB Garamond",Georgia,serif;
+  --gotica:"UnifrakturMaguntia","Bodoni Moda",serif;
+
+  /* Métrica */
+  --caja:1280px;
+  --aire:clamp(3rem,6vw,5.5rem);
+  --borde:1px solid rgba(138,126,110,.28);
+  --curva:cubic-bezier(.22,1,.36,1);
+
+  /* La marca como recorte, para viñetas y marcadores que heredan color */
+  --sig-calavera:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='24 14 152 166'%3E%3Cpath fill='%23000' fill-rule='evenodd' d='M40 14 L63 57 C74 48 126 48 137 57 L160 14 L167 76 C176 98 170 112 151 118 C141 122 137 127 135 137 C133 148 128 152 121 153 L117 180 L112 153 C108 154 104 154 100 154 C96 154 92 154 88 153 L83 180 L79 153 C72 152 67 148 65 137 C63 127 59 122 49 118 C30 112 24 98 33 76 Z M72 67 C83 67 92 77 92 90 C92 103 83 113 72 113 C61 113 52 103 52 90 C52 77 61 67 72 67 Z M128 67 C139 67 148 77 148 90 C148 103 139 113 128 113 C117 113 108 103 108 90 C108 77 117 67 128 67 Z M100 140 C92 133 86 128 86 122 C86 116 91 113 96 116 C98 117 99 119 100 121 C101 119 102 117 104 116 C109 113 114 116 114 122 C114 128 108 133 100 140 Z'/%3E%3C/svg%3E");
+
+  /* Posición de la vela (cursor) */
+  --mx:50vw;
+  --my:40vh;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+
+/* La barra es fija: sin esto, al ir a una sección desde el menú el título
+   queda escondido detrás de ella. */
+[id]{scroll-margin-top:clamp(76px,12vh,104px)}
+
+body{
+  margin:0;
+  background:var(--azabache);
+  color:var(--hueso);
+  font-family:var(--texto);
+  font-size:clamp(1.02rem,.42vw + .93rem,1.16rem);
+  line-height:1.72;
+  font-weight:400;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+h1,h2,h3,h4{margin:0;font-weight:400;line-height:1.05}
+p{margin:0}
+ol,ul,dl{margin:0;padding:0;list-style:none}
+
+::selection{background:var(--sangre);color:var(--hueso)}
+
+:focus-visible{
+  outline:2px solid var(--oro-vivo);
+  outline-offset:4px;
+}
+
+/* Para quien navega con teclado: lo primero que recibe el foco */
+.salto{
+  position:fixed;
+  top:.7rem;left:50%;
+  z-index:120;
+  transform:translate(-50%,-160%);
+  padding:.8rem 1.6rem;
+  font-size:.72rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  background:var(--sangre);
+  color:var(--hueso);
+  border:1px solid var(--carmin);
+  transition:transform .3s var(--curva);
+}
+.salto:focus{transform:translate(-50%,0)}
+
+/* Cursor con la marca sobre las piezas. La posición y la escala las
+   lleva GSAP: ponerlas también en CSS se pisarían. */
+.cursor__sig{
+  position:absolute;
+  width:32px;height:auto;
+  color:var(--carmin);
+  opacity:0;
+}
+.cursor.esta-sobre-pieza .cursor__punto{opacity:0}
+.cursor.esta-sobre-pieza .cursor__anillo{
+  width:88px;height:88px;
+  border-color:rgba(179,18,31,.75);
+  background:rgba(110,18,32,.14);
+}
+
+/* La ruleta se puede arrastrar, con mouse y con dedo.
+   `pan-y` deja el desplazamiento vertical al navegador y nos entrega
+   solo el gesto horizontal, que es el que gira la rueda. */
+.ruleta.es-ruleta{cursor:grab;touch-action:pan-y}
+.ruleta.es-ruleta.esta-agarrada{cursor:grabbing}
+
+/* ───────────────────────────────────────────
+   ATMÓSFERA
+   El damasco solo se ve donde cae la luz de la vela.
+   ─────────────────────────────────────────── */
+
+.damasco{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='180' viewBox='0 0 120 180'%3E%3Cg fill='none' stroke='%23B08D57' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M60 8C78 30 96 44 96 66c0 20-18 30-36 30S24 86 24 66c0-22 18-36 36-58Z'/%3E%3Cpath d='M60 26c10 16 22 24 22 38 0 13-12 19-22 19s-22-6-22-19c0-14 12-22 22-38Z'/%3E%3Ccircle cx='60' cy='62' r='5'/%3E%3Cpath d='M60 96v34M46 112c8 6 12 12 14 20 2-8 6-14 14-20'/%3E%3Cpath d='M0 96c18 20 30 34 30 54M120 96c-18 20-30 34-30 54'/%3E%3Cpath d='M0 178c20-18 40-28 60-28s40 10 60 28'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:150px 225px;
+  -webkit-mask-image:radial-gradient(circle 330px at var(--mx) var(--my),#000 0%,rgba(0,0,0,.55) 42%,transparent 72%);
+  mask-image:radial-gradient(circle 330px at var(--mx) var(--my),#000 0%,rgba(0,0,0,.55) 42%,transparent 72%);
+  transition:opacity .6s ease;
+}
+
+.grano{
+  position:fixed;
+  inset:-50%;
+  z-index:60;
+  pointer-events:none;
+  opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23r)'/%3E%3C/svg%3E");
+  animation:granear 7s steps(6) infinite;
+}
+@keyframes granear{
+  0%{transform:translate(0,0)}      20%{transform:translate(-3%,2%)}
+  40%{transform:translate(2%,-3%)}  60%{transform:translate(-2%,-2%)}
+  80%{transform:translate(3%,1%)}   100%{transform:translate(0,0)}
+}
+
+.vineta{
+  position:fixed;
+  inset:0;
+  z-index:59;
+  pointer-events:none;
+  background:radial-gradient(ellipse 90% 75% at 50% 45%,transparent 40%,rgba(5,4,5,.72) 100%);
+}
+
+/* Cursor de latón */
+.cursor{
+  position:fixed;
+  top:0;left:0;
+  z-index:80;
+  pointer-events:none;
+  mix-blend-mode:screen;
+  opacity:0;
+  transition:opacity .3s ease;
+}
+.cursor.esta-vivo{opacity:1}
+.cursor__anillo,
+.cursor__punto{
+  position:absolute;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+.cursor__anillo{
+  width:34px;height:34px;
+  border:1px solid rgba(201,188,166,.55);
+  transition:width .3s var(--curva),height .3s var(--curva),border-color .3s ease,background-color .3s ease;
+}
+.cursor__punto{
+  width:4px;height:4px;
+  background:var(--oro-vivo);
+}
+.cursor.esta-sobre .cursor__anillo{
+  width:74px;height:74px;
+  border-color:rgba(201,188,166,.9);
+  background:rgba(138,126,110,.09);
+}
+.cursor.esta-sobre .cursor__punto{opacity:0}
+
+/* ───────────────────────────────────────────
+   TELÓN DE ENTRADA
+   ─────────────────────────────────────────── */
+
+/* Sin JS no hay telón que alzar: no debe existir. */
+.telon{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  place-items:center;
+  background:var(--azabache);
+}
+/* Red de seguridad: si GSAP no llega, el telón se retira solo. */
+html.tiene-js .telon{
+  display:grid;
+  animation:telon-seguro .9s ease 6s forwards;
+}
+@keyframes telon-seguro{to{opacity:0;visibility:hidden}}
+.telon__centro{position:relative;display:grid;place-items:center;text-align:center}
+.telon__sello{width:150px;height:150px;overflow:visible}
+.telon__aro{
+  fill:none;
+  stroke:var(--oro);
+  stroke-width:1.2;
+  stroke-dasharray:340;
+  stroke-dashoffset:340;
+  transform-origin:center;
+}
+.telon__aro--fino{stroke-dasharray:295;stroke-dashoffset:295;opacity:.5}
+.telon__marca{
+  position:absolute;
+  top:50%;left:50%;
+  width:68px;height:auto;
+  transform:translate(-50%,-52%);
+  color:var(--hueso);
+  opacity:0;
+}
+.telon__pie{
+  position:absolute;
+  top:calc(50% + 110px);left:50%;
+  transform:translateX(-50%);
+  font-size:.7rem;
+  letter-spacing:.34em;
+  color:var(--oro);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ───────────────────────────────────────────
+   BARRA
+   ─────────────────────────────────────────── */
+
+.barra{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:70;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:2rem;
+  padding:1.15rem clamp(1.1rem,4vw,3rem);
+  transition:background-color .5s ease,border-color .5s ease,backdrop-filter .5s ease;
+  border-bottom:1px solid transparent;
+}
+.barra.esta-posada{
+  background:rgba(10,8,9,.82);
+  backdrop-filter:blur(14px);
+  border-bottom-color:rgba(138,126,110,.2);
+}
+.barra__marca{display:flex;align-items:baseline;gap:.6rem}
+/* La marca, no una letra: la calavera va en la barra, en el telón,
+   en el lacre y en el favicon. */
+.barra__marca-sig{
+  width:34px;height:auto;
+  color:var(--carmin);
+  transition:color .45s ease,transform .6s var(--curva);
+}
+.barra__marca:hover .barra__marca-sig{
+  color:var(--hueso);
+  transform:translateY(-3px) rotate(-5deg);
+}
+.barra__nombre{
+  font-family:var(--display);
+  font-size:.9rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+/* En escritorio el panel no existe para la maqueta; en móvil es la hoja */
+.barra__panel{display:contents}
+.barra__nav{display:flex;gap:2.1rem}
+.barra__nav a{
+  position:relative;
+  font-size:.74rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--hueso-tenue);
+  transition:color .35s ease;
+  padding-bottom:3px;
+}
+.barra__nav a .num{
+  font-family:var(--display);
+  color:var(--oro);
+  margin-right:.45rem;
+  font-size:.68rem;
+}
+.barra__nav a::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:0;
+  width:100%;height:1px;
+  background:var(--oro);
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform .45s var(--curva);
+}
+.barra__nav a:hover{color:var(--hueso)}
+.barra__nav a:hover::after{transform:scaleX(1);transform-origin:left}
+
+.barra__cta{
+  font-size:.72rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  border:var(--borde);
+  padding:.7rem 1.35rem;
+  color:var(--hueso);
+  transition:background-color .4s ease,border-color .4s ease,color .4s ease;
+}
+.barra__cta:hover{background:var(--sangre);border-color:var(--sangre)}
+
+/* Aguja de avance: cuánto llevas leído del catálogo */
+.barra__aguja{
+  position:absolute;
+  left:0;bottom:-1px;
+  width:100%;height:2px;
+  transform:scaleX(0);
+  transform-origin:left;
+  background:linear-gradient(90deg,var(--sangre),var(--carmin));
+}
+
+.barra__hamb{display:none;width:34px;height:24px;position:relative}
+.barra__hamb span{
+  position:absolute;left:0;
+  width:100%;height:1px;
+  background:var(--hueso);
+  transition:transform .4s var(--curva),opacity .3s ease;
+}
+.barra__hamb span:first-child{top:7px}
+.barra__hamb span:last-child{bottom:7px}
+.barra.esta-abierta .barra__hamb span:first-child{transform:translateY(4px) rotate(45deg)}
+.barra.esta-abierta .barra__hamb span:last-child{transform:translateY(-4px) rotate(-45deg)}
+
+/* ───────────────────────────────────────────
+   ÍNDICE LATERAL
+   Un riel a la derecha que dice dónde va uno. El nombre solo aparece
+   en la sección activa o al pasar el cursor: si estuvieran todos, sería
+   un segundo menú compitiendo con la barra.
+   ─────────────────────────────────────────── */
+
+.indice{
+  position:fixed;
+  right:clamp(1rem,2.2vw,2.2rem);
+  top:50%;
+  transform:translateY(-50%);
+  z-index:65;
+  display:grid;
+  gap:.95rem;
+  justify-items:end;
+}
+.indice a{
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  color:var(--hueso-tenue);
+}
+.indice i{
+  width:22px;height:1px;
+  background:rgba(138,126,110,.55);
+  transition:width .55s var(--curva),background-color .45s ease;
+}
+.indice span{
+  font-size:.6rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  opacity:0;
+  transform:translateX(6px);
+  transition:opacity .45s ease,transform .5s var(--curva);
+  white-space:nowrap;
+}
+.indice a:hover i{width:38px;background:var(--hueso)}
+.indice a:hover span{opacity:1;transform:translateX(0)}
+.indice a.esta-aqui i{width:44px;background:var(--carmin)}
+.indice a.esta-aqui span{opacity:1;transform:translateX(0);color:var(--hueso)}
+
+@media (max-width:1180px){.indice{display:none}}
+
+/* ───────────────────────────────────────────
+   PIEZAS COMUNES
+   ─────────────────────────────────────────── */
+
+main{position:relative;z-index:1}
+
+.seccion{
+  position:relative;
+  max-width:var(--caja);
+  margin-inline:auto;
+  padding:var(--aire) clamp(1.15rem,5vw,3rem);
+}
+
+.seccion__enc{margin-bottom:clamp(2rem,4vw,3.4rem);max-width:44rem}
+
+.cejilla{
+  font-size:.71rem;
+  letter-spacing:.36em;
+  text-transform:uppercase;
+  color:var(--oro);
+  margin-bottom:1.4rem;
+}
+.cejilla__sep{opacity:.45;margin-inline:.4rem}
+
+.titulo{
+  font-family:var(--display);
+  font-size:clamp(2.7rem,7vw,5.6rem);
+  line-height:.98;
+  letter-spacing:-.015em;
+}
+
+.seccion__nota{
+  margin-top:1.7rem;
+  color:var(--hueso-tenue);
+  font-size:1.09rem;
+  max-width:34rem;
+}
+
+/* Capitular en didona: la gótica solo se sostiene en el monograma */
+.capitular{
+  float:left;
+  font-family:var(--display);
+  font-weight:500;
+  font-size:3.7em;
+  line-height:.8;
+  color:var(--carmin);
+  margin:.04em .13em -.08em 0;
+}
+
+.boton{
+  display:inline-block;
+  font-size:.75rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  padding:1.05rem 2.1rem;
+  border:var(--borde);
+  color:var(--hueso);
+  position:relative;
+  overflow:hidden;
+  transition:color .4s ease,border-color .4s ease;
+}
+.boton::before{
+  content:"";
+  position:absolute;inset:0;
+  background:var(--sangre);
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform .55s var(--curva);
+  z-index:-1;
+}
+.boton:hover{border-color:var(--sangre)}
+.boton:hover::before{transform:scaleX(1);transform-origin:left}
+.boton--lleno{background:var(--sangre);border-color:var(--sangre)}
+.boton--lleno::before{background:var(--carmin)}
+.boton--grande{padding:1.25rem 3rem;font-size:.8rem}
+
+.enlace{
+  font-size:.73rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--oro-vivo);
+  padding-bottom:.35rem;
+  border-bottom:1px solid rgba(138,126,110,.4);
+  transition:border-color .4s ease,color .4s ease;
+}
+.enlace:hover{color:var(--hueso);border-bottom-color:var(--hueso)}
+
+/* Cesura: el corte entre secciones, marcado con la propia marca */
+.cesura{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:clamp(1rem,2.4vw,1.9rem);
+  max-width:var(--caja);
+  margin-inline:auto;
+  padding-inline:clamp(1.15rem,5vw,3rem);
+}
+.cesura__linea{
+  flex:1;
+  height:1px;
+  transform:scaleX(0);
+  background:linear-gradient(90deg,transparent,rgba(138,126,110,.7),transparent);
+}
+.cesura__sig{
+  flex:0 0 auto;
+  width:clamp(20px,2.4vw,28px);
+  height:auto;
+  color:var(--carmin);
+  opacity:0;
+}
+
+/* Máscara para la revelación de texto por líneas */
+.linea-mask{display:block;overflow:hidden}
+.linea-int{display:block;will-change:transform}
+
+/* ───────────────────────────────────────────
+   I · FRONTISPICIO
+   ─────────────────────────────────────────── */
+
+.frontis{
+  position:relative;
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  padding:6.5rem clamp(1.15rem,5vw,3rem) 6rem;
+  text-align:center;
+  overflow:hidden;
+}
+
+.cartela{
+  position:absolute;
+  inset:clamp(1rem,3.5vw,2.6rem);
+  width:auto;height:auto;
+  pointer-events:none;
+}
+.cartela__caja{
+  fill:none;
+  stroke:var(--oro);
+  stroke-width:1;
+  opacity:.4;
+  stroke-dasharray:3760;
+  stroke-dashoffset:0;
+}
+.cartela__caja--fina{opacity:.2;stroke-dasharray:3630}
+
+/* Solo con JS el grabado empieza en blanco para entintarse.
+   El guion debe ser más largo que el trazo: si no, el ornamento
+   sale a rayas en vez de entero. */
+html.tiene-js .cartela__caja{stroke-dashoffset:3760}
+html.tiene-js .cartela__caja--fina{stroke-dashoffset:3630}
+html.tiene-js .cartela-esq{stroke-dashoffset:1200}
+
+.cartela-esq{
+  position:absolute;
+  width:clamp(46px,6vw,86px);
+  height:clamp(46px,6vw,86px);
+  fill:none;
+  stroke:var(--oro);
+  stroke-width:1.4;
+  opacity:.62;
+  pointer-events:none;
+  stroke-dasharray:1200;
+  stroke-dashoffset:0;
+}
+.cartela-esq--si{top:clamp(1rem,3.5vw,2.6rem);left:clamp(1rem,3.5vw,2.6rem);transform:scaleX(-1)}
+.cartela-esq--sd{top:clamp(1rem,3.5vw,2.6rem);right:clamp(1rem,3.5vw,2.6rem)}
+.cartela-esq--ii{bottom:clamp(1rem,3.5vw,2.6rem);left:clamp(1rem,3.5vw,2.6rem);transform:scale(-1,-1)}
+.cartela-esq--id{bottom:clamp(1rem,3.5vw,2.6rem);right:clamp(1rem,3.5vw,2.6rem);transform:scaleY(-1)}
+
+.frontis__cuerpo{position:relative;z-index:2;max-width:62rem}
+
+.masthead{
+  font-family:var(--display);
+  font-size:clamp(3.2rem,11.5vw,9.4rem);
+  line-height:.84;
+  letter-spacing:-.035em;
+  margin:.25rem 0 .9rem;
+}
+.masthead__linea{display:block}
+.masthead__linea--dos{
+  font-style:italic;
+  font-weight:500;
+  color:var(--carmin);
+  margin-left:.14em;
+}
+
+.frontis__regla{display:flex;justify-content:center;margin:1.3rem 0 1.5rem}
+.frontis__regla svg{
+  width:min(260px,58vw);
+  fill:var(--oro);
+  stroke:var(--oro);
+  stroke-width:1;
+  opacity:.75;
+}
+
+.frontis__tesis{
+  font-family:var(--display);
+  font-size:clamp(1.22rem,2.5vw,1.85rem);
+  line-height:1.26;
+  max-width:28ch;
+  margin-inline:auto;
+}
+.frontis__tesis em{font-style:italic;color:var(--oro-vivo)}
+
+.frontis__sub{
+  margin:1.1rem auto 0;
+  max-width:52ch;
+  color:var(--hueso-tenue);
+  font-size:1rem;
+}
+
+.frontis__acciones{
+  display:flex;
+  gap:1rem;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:2.1rem;
+}
+
+/* Cifras del catálogo. Viven en el Retrato: en el frontispicio
+   chocaban con el indicador de descenso. */
+.cifras{
+  display:flex;
+  gap:clamp(1.6rem,4vw,3.4rem);
+  flex-wrap:wrap;
+  margin-top:2.8rem;
+  padding-top:2rem;
+  border-top:1px solid rgba(138,126,110,.18);
+}
+.cifras dt{
+  font-size:.64rem;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--hueso-tenue);
+  margin-bottom:.5rem;
+}
+.cifras dd{
+  margin:0;
+  font-family:var(--display);
+  font-size:clamp(1.5rem,2.7vw,2.1rem);
+  color:var(--carmin);
+}
+
+.frontis__baja{
+  display:grid;
+  justify-items:center;
+  gap:.85rem;
+  margin-top:clamp(1.8rem,4.5vh,3rem);
+  font-size:.63rem;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--hueso-tenue);
+  z-index:2;
+}
+.frontis__hilo{
+  width:1px;height:52px;
+  background:linear-gradient(var(--oro),transparent);
+  animation:descender 2.6s ease-in-out infinite;
+  transform-origin:top;
+}
+@keyframes descender{
+  0%,100%{transform:scaleY(.28);opacity:.35}
+  50%{transform:scaleY(1);opacity:1}
+}
+
+/* ───────────────────────────────────────────
+   MARQUESINA
+   ─────────────────────────────────────────── */
+
+.marquesina{
+  position:relative;
+  z-index:1;
+  overflow:hidden;
+  padding:1.5rem 0;
+  border-block:1px solid rgba(138,126,110,.2);
+  background:var(--terciopelo);
+  white-space:nowrap;
+}
+.marquesina__pista{display:flex;width:max-content;will-change:transform}
+.marquesina__grupo{
+  font-family:var(--display);
+  font-size:clamp(1.5rem,3.6vw,2.7rem);
+  letter-spacing:.02em;
+  padding-right:2rem;
+  color:var(--hueso);
+}
+/* El dingbat del sitio es la propia marca, en pequeño */
+.dingbat{
+  display:inline-block;
+  width:.52em;
+  margin-inline:1.15rem;
+  vertical-align:-.02em;
+  color:var(--carmin);
+}
+.dingbat svg{width:100%;height:auto;display:block;fill:currentColor}
+.marquesina__grupo i{font-style:normal}
+
+/* ───────────────────────────────────────────
+   II · LÁMINAS MAYORES
+   ─────────────────────────────────────────── */
+
+.lamina{
+  display:grid;
+  grid-template-columns:1.32fr .78fr;
+  gap:clamp(2rem,5vw,4.5rem);
+  align-items:center;
+  margin-bottom:clamp(3rem,6.5vw,6rem);
+}
+.lamina:last-child{margin-bottom:0}
+.lamina--invertida .lamina__marco{order:2}
+.lamina--invertida .lamina__margen{order:1}
+
+/* El passe-partout: la pieza va montada, nunca recortada */
+.lamina__marco{
+  position:relative;
+  margin:0;
+  padding:clamp(1.1rem,2.4vw,2.2rem);
+  background:
+    linear-gradient(150deg,var(--terciopelo-alto),var(--terciopelo) 60%);
+  border:1px solid rgba(138,126,110,.26);
+  cursor:pointer;
+  overflow:hidden;
+}
+.lamina__marco::after{
+  content:"";
+  position:absolute;
+  inset:clamp(.55rem,1.2vw,1.05rem);
+  border:1px solid rgba(138,126,110,.22);
+  pointer-events:none;
+  transition:inset .6s var(--curva),border-color .6s ease;
+}
+.lamina__marco:hover::after{
+  inset:clamp(.3rem,.75vw,.65rem);
+  border-color:rgba(201,188,166,.5);
+}
+.lamina__marco img{
+  width:100%;
+  height:clamp(300px,42vw,560px);
+  object-fit:contain;
+  filter:saturate(.82) contrast(1.03);
+  transition:filter .8s var(--curva),transform .9s var(--curva);
+}
+.lamina__marco:hover img{filter:saturate(1) contrast(1);transform:scale(1.018)}
+
+/* El velo que se levanta. Sin JS no cubre nada. */
+.lamina__velo{
+  display:none;
+  position:absolute;
+  inset:0;
+  z-index:3;
+  background:var(--azabache);
+  transform-origin:bottom;
+  pointer-events:none;
+}
+html.tiene-js .lamina__velo{display:block}
+
+.lamina__lupa{
+  position:absolute;
+  z-index:4;
+  right:clamp(1.1rem,2.4vw,2.2rem);
+  bottom:clamp(1.1rem,2.4vw,2.2rem);
+  font-size:.63rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--hueso);
+  background:rgba(110,18,32,.9);
+  padding:.6rem 1.1rem;
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .45s ease,transform .45s var(--curva);
+}
+.lamina__marco:hover .lamina__lupa{opacity:1;transform:translateY(0)}
+
+.lamina__margen{position:relative}
+/* Numeral de lámina: relleno y espaciado, que en contorno la «III»
+   de una didona se lee como una reja */
+.lamina__num{
+  display:block;
+  font-family:var(--display);
+  font-size:clamp(2.2rem,4.4vw,3.4rem);
+  line-height:1;
+  letter-spacing:.12em;
+  color:var(--carmin);
+  padding-bottom:1rem;
+  margin-bottom:1.3rem;
+  border-bottom:1px solid rgba(138,126,110,.2);
+}
+.lamina__cat{
+  font-size:.7rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--oro);
+  margin-bottom:1.2rem;
+}
+.lamina__cat span{opacity:.5;margin-inline:.4rem}
+.lamina__tit{
+  font-family:var(--display);
+  font-size:clamp(1.85rem,3.6vw,2.9rem);
+  line-height:1.06;
+  margin-bottom:1.4rem;
+}
+.lamina__tit span{
+  display:block;
+  font-style:italic;
+  font-size:.62em;
+  color:var(--oro-vivo);
+  margin-top:.35rem;
+}
+.lamina__txt{
+  color:var(--hueso-tenue);
+  margin-bottom:2rem;
+  overflow:hidden;
+}
+
+/* Tira de detalles: ampliaciones de la propia pieza, para que se vea
+   el oficio de cerca. Alto fijo y ancho libre — forzar cuadrado
+   partía por la mitad los logotipos anchos. */
+.detalles{
+  grid-column:1 / -1;
+  margin-top:clamp(1.8rem,3.2vw,3rem);
+  padding-top:1.9rem;
+  border-top:1px solid rgba(138,126,110,.18);
+}
+.detalles__rot{
+  font-size:.62rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--oro);
+  margin-bottom:1.3rem;
+}
+.detalles__tira{
+  display:flex;
+  gap:clamp(.8rem,1.6vw,1.3rem);
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+  padding-bottom:.4rem;
+}
+.detalles__tira::-webkit-scrollbar{display:none}
+.detalles figure{margin:0;flex:0 0 auto}
+.detalles img{
+  height:clamp(148px,17vw,236px);
+  width:auto;
+  display:block;
+  background:var(--terciopelo);
+  border:1px solid rgba(138,126,110,.22);
+  filter:saturate(.9);
+  transition:filter .6s var(--curva),border-color .6s ease;
+}
+.detalles figure:hover img{filter:saturate(1);border-color:rgba(201,188,166,.5)}
+.detalles figcaption{
+  margin-top:.7rem;
+  font-size:.74rem;
+  line-height:1.4;
+  color:var(--hueso-tenue);
+  max-width:28ch;
+}
+
+/* ───────────────────────────────────────────
+   II bis · PANTALLA
+   Su trabajo de web y UI estaba enterrado entre las trece fichas de la
+   ruleta. Aquí sale a la cara, en marco de navegador, sin alargar la
+   página más de una pantalla.
+   ─────────────────────────────────────────── */
+
+.pantalla__par{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(1.4rem,3vw,2.6rem);
+}
+.pieza-web{cursor:pointer}
+.pieza-web__ventana{
+  position:relative;
+  background:linear-gradient(155deg,var(--terciopelo-alto),#120A0D);
+  border:1px solid rgba(138,126,110,.26);
+  padding-top:30px;
+  overflow:hidden;
+  transition:border-color .55s ease,transform .7s var(--curva);
+}
+.pieza-web:hover .pieza-web__ventana{
+  border-color:rgba(201,188,166,.55);
+  transform:translateY(-6px);
+}
+/* Barra de navegador: sitúa la pieza como producto, no como imagen */
+.pieza-web__barra{
+  position:absolute;
+  top:0;left:0;right:0;
+  height:30px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding-inline:12px;
+  background:rgba(10,8,9,.55);
+  border-bottom:1px solid rgba(138,126,110,.2);
+}
+.pieza-web__barra i{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:rgba(138,126,110,.45);
+}
+.pieza-web__barra i:first-child{background:rgba(179,18,31,.65)}
+.pieza-web__ventana img{
+  width:100%;
+  height:clamp(160px,20vw,270px);
+  object-fit:cover;
+  object-position:top center;
+  filter:saturate(.85);
+  transition:filter .7s var(--curva);
+}
+.pieza-web:hover .pieza-web__ventana img{filter:saturate(1)}
+.pieza-web__pie{padding-top:1.3rem}
+.pieza-web__num{
+  font-family:var(--display);
+  font-size:.95rem;
+  letter-spacing:.12em;
+  color:var(--carmin);
+}
+.pieza-web__pie h3{
+  font-family:var(--display);
+  font-size:clamp(1.4rem,2.6vw,2rem);
+  line-height:1.06;
+  margin:.3rem 0 .5rem;
+}
+.pieza-web__cat{
+  font-size:.66rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--oro);
+  margin-bottom:.9rem;
+}
+.pieza-web__cat span{opacity:.5;margin-inline:.35rem}
+.pieza-web__txt{color:var(--hueso-tenue);font-size:.98rem}
+
+/* ───────────────────────────────────────────
+   III · EL GABINETE
+   ─────────────────────────────────────────── */
+
+.gabinete{
+  position:relative;
+  z-index:1;
+  background:linear-gradient(var(--azabache),var(--terciopelo) 22%,var(--terciopelo) 78%,var(--azabache));
+  border-block:1px solid rgba(138,126,110,.16);
+}
+/* El fondo va aquí, no solo en la sección: al fijarse, este bloque
+   queda en «fixed» y el resto de la página sigue corriendo por detrás.
+   Sin fondo propio, se transparenta la sección vecina. */
+/* El fondo va aquí, no solo en la sección: al fijarse, este bloque
+   queda en «fixed» y el resto de la página sigue corriendo por detrás.
+   Sin fondo propio, se transparenta la sección vecina. */
+.gabinete__pin{
+  position:relative;
+  height:100svh;
+  overflow:hidden;
+  padding-top:clamp(5rem,10vh,7rem);
+  background:linear-gradient(var(--azabache),var(--terciopelo) 18%,var(--terciopelo) 82%,var(--azabache));
+}
+.gabinete__enc{
+  position:relative;
+  z-index:3;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:2rem;
+  flex-wrap:wrap;
+  max-width:var(--caja);
+  width:100%;
+  margin-inline:auto;
+  padding-inline:clamp(1.15rem,5vw,3rem);
+}
+.gabinete__enc .cejilla{margin-bottom:.7rem}
+.titulo--gab{font-size:clamp(2.3rem,5.6vw,4.2rem)}
+.gabinete__guia{
+  font-family:var(--display);
+  font-size:clamp(1.1rem,2.2vw,1.6rem);
+  color:var(--oro);
+}
+.gabinete__guia i{font-style:normal;opacity:.42;margin-inline:.5rem}
+.gabinete__guia span{color:var(--hueso)}
+
+/* ── Reserva: tira horizontal (móvil, sin JS, movimiento reducido) ── */
+.ruleta{position:relative;margin-top:clamp(2rem,5vh,3.5rem)}
+.ruleta__ficha,
+.ruleta__aro,
+.ruleta__mando{display:none}
+.ruleta__disco{
+  display:flex;
+  gap:clamp(1.2rem,2.6vw,2.4rem);
+  padding-inline:clamp(1.15rem,5vw,3rem);
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:none;
+}
+.ruleta__disco::-webkit-scrollbar{display:none}
+
+.vitrina{
+  flex:0 0 auto;
+  width:clamp(255px,30vw,400px);
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+}
+.vitrina__caja{
+  position:relative;
+  height:clamp(290px,42vh,440px);
+  padding:clamp(.9rem,1.6vw,1.5rem);
+  background:linear-gradient(155deg,var(--terciopelo-alto),#120A0D);
+  border:1px solid rgba(138,126,110,.24);
+  overflow:hidden;
+  transition:border-color .55s ease,transform .7s var(--curva);
+}
+.vitrina__caja::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg,transparent 42%,rgba(201,188,166,.11) 50%,transparent 58%);
+  transform:translateX(-110%);
+  transition:transform .95s var(--curva);
+  pointer-events:none;
+}
+.vitrina:hover .vitrina__caja{border-color:rgba(201,188,166,.6);transform:translateY(-8px)}
+.vitrina:hover .vitrina__caja::after{transform:translateX(110%)}
+.vitrina__caja img{
+  width:100%;height:100%;
+  object-fit:contain;
+  filter:saturate(.78) brightness(.94);
+  transition:filter .7s var(--curva);
+}
+.vitrina:hover .vitrina__caja img{filter:saturate(1) brightness(1)}
+
+.vitrina__pie{
+  display:grid;
+  gap:.35rem;
+  padding-top:1.3rem;
+  border-top:1px solid rgba(138,126,110,.18);
+  margin-top:1.3rem;
+}
+.vitrina__num{
+  font-family:var(--display);
+  font-size:.95rem;
+  color:var(--carmin);
+  letter-spacing:.1em;
+}
+.vitrina__pie h3{
+  font-family:var(--display);
+  font-size:clamp(1.05rem,1.7vw,1.3rem);
+  line-height:1.22;
+}
+.vitrina__pie p{
+  font-size:.68rem;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--hueso-tenue);
+}
+
+/* ── La ruleta ──────────────────────────────────────────────
+   Una rueda enorme cuyo centro queda por debajo de la pantalla:
+   solo se ve el arco de arriba. Las fichas giran con la rueda,
+   así que la que llega arriba queda derecha y las demás ladeadas.
+   El texto vive fuera, en la ficha: sobre una tarjeta girada
+   no se podría leer.
+   ──────────────────────────────────────────────────────────── */
+
+.ruleta.es-ruleta{
+  --radio:clamp(560px,66vw,950px);
+  --alza:clamp(290px,36vh,340px);
+  --ancho-f:clamp(180px,19vw,272px);
+  --alto-f:clamp(240px,26vw,352px);
+  position:absolute;
+  inset:0;
+  margin:0;
+  z-index:1;
+}
+
+.ruleta.es-ruleta .ruleta__disco{
+  display:block;
+  position:absolute;
+  left:50%;
+  top:calc(100% + var(--radio) - var(--alza));
+  width:0;height:0;
+  padding:0;
+  overflow:visible;
+  will-change:transform;
+}
+
+.ruleta.es-ruleta .ruleta__aro{
+  display:block;
+  position:absolute;
+  left:calc(var(--radio) * -1);
+  top:calc(var(--radio) * -1);
+  width:calc(var(--radio) * 2);
+  height:calc(var(--radio) * 2);
+  fill:none;
+  pointer-events:none;
+}
+.aro-filete{stroke:var(--oro);stroke-width:1.4;opacity:.3}
+/* El fresado: un círculo a rayas cortas hace de moneda acuñada */
+.aro-fresa{stroke:var(--oro);stroke-width:13;stroke-dasharray:6 18.6;opacity:.42}
+
+.ruleta.es-ruleta .vitrina{
+  position:absolute;
+  left:0;top:0;
+  width:var(--ancho-f);
+  height:var(--alto-f);
+  margin-left:calc(var(--ancho-f) / -2);
+  margin-top:calc(var(--alto-f) / -2);
+  transform:rotate(var(--ang)) translateY(calc(var(--radio) * -1));
+}
+.ruleta.es-ruleta .vitrina__pie{display:none}
+.ruleta.es-ruleta .vitrina__caja{
+  height:100%;
+  padding:0;
+  transition:border-color .6s ease,box-shadow .6s ease,opacity .6s ease;
+  opacity:.62;
+}
+/* En la rueda la ficha se recorta a sangre: el passe-partout dejaba
+   la pieza diminuta dentro del marco. La obra entera va en el visor. */
+.ruleta.es-ruleta .vitrina__caja img{
+  object-fit:cover;
+  filter:saturate(.6) brightness(.82);
+}
+.ruleta.es-ruleta .vitrina.es-activa .vitrina__caja{
+  opacity:1;
+  border-color:rgba(201,188,166,.75);
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+.ruleta.es-ruleta .vitrina.es-activa .vitrina__caja img{filter:saturate(1) brightness(1)}
+
+/* Ficha del activo: el nombre no puede ir sobre una tarjeta ladeada */
+.ruleta.es-ruleta .ruleta__ficha{
+  display:block;
+  position:absolute;
+  z-index:2;
+  left:50%;
+  transform:translateX(-50%);
+  top:clamp(7rem,19vh,11rem);   /* por debajo del encabezado, no encima */
+  width:min(90vw,44rem);
+  text-align:center;
+}
+.ruleta__num{
+  display:block;
+  font-family:var(--display);
+  font-size:clamp(1.4rem,2.6vw,2rem);
+  letter-spacing:.14em;
+  color:var(--carmin);
+  margin-bottom:.5rem;
+}
+.ruleta__tit{
+  font-family:var(--display);
+  font-size:clamp(1.5rem,3.4vw,2.7rem);
+  line-height:1.08;
+  margin-bottom:.7rem;
+}
+.ruleta__meta{
+  font-size:.68rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--hueso-tenue);
+}
+
+.ruleta.es-ruleta .ruleta__mando{
+  display:flex;
+  position:absolute;
+  z-index:4;
+  left:50%;
+  bottom:clamp(1.6rem,5vh,3rem);
+  transform:translateX(-50%);
+  align-items:center;
+  gap:1rem;
+}
+.ruleta__flecha{
+  width:46px;height:46px;
+  font-size:1.7rem;
+  line-height:1;
+  color:var(--hueso);
+  border:1px solid rgba(138,126,110,.32);
+  border-radius:50%;
+  transition:background-color .4s ease,border-color .4s ease;
+}
+.ruleta__flecha:hover{background:var(--sangre);border-color:var(--sangre)}
+.ruleta__aguja{
+  font-size:.7rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--hueso);
+  border:1px solid rgba(138,126,110,.32);
+  padding:.85rem 1.6rem;
+  transition:background-color .4s ease,border-color .4s ease;
+}
+.ruleta__aguja:hover{background:var(--sangre);border-color:var(--sangre)}
+
+/* ───────────────────────────────────────────
+   IV · RETRATO
+   ─────────────────────────────────────────── */
+
+.retrato__rejilla{
+  display:grid;
+  grid-template-columns:minmax(280px,.85fr) 1.15fr;
+  gap:clamp(2.5rem,6vw,6rem);
+  align-items:center;
+}
+
+.camafeo{position:relative;margin:0}
+.camafeo__oval{
+  position:relative;
+  aspect-ratio:4/5;
+  border-radius:50% 50% 48% 48%/46% 46% 52% 52%;
+  overflow:hidden;
+  background:var(--sangre);
+}
+/* El retrato viene sobre pared rosa. Se apaga primero y luego se vira:
+   sin bajar la luminancia, el rosa claro sale rosa igual. */
+.camafeo__oval img{
+  width:100%;height:100%;
+  object-fit:cover;
+  filter:grayscale(1) brightness(.5) contrast(1.45);
+  mix-blend-mode:luminosity;
+  transition:filter 1s var(--curva);
+}
+.camafeo__oval::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at 50% 34%,transparent 34%,rgba(10,8,9,.62) 100%);
+  pointer-events:none;
+  transition:opacity .9s ease;
+}
+.camafeo:hover .camafeo__oval img{
+  filter:grayscale(0) brightness(1) contrast(1.02);
+  mix-blend-mode:normal;
+}
+.camafeo:hover .camafeo__oval::after{opacity:.35}
+.camafeo__aro{
+  position:absolute;
+  inset:-4%;
+  width:108%;height:108%;
+  fill:none;
+  stroke:var(--oro);
+  stroke-width:1.2;
+  opacity:.6;
+  pointer-events:none;
+}
+.camafeo__aro ellipse{stroke-dasharray:1500;stroke-dashoffset:0}
+.camafeo__aro--fino{opacity:.4;stroke-width:.7}
+.camafeo figcaption{
+  margin-top:1.6rem;
+  text-align:center;
+  font-size:.68rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--oro);
+}
+
+.retrato__texto .titulo{margin-bottom:2.4rem}
+.retrato__parr{margin-bottom:1.6rem;color:var(--hueso-tenue);overflow:hidden}
+.retrato__parr em{color:var(--hueso);font-style:italic}
+.retrato__datos{
+  display:grid;
+  gap:.9rem;
+  margin-top:2.6rem;
+  padding-top:2rem;
+  border-top:1px solid rgba(138,126,110,.18);
+}
+.retrato__datos li{
+  display:flex;
+  gap:1.6rem;
+  align-items:baseline;
+  font-size:.95rem;
+}
+.retrato__datos span{
+  flex:0 0 5.5rem;
+  font-size:.66rem;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--oro);
+}
+
+/* ───────────────────────────────────────────
+   V · OFICIOS
+   ─────────────────────────────────────────── */
+
+.oficios__lista{border-top:1px solid rgba(138,126,110,.2)}
+
+.oficio{
+  position:relative;
+  display:grid;
+  grid-template-columns:4.5rem minmax(0,1.15fr) minmax(0,1fr);
+  gap:clamp(1rem,2.4vw,2.2rem);
+  align-items:baseline;
+  padding:clamp(1.1rem,2.2vw,1.7rem) 0;
+  border-bottom:1px solid rgba(138,126,110,.2);
+  transition:padding-left .55s var(--curva);
+}
+.oficio::before{
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:100%;
+  background:linear-gradient(90deg,rgba(110,18,32,.42),transparent 72%);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .65s var(--curva);
+  z-index:-1;
+}
+.oficio:hover{padding-left:1.6rem}
+.oficio:hover::before{transform:scaleX(1)}
+.oficio__num{
+  font-family:var(--display);
+  font-size:1.05rem;
+  color:var(--carmin);
+  letter-spacing:.14em;
+}
+.oficio h3{
+  font-family:var(--display);
+  font-size:clamp(1.35rem,2.8vw,2.15rem);
+  line-height:1.1;
+}
+.oficio p{color:var(--hueso-tenue);font-size:1rem}
+
+/* ───────────────────────────────────────────
+   V bis · MÉTODO
+   ─────────────────────────────────────────── */
+
+.pasos{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(1.4rem,2.6vw,2.4rem);
+}
+.paso{
+  padding-top:1.6rem;
+  border-top:1px solid rgba(138,126,110,.28);
+  transition:border-color .5s ease;
+}
+.paso:hover{border-top-color:var(--oro-vivo)}
+.paso__num{
+  display:block;
+  font-family:var(--display);
+  font-size:clamp(1.7rem,3vw,2.4rem);
+  color:var(--carmin);
+  letter-spacing:.1em;
+  margin-bottom:1rem;
+}
+.paso h3{
+  font-family:var(--display);
+  font-size:clamp(1.2rem,2vw,1.55rem);
+  margin-bottom:.8rem;
+}
+.paso p{color:var(--hueso-tenue);font-size:.98rem}
+
+/* ───────────────────────────────────────────
+   VII bis · EL TALLER
+   ─────────────────────────────────────────── */
+
+/* Va dentro de «El taller», no como sección aparte: eran dos
+   encabezados grandes para lo mismo y alargaban de más. */
+.taller{padding-top:clamp(1.6rem,3vw,2.6rem)}
+.taller__rotulo{
+  font-size:.68rem;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--oro);
+  padding-bottom:1.2rem;
+  margin-bottom:2rem;
+  border-bottom:1px solid rgba(138,126,110,.24);
+}
+.taller__rotulo span{letter-spacing:.12em;opacity:.7;text-transform:none}
+.taller__rejilla{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:clamp(1.4rem,3vw,2.6rem);
+}
+.taller__grupo h3{
+  font-size:.68rem;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--oro);
+  padding-bottom:1.1rem;
+  margin-bottom:1.3rem;
+  border-bottom:1px solid rgba(138,126,110,.24);
+}
+.taller__grupo li{
+  font-family:var(--display);
+  font-size:1.08rem;
+  padding:.45rem 0;
+  color:var(--hueso-tenue);
+  transition:color .35s ease;
+}
+.taller__grupo li:hover{color:var(--hueso)}
+
+/* ───────────────────────────────────────────
+   VII · INSTRUMENTOS
+   ─────────────────────────────────────────── */
+
+.instrumentos{
+  position:relative;
+  z-index:1;
+  overflow:hidden;
+  padding:clamp(2.4rem,5vw,4rem) 0;
+  background:var(--sangre);
+  border-block:1px solid rgba(138,126,110,.3);
+}
+.instrumentos__cinta{display:flex;width:max-content;will-change:transform}
+.instrumentos__cinta span{
+  font-family:var(--display);
+  font-style:italic;
+  font-size:clamp(1.4rem,3vw,2.3rem);
+  white-space:nowrap;
+  padding-right:1.5rem;
+  color:var(--hueso);
+}
+.instrumentos__cinta i{font-style:normal}
+.instrumentos__cinta .dingbat{color:var(--hueso);opacity:.8}
+
+/* ───────────────────────────────────────────
+   VII · TRAYECTORIA
+   ─────────────────────────────────────────── */
+
+.trayecto__columnas{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(2.5rem,6vw,5.5rem);
+}
+.trayecto__rotulo{
+  font-size:.7rem;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--oro);
+  padding-bottom:1.4rem;
+  margin-bottom:2.4rem;
+  border-bottom:1px solid rgba(138,126,110,.24);
+}
+.linea{position:relative;padding-left:2.1rem}
+.linea::before{
+  content:"";
+  position:absolute;
+  left:3px;top:.5rem;bottom:.5rem;
+  width:1px;
+  background:linear-gradient(rgba(138,126,110,.55),rgba(138,126,110,.08));
+}
+.linea li{position:relative;padding-bottom:2.4rem}
+.linea li:last-child{padding-bottom:0}
+/* Los hitos van marcados con la propia calavera, recortada por máscara
+   para que herede el color */
+.linea li::before{
+  content:"";
+  position:absolute;
+  left:calc(-2.1rem - 5px);top:.36rem;
+  width:19px;height:20px;
+  background:var(--carmin);
+  -webkit-mask:var(--sig-calavera) center/contain no-repeat;
+  mask:var(--sig-calavera) center/contain no-repeat;
+  transition:background-color .4s ease,transform .5s var(--curva);
+}
+.linea li:hover::before{background:var(--hueso);transform:scale(1.22)}
+.linea__fecha{
+  display:block;
+  font-size:.66rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--oro);
+  margin-bottom:.55rem;
+}
+.linea h4{
+  font-family:var(--display);
+  font-size:1.24rem;
+  line-height:1.2;
+  margin-bottom:.28rem;
+}
+.linea p{color:var(--hueso-tenue);font-size:.95rem;font-style:italic}
+
+/* ───────────────────────────────────────────
+   VIII · CORRESPONDENCIA
+   ─────────────────────────────────────────── */
+
+.corresp{display:grid;place-items:center}
+
+.tarjeta{
+  position:relative;
+  width:100%;
+  max-width:62rem;
+  padding:clamp(2.8rem,7vw,6rem) clamp(1.6rem,6vw,5.5rem) clamp(4.5rem,8vw,6.5rem);
+  text-align:center;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(110,18,32,.4),transparent 62%),
+    linear-gradient(160deg,var(--terciopelo-alto),var(--terciopelo));
+  border:1px solid rgba(138,126,110,.32);
+}
+.tarjeta__esq{
+  position:absolute;
+  width:clamp(40px,5vw,64px);
+  height:clamp(40px,5vw,64px);
+  fill:none;
+  stroke:var(--oro);
+  stroke-width:1.4;
+  opacity:.55;
+  stroke-dasharray:1200;
+  stroke-dashoffset:0;
+}
+/* Asentados sobre el filete: si flotan hacia dentro, los brazos
+   del ángulo quedan cortados en el aire. */
+.tarjeta__esq--si{top:-1px;left:-1px;transform:scaleX(-1)}
+.tarjeta__esq--id{bottom:-1px;right:-1px;transform:scaleY(-1)}
+
+.tarjeta__tit{
+  font-family:var(--display);
+  font-size:clamp(3rem,9vw,7rem);
+  font-style:italic;
+  line-height:1;
+  margin-bottom:1.8rem;
+}
+.tarjeta__txt{
+  max-width:44ch;
+  margin:0 auto 3rem;
+  color:var(--hueso-tenue);
+}
+.tarjeta__vias{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:clamp(1.6rem,4vw,3.5rem);
+  margin-bottom:3.2rem;
+  padding-block:2.2rem;
+  border-block:1px solid rgba(138,126,110,.18);
+}
+.via{display:grid;gap:.55rem}
+.via__rot{
+  font-size:.64rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--oro);
+}
+.via__val{
+  font-family:var(--display);
+  font-size:clamp(1rem,1.9vw,1.28rem);
+  transition:color .4s ease;
+}
+a.via:hover .via__val{color:var(--oro-vivo)}
+
+.tarjeta__acciones{
+  display:flex;
+  gap:1rem;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.sello{
+  position:absolute;
+  bottom:-34px;left:50%;
+  transform:translateX(-50%);
+  width:74px;height:74px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,var(--carmin),var(--sangre) 58%,#460B15);
+  box-shadow:0 8px 26px rgba(0,0,0,.6),inset 0 2px 5px rgba(255,255,255,.16);
+}
+.sello svg{
+  width:36px;height:auto;
+  color:rgba(10,8,9,.78);
+  filter:drop-shadow(0 1px 0 rgba(255,185,185,.26));
+}
+
+/* ───────────────────────────────────────────
+   PIE
+   ─────────────────────────────────────────── */
+
+.pie{
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:clamp(4rem,8vw,6rem) 1.5rem clamp(2.5rem,5vw,3.5rem);
+  border-top:1px solid rgba(138,126,110,.18);
+}
+.pie__fleuron{
+  width:180px;
+  fill:var(--oro);
+  stroke:var(--oro);
+  stroke-width:1;
+  opacity:.6;
+  margin-bottom:2rem;
+}
+.pie__nombre{
+  font-family:var(--display);
+  font-size:clamp(1.3rem,3vw,1.9rem);
+  margin-bottom:.7rem;
+}
+.pie__nota{
+  font-size:.68rem;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--hueso-tenue);
+}
+
+/* ───────────────────────────────────────────
+   VISOR
+   ─────────────────────────────────────────── */
+
+.visor{
+  position:fixed;
+  inset:0;
+  z-index:90;
+  display:grid;
+  place-items:center;
+  padding:clamp(1.5rem,5vw,4rem);
+  background:rgba(6,4,5,.96);
+  backdrop-filter:blur(10px);
+  opacity:0;
+}
+.visor[hidden]{display:none}
+.visor__marco{margin:0;display:grid;gap:1.6rem;justify-items:center;max-height:100%}
+.visor__marco img{
+  max-height:76svh;
+  max-width:100%;
+  width:auto;
+  object-fit:contain;
+  border:1px solid rgba(138,126,110,.34);
+  padding:clamp(.5rem,1.2vw,1rem);
+  background:var(--terciopelo);
+}
+.visor__marco figcaption{text-align:center}
+.visor__marco h3{
+  font-family:var(--display);
+  font-size:clamp(1.2rem,2.6vw,1.8rem);
+  margin-bottom:.5rem;
+}
+.visor__marco p{
+  font-size:.68rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--oro);
+}
+.visor__cerrar{
+  position:absolute;
+  top:clamp(1rem,3vw,2rem);
+  right:clamp(1rem,3vw,2rem);
+  width:52px;height:52px;
+  font-size:2rem;
+  line-height:1;
+  color:var(--hueso);
+  border:1px solid rgba(138,126,110,.3);
+  transition:background-color .4s ease,border-color .4s ease;
+}
+.visor__cerrar:hover{background:var(--sangre);border-color:var(--sangre)}
+.visor__flecha{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:56px;height:56px;
+  font-size:2.2rem;
+  line-height:1;
+  color:var(--hueso);
+  border:1px solid rgba(138,126,110,.26);
+  transition:background-color .4s ease,border-color .4s ease;
+}
+.visor__flecha:hover{background:var(--sangre);border-color:var(--sangre)}
+.visor__flecha--izq{left:clamp(.6rem,2.5vw,2rem)}
+.visor__flecha--der{right:clamp(.6rem,2.5vw,2rem)}
+
+body.esta-quieto{overflow:hidden}
+
+/* ───────────────────────────────────────────
+   ADAPTACIÓN
+   ─────────────────────────────────────────── */
+
+@media (max-width:1080px){
+  .lamina,
+  .retrato__rejilla{grid-template-columns:1fr}
+  .lamina--invertida .lamina__marco,
+  .lamina--invertida .lamina__margen{order:0}
+  .lamina__marco img{height:clamp(300px,54vw,480px)}
+  .camafeo{max-width:min(360px,72vw);margin-inline:auto}
+  .oficio{grid-template-columns:3.2rem 1fr;row-gap:.6rem}
+  .oficio p{grid-column:2}
+  .pasos,
+  .taller__rejilla{grid-template-columns:1fr 1fr}
+  .pantalla__par{grid-template-columns:1fr}
+}
+
+@media (max-width:860px){
+  /* Una sola hoja para navegación y llamada: separadas, la llamada
+     se quedaba suelta sobre el contenido */
+  .barra__panel{
+    position:fixed;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2.8rem;
+    height:100svh;
+    background:var(--azabache);
+    transform:translateY(-100%);
+    transition:transform .7s var(--curva);
+    z-index:-1;
+  }
+  .barra.esta-abierta .barra__panel{transform:translateY(0)}
+  .barra__nav{flex-direction:column;align-items:center;gap:2.2rem}
+  .barra__nav a{font-size:1rem;letter-spacing:.3em}
+  .barra__cta{font-size:.78rem}
+  .barra__hamb{display:block;z-index:2}
+  .trayecto__columnas{grid-template-columns:1fr}
+  /* La rueda también va en celular; solo si NO se monta vuelve la tira */
+  .gabinete:not(.esta-fijado) .gabinete__pin{height:auto;padding-block:var(--aire)}
+  .gabinete:not(.esta-fijado) .ruleta__disco{padding-bottom:1.5rem}
+
+  /* Rueda más cerrada, para que quepan tres fichas en un teléfono */
+  .ruleta.es-ruleta{
+    --radio:clamp(320px,92vw,430px);
+    --alza:clamp(280px,48vh,420px);
+    --ancho-f:clamp(116px,34vw,158px);
+    --alto-f:clamp(152px,45vw,212px);
+  }
+  /* El encabezado se apila: en una línea, el numeral y la ficha se
+     montaban sobre el título. */
+  .gabinete__enc{
+    display:grid;
+    justify-items:start;
+    gap:.4rem;
+  }
+  .titulo--gab{font-size:clamp(1.9rem,9vw,2.6rem)}
+  .gabinete__guia{font-size:1rem}
+  .ruleta.es-ruleta .ruleta__ficha{top:clamp(8.5rem,26vh,12rem)}
+  .ruleta__tit{font-size:clamp(1.15rem,5.2vw,1.6rem)}
+  .ruleta__num{font-size:1.1rem;margin-bottom:.3rem}
+  .ruleta__aguja{padding:.75rem 1.1rem;font-size:.64rem}
+  .ruleta__flecha{width:40px;height:40px;font-size:1.4rem}
+
+  /* A la escala de escritorio el damasco se ve como gotas enormes en un
+     teléfono y le pelea al texto. Aquí va más pequeño y más tenue. */
+  .damasco{background-size:94px 141px;opacity:.09}
+
+  /* El capitular flotando en columna estrecha partía mal las primeras
+     líneas: la letra sola arriba y la palabra rota debajo. */
+  .capitular{font-size:2.6em;line-height:.84;margin:.06em .12em -.02em 0}
+
+  /* El numeral quedaba solo, con media pantalla de aire debajo */
+  .lamina__num{
+    font-size:1.5rem;
+    letter-spacing:.16em;
+    padding-bottom:.55rem;
+    margin-bottom:.9rem;
+  }
+
+  .camafeo{max-width:min(250px,56vw)}
+
+  /* El marco arrancaba a 16 px del borde, o sea debajo de la barra fija:
+     la voluta de la derecha chocaba con el botón del menú. */
+  .cartela,
+  .cartela-esq--si,
+  .cartela-esq--sd{top:80px}
+
+  /* Para que la última miniatura pueda entrar entera al deslizar */
+  .detalles__tira{padding-right:clamp(1.15rem,5vw,3rem)}
+
+  .titulo{font-size:clamp(2.3rem,8.5vw,3.4rem)}
+
+  /* Seis grupos a renglón por herramienta eran mil doscientos píxeles de
+     scroll para una lista. En línea ocupan un tercio. */
+  .taller__grupo h3{padding-bottom:.7rem;margin-bottom:.8rem}
+  /* Sin separador impreso: al plegarse dejaba un punto colgando al final
+     de la línea, que parece un error. El espacio basta. */
+  .taller__grupo ul{display:flex;flex-wrap:wrap;column-gap:1.5rem}
+  .taller__grupo li{padding:.12rem 0;font-size:1rem}
+  .cursor{display:none}
+  .damasco{opacity:.16;-webkit-mask-image:none;mask-image:none}
+}
+
+@media (max-width:600px){
+  .cifras{gap:1.4rem}
+  .cifras > div{flex:1 1 40%}
+  .tarjeta__vias{flex-direction:column;align-items:center}
+  .visor__flecha{width:44px;height:44px;font-size:1.7rem}
+  /* Un capitular necesita ancho de columna. A 390 px la letra queda
+     despegada de su palabra y se lee «E mpaque»: aquí no flota, solo
+     se tiñe. */
+  .capitular{
+    float:none;
+    font-size:1em;
+    line-height:inherit;
+    margin:0;
+  }
+
+  .lamina__marco img{height:min(62vw,340px)}
+  .vitrina{width:min(78vw,300px)}
+  .pasos,
+  .taller__rejilla{grid-template-columns:1fr}
+}
+
+@media (hover:none){
+  .cursor{display:none}
+  .lamina__lupa{opacity:1;transform:none}
+}
+
+/* ───────────────────────────────────────────
+   MOVIMIENTO REDUCIDO
+   Todo lo que se anima queda en su estado final.
+   ─────────────────────────────────────────── */
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .telon{display:none}
+  .grano{animation:none}
+  .damasco{-webkit-mask-image:none;mask-image:none;opacity:.22}
+  .cartela__caja,
+  .cartela-esq,
+  .camafeo__aro ellipse{stroke-dashoffset:0}
+  .lamina__velo{display:none}
+}

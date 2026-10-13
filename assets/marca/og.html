@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Tarjeta para compartir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    width:1200px;height:630px;
+    background:#0A0809;
+    color:#E6DCC8;
+    font-family:"EB Garamond",Georgia,serif;
+    display:grid;place-items:center;
+    overflow:hidden;
+  }
+  .marco{
+    position:absolute;inset:26px;
+    border:1px solid rgba(138,126,110,.4);
+  }
+  .marco::after{
+    content:"";position:absolute;inset:11px;
+    border:1px solid rgba(138,126,110,.2);
+  }
+  .cuerpo{position:relative;text-align:center;padding:0 90px}
+  .sig{width:96px;height:auto;color:#B3121F;margin:0 auto 26px;display:block}
+  .cejilla{
+    font-size:15px;letter-spacing:.42em;text-transform:uppercase;
+    color:#8A7E6E;margin-bottom:22px;
+  }
+  h1{
+    margin:0;font-family:"Bodoni Moda",Didot,serif;font-weight:400;
+    font-size:104px;line-height:.9;letter-spacing:-.02em;
+  }
+  h1 em{display:block;font-style:italic;color:#B3121F;margin-top:2px}
+  .regla{
+    width:180px;height:1px;margin:34px auto 26px;
+    background:linear-gradient(90deg,transparent,rgba(138,126,110,.8),transparent);
+  }
+  p{margin:0;font-size:25px;color:rgba(230,220,200,.72);letter-spacing:.02em}
+</style>
+</head>
+<body>
+  <div class="marco"></div>
+  <div class="cuerpo">
+    <svg class="sig" viewBox="24 14 152 166" fill="currentColor">
+      <path fill-rule="evenodd" d="M40 14 L63 57 C74 48 126 48 137 57 L160 14 L167 76 C176 98 170 112 151 118 C141 122 137 127 135 137 C133 148 128 152 121 153 L117 180 L112 153 C108 154 104 154 100 154 C96 154 92 154 88 153 L83 180 L79 153 C72 152 67 148 65 137 C63 127 59 122 49 118 C30 112 24 98 33 76 Z M72 67 C83 67 92 77 92 90 C92 103 83 113 72 113 C61 113 52 103 52 90 C52 77 61 67 72 67 Z M128 67 C139 67 148 77 148 90 C148 103 139 113 128 113 C117 113 108 103 108 90 C108 77 117 67 128 67 Z M100 140 C92 133 86 128 86 122 C86 116 91 113 96 116 C98 117 99 119 100 121 C101 119 102 117 104 116 C109 113 114 116 114 122 C114 128 108 133 100 140 Z"/>
+    </svg>
+    <p class="cejilla">Bogotá · Colombia</p>
+    <h1>Michelle<em>Herrera</em></h1>
+    <div class="regla"></div>
+    <p>Diseñadora visual y gráfica — marca, editorial, empaque y pantalla</p>
+  </div>
+</body>
+</html>

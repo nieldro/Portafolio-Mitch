@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mitch · Sistema de marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azabache:#0A0809; --terciopelo:#1A0E12; --sangre:#6E1220;
+  --carmin:#B3121F; --oro:#B08D57; --oro-vivo:#D8B87C; --hueso:#E6DCC8;
+  --display:"Bodoni Moda",Didot,serif; --texto:"EB Garamond",Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--azabache);color:var(--hueso);font-family:var(--texto);font-size:17px;line-height:1.7}
+h1,h2,h3{margin:0;font-weight:400;font-family:var(--display);line-height:1.05}
+p{margin:0}
+.hoja{max-width:1180px;margin-inline:auto;padding:clamp(2.5rem,6vw,5rem) clamp(1.2rem,4vw,3rem)}
+.cejilla{font-size:.68rem;letter-spacing:.34em;text-transform:uppercase;color:var(--oro);margin-bottom:1.1rem}
+.rotulo{font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--oro);margin-bottom:1.4rem}
+.enc{margin-bottom:4rem;border-bottom:1px solid rgba(176,141,87,.2);padding-bottom:2.5rem}
+.enc h1{font-size:clamp(2.4rem,6vw,4.2rem)}
+.enc p{color:rgba(230,220,200,.62);max-width:52ch;margin-top:1.2rem}
+.bloque{margin-bottom:4.5rem}
+.bloque > h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:.6rem}
+.bloque > .nota{color:rgba(230,220,200,.6);max-width:56ch;margin-bottom:2.4rem;font-size:.98rem}
+.caja{background:var(--terciopelo);border:1px solid rgba(176,141,87,.22);padding:clamp(1.8rem,4vw,3.2rem);display:grid;place-items:center;min-height:230px}
+.caja--claro{background:var(--hueso);color:var(--azabache);border-color:rgba(10,8,9,.18)}
+.caja--sangre{background:var(--sangre);color:var(--hueso);border-color:rgba(176,141,87,.3)}
+.rejilla{display:grid;gap:1.4rem}
+.rejilla--3{grid-template-columns:repeat(3,1fr)}
+.rejilla--2{grid-template-columns:1fr 1fr}
+.pie-caja{margin-top:.9rem;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(230,220,200,.5)}
+svg{display:block}
+.tamanos{display:flex;align-items:flex-end;gap:3rem;flex-wrap:wrap}
+.tamanos > div{display:grid;justify-items:center;gap:.8rem}
+.paleta{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem}
+.tono{border:1px solid rgba(176,141,87,.2)}
+.tono i{display:block;height:92px}
+.tono span{display:block;padding:.7rem .8rem;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(230,220,200,.68)}
+.tono b{display:block;font-weight:400;color:var(--hueso);letter-spacing:.1em;margin-bottom:.2rem}
+.reglas{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.reglas ul{margin:0;padding:0;list-style:none}
+.reglas li{padding:.7rem 0 .7rem 1.6rem;position:relative;border-bottom:1px solid rgba(176,141,87,.14);font-size:.97rem}
+.reglas li::before{position:absolute;left:0;top:.7rem;font-size:.9rem}
+.si li::before{content:"✦";color:var(--oro)}
+.no li::before{content:"✕";color:var(--carmin)}
+@media(max-width:820px){
+  .rejilla--3,.rejilla--2,.reglas{grid-template-columns:1fr}
+  .paleta{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="hoja">
+
+  <header class="enc">
+    <p class="cejilla">Sistema de marca</p>
+    <h1>Mitch</h1>
+    <p>Una sola idea: <strong>una calavera de gato</strong>. Es «michi» y es calavera al mismo tiempo, así que el nombre y el tono viven en la misma figura. Nada más — ni bigotes sueltos, ni destellos, ni líneas de movimiento, ni firma manuscrita.</p>
+  </header>
+
+  <section class="bloque">
+    <h2>El símbolo</h2>
+    <p class="nota">Un solo contorno cerrado: orejas y colmillos van dentro de la misma figura. Las cuencas y la nariz son huecos reales, no manchas — funciona sobre cualquier fondo sin versión alterna.</p>
+    <div class="rejilla rejilla--3">
+      <div>
+        <div class="caja"><svg viewBox="24 14 152 166" width="150" fill="currentColor" style="color:var(--hueso)"><path fill-rule="evenodd" d="M40 14 L63 57 C74 48 126 48 137 57 L160 14 L167 76 C176 98 170 112 151 118 C141 122 137 127 135 137 C133 148 128 152 121 153 L117 180 L112 153 C108 154 104 154 100 154 C96 154 92 154 88 153 L83 180 L79 153 C72 152 67 148 65 137 C63 127 59 122 49 118 C30 112 24 98 33 76 Z M72 67 C83 67 92 77 92 90 C92 103 83 113 72 113 C61 113 52 103 52 90 C52 77 61 67 72 67 Z M128 67 C139 67 148 77 148 90 C148 103 139 113 128 113 C117 113 108 103 108 90 C108 77 117 67 128 67 Z M100 140 C92 133 86 128 86 122 C86 116 91 113 96 116 C98 117 99 119 100 121 C101 119 102 117 104 116 C109 113 114 116 114 122 C114 128 108 133 100 140 Z"/></svg></div>
+        <p class="pie-caja">Sobre azabache</p>
+      </div>
+      <div>
+        <div class="caja caja--claro"><svg viewBox="24 14 152 166" width="150" fill="currentColor"><path fill-rule="evenodd" d="M40 14 L63 57 C74 48 126 48 137 57 L160 14 L167 76 C176 98 170 112 151 118 C141 122 137 127 135 137 C133 148 128 152 121 153 L117 180 L112 153 C108 154 104 154 100 154 C96 154 92 154 88 153 L83 180 L79 153 C72 152 67 148 65 137 C63 127 59 122 49 118 C30 112 24 98 33 76 Z M72 67 C83 67 92 77 92 90 C92 103 83 113 72 113 C61 113 52 103 52 90 C52 77 61 67 72 67 Z M128 67 C139 67 148 77 148 90 C148 103 139 113 128 113 C117 113 108 103 108 90 C108 77 117 67 128 67 Z M100 140 C92 133 86 128 86 122 C86 116 91 113 96 116 C98 117 99 119 100 121 C101 119 102 117 104 116 C109 113 114 116 114 122 C114 128 108 133 100 140 Z"/></svg></div>
+        <p class="pie-caja">Sobre hueso</p>
+      </div>
+      <div>
+        <div class="caja caja--sangre"><svg viewBox="24 14 152 166" width="150" fill="currentColor"><path fill-rule="evenodd" d="M40 14 L63 57 C74 48 126 48 137 57 L160 14 L167 76 C176 98 170 112 151 118 C141 122 137 127 135 137 C133 148 128 152 121 153 L117 180 L112 153 C108 154 104 154 100 154 C96 154 92 154 88 153 L83 180 L79 153 C72 152 67 148 65 137 C63 127 59 122 49 118 C30 112 24 98 33 76 Z M72 67 C83 67 92 77 92 90 C92 103 83 113 72 113 C61 113 52 103 52 90 C52 77 61 67 72 67 Z M128 67 C139 67 148 77 148 90 C148 103 139 113 128 113 C117 113 108 103 108 90 C108 77 117 67 128 67 Z M100 140 C92 133 86 128 86 122 C86 116 91 113 96 116 C98 117 99 119 100 121 C101 119 102 117 104 116 C109 113 114 116 114 122 C114 128 108 133 100 140 Z"/></svg></div>
+        <p class="pie-caja">Sobre sangre de buey</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>El medallón</h2>
+    <p class="nota">El aro fresado de 36 dientes es la «ruleta»: hace de moneda y de sello a la vez. Es el uso de gala — perfil de redes, lacre, etiqueta, sello de agua.</p>
+    <div class="rejilla rejilla--2">
+      <div>
+        <div class="caja" style="min-height:400px"><img src="assets/marca/mitch-medallon.svg" width="300" alt="Medallón" style="filter:invert(93%) sepia(12%) saturate(360%) hue-rotate(2deg) brightness(96%)"></div>
+        <p class="pie-caja">Medallón · hueso sobre azabache</p>
+      </div>
+      <div>
+        <div class="caja caja--claro" style="min-height:400px"><img src="assets/marca/mitch-medallon.svg" width="300" alt="Medallón"></div>
+        <p class="pie-caja">Medallón · azabache sobre hueso</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>Los bloques</h2>
+    <p class="nota">Horizontal para cabeceras y firmas de correo. Apilado cuando hay poco ancho. El monograma es lo único que sobrevive del logo anterior: la M con cola, que sí era una buena idea.</p>
+    <div class="rejilla rejilla--2">
+      <div>
+        <div class="caja"><img src="assets/marca/mitch-horizontal.svg" width="440" alt="Bloque horizontal" style="filter:invert(93%) sepia(12%) saturate(360%) hue-rotate(2deg) brightness(96%)"></div>
+        <p class="pie-caja">Horizontal</p>
+      </div>
+      <div>
+        <div class="caja"><img src="assets/marca/mitch-apilado.svg" width="260" alt="Bloque apilado" style="filter:invert(93%) sepia(12%) saturate(360%) hue-rotate(2deg) brightness(96%)"></div>
+        <p class="pie-caja">Apilado</p>
+      </div>
+    </div>
+    <div class="rejilla rejilla--2" style="margin-top:1.4rem">
+      <div>
+        <div class="caja"><img src="assets/marca/mitch-monograma.svg" width="130" alt="Monograma" style="filter:invert(93%) sepia(12%) saturate(360%) hue-rotate(2deg) brightness(96%)"></div>
+        <p class="pie-caja">Monograma · la M con cola</p>
+      </div>
+      <div>
+        <div class="caja caja--claro"><img src="assets/marca/mitch-horizontal.svg" width="440" alt="Bloque horizontal en claro"></div>
+        <p class="pie-caja">Horizontal en positivo</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>Reducción</h2>
+    <p class="nota">La prueba de verdad de un logo: que a 16 px siga siendo reconocible. Por eso las cuencas son tan grandes.</p>
+    <div class="caja">
+      <div class="tamanos" style="color:var(--hueso)">
+        <div><svg viewBox="24 14 152 166" width="96" fill="currentColor"><path fill-rule="evenodd" d="M40 14 L63 57 C74 48 126 48 137 57 L160 14 L167 76 C176 98 170 112 151 118 C141 122 137 127 135 137 C133 148 128 152 121 153 L117 180 L112 153 C108 154 104 154 100 154 C96 154 92 154 88 153 L83 180 L79 153 C72 152 67 148 65 137 C63 127 59 122 49 118 C30 112 24 98 33 76 Z M72 67 C83 67 92 77 92 90 C92 103 83 113 72 113 C61 113 52 103 52 90 C52 77 61 67 72 67 Z M128 67 C139 67 148 77 148 90 C148 103 139 113 128 113 C117 113 108 103 108 90 C108 77 117 67 128 67 Z M100 140 C92 133 86 128 86 122 C86 116 91 113 96 116 C98 117 99 119 100 121 C101 119 102 117 104 116 C109 113 114 116 114 122 C114 128 108 133 100 140 Z"/></svg><span class="pie-caja">96 px</span></div>
+        <div><svg viewBox="24 14 152 166" width="48" fill="currentColor"><path fill-rule="evenodd" d="M40 14 L63 57 C74 48 126 48 137 57 L160 14 L167 76 C176 98 170 112 151 118 C141 122 137 127 135 137 C133 148 128 152 121 153 L117 180 L112 153 C108 154 104 154 100 154 C96 154 92 154 88 153 L83 180 L79 153 C72 152 67 148 65 137 C63 127 59 122 49 118 C30 112 24 98 33 76 Z M72 67 C83 67 92 77 92 90 C92 103 83 113 72 113 C61 113 52 103 52 90 C52 77 61 67 72 67 Z M128 67 C139 67 148 77 148 90 C148 103 139 113 128 113 C117 113 108 103 108 90 C108 77 117 67 128 67 Z M100 140 C92 133 86 128 86 122 C86 116 91 113 96 116 C98 117 99 119 100 121 C101 119 102 117 104 116 C109 113 114 116 114 122 C114 128 108 133 100 140 Z"/></svg><span class="pie-caja">48 px</span></div>
+        <div><svg viewBox="24 14 152 166" width="24" fill="currentColor"><path fill-rule="evenodd" d="M40 14 L63 57 C74 48 126 48 137 57 L160 14 L167 76 C176 98 170 112 151 118 C141 122 137 127 135 137 C133 148 128 152 121 153 L117 180 L112 153 C108 154 104 154 100 154 C96 154 92 154 88 153 L83 180 L79 153 C72 152 67 148 65 137 C63 127 59 122 49 118 C30 112 24 98 33 76 Z M72 67 C83 67 92 77 92 90 C92 103 83 113 72 113 C61 113 52 103 52 90 C52 77 61 67 72 67 Z M128 67 C139 67 148 77 148 90 C148 103 139 113 128 113 C117 113 108 103 108 90 C108 77 117 67 128 67 Z M100 140 C92 133 86 128 86 122 C86 116 91 113 96 116 C98 117 99 119 100 121 C101 119 102 117 104 116 C109 113 114 116 114 122 C114 128 108 133 100 140 Z"/></svg><span class="pie-caja">24 px</span></div>
+        <div><svg viewBox="24 14 152 166" width="16" fill="currentColor"><path fill-rule="evenodd" d="M40 14 L63 57 C74 48 126 48 137 57 L160 14 L167 76 C176 98 170 112 151 118 C141 122 137 127 135 137 C133 148 128 152 121 153 L117 180 L112 153 C108 154 104 154 100 154 C96 154 92 154 88 153 L83 180 L79 153 C72 152 67 148 65 137 C63 127 59 122 49 118 C30 112 24 98 33 76 Z M72 67 C83 67 92 77 92 90 C92 103 83 113 72 113 C61 113 52 103 52 90 C52 77 61 67 72 67 Z M128 67 C139 67 148 77 148 90 C148 103 139 113 128 113 C117 113 108 103 108 90 C108 77 117 67 128 67 Z M100 140 C92 133 86 128 86 122 C86 116 91 113 96 116 C98 117 99 119 100 121 C101 119 102 117 104 116 C109 113 114 116 114 122 C114 128 108 133 100 140 Z"/></svg><span class="pie-caja">16 px</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>Paleta</h2>
+    <p class="nota">La misma del portafolio, salida de su propia pieza Kaomi Arcana. El carmín es el único color vivo y se usa con cuentagotas.</p>
+    <div class="paleta">
+      <div class="tono"><i style="background:#0A0809"></i><span><b>Azabache</b>#0A0809</span></div>
+      <div class="tono"><i style="background:#1A0E12"></i><span><b>Terciopelo</b>#1A0E12</span></div>
+      <div class="tono"><i style="background:#6E1220"></i><span><b>Sangre de buey</b>#6E1220</span></div>
+      <div class="tono"><i style="background:#B3121F"></i><span><b>Carmín</b>#B3121F</span></div>
+      <div class="tono"><i style="background:#B08D57"></i><span><b>Oro viejo</b>#B08D57</span></div>
+      <div class="tono"><i style="background:#E6DCC8"></i><span><b>Hueso</b>#E6DCC8</span></div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>Uso</h2>
+    <div class="reglas">
+      <div>
+        <p class="rotulo">Sí</p>
+        <ul class="si">
+          <li>Aire alrededor: como mínimo el ancho de una cuenca.</li>
+          <li>Un solo color por aplicación. Nunca degradados.</li>
+          <li>Sobre foto, solo en zonas planas y oscuras.</li>
+          <li>Por debajo de 24 px, usar el símbolo suelto sin medallón.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="rotulo">No</p>
+        <ul class="no">
+          <li>No añadirle bigotes, destellos ni líneas de movimiento.</li>
+          <li>No deformar, inclinar ni rotar la calavera.</li>
+          <li>No poner sombra ni contorno: el hueco ya da el contraste.</li>
+          <li>No usar el medallón como marca de agua sobre texto.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

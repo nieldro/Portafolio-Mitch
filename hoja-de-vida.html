@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laura Michelle Herrera · Hoja de vida</title>
+<meta name="description" content="Hoja de vida de Laura Michelle Herrera Bedoya, diseñadora visual y gráfica en Bogotá.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=EB+Garamond:ital,wght@0,400..600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#F4EFE4;
+  --tinta:#141018;
+  --tinta-suave:#4A4148;
+  --oro:#8A6B3D;
+  --sangre:#6E1220;
+  --filete:rgba(138,107,61,.32);
+  --display:"Bodoni Moda",Didot,serif;
+  --texto:"EB Garamond",Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#26202a;color:var(--tinta);font-family:var(--texto);
+  font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;font-weight:400;font-family:var(--display);line-height:1.1}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+
+/* Todo el pliego está calibrado para caber en UNA hoja A4.
+   Si se añade un hito, hay que quitar milímetros en otro lado. */
+.papel{
+  width:210mm;min-height:297mm;
+  margin:26px auto;
+  background:var(--papel);
+  padding:9mm 15mm 5mm;
+  box-shadow:0 18px 60px rgba(0,0,0,.5);
+}
+
+/* ── Cabecera ── */
+.enc{display:flex;align-items:flex-start;justify-content:space-between;gap:10mm;
+  padding-bottom:4.5mm;border-bottom:1.5px solid var(--filete)}
+.enc__nombre{font-size:23pt;letter-spacing:-.01em;line-height:.98}
+.enc__nombre em{display:block;font-style:italic;color:var(--sangre)}
+.enc__rol{font-size:8pt;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--oro);margin-top:3mm}
+.enc__marca{flex:0 0 auto;width:19mm;color:var(--sangre)}
+.enc__marca svg{width:100%;height:auto;display:block}
+
+/* ── Cuerpo ── */
+.cuerpo{display:grid;grid-template-columns:1fr 62mm;gap:9mm;margin-top:2mm}
+
+.bloque{margin-bottom:3.5mm;break-inside:avoid}
+.bloque > h2{font-size:8pt;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--oro);padding-bottom:1.6mm;margin-bottom:3mm;
+  border-bottom:1px solid var(--filete)}
+
+.perfil{font-size:9.9pt;line-height:1.4}
+.perfil strong{font-weight:400;color:var(--sangre)}
+
+.hito{padding-bottom:1.5mm;margin-bottom:1.5mm;border-bottom:1px solid rgba(138,107,61,.16);break-inside:avoid}
+.hito:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.hito__fecha{font-size:7.5pt;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--oro);margin-bottom:1mm}
+/* Cargo y organización en la misma línea: a tres líneas por entrada,
+   ocho entradas se comían 40 mm y la hoja pasaba a dos páginas. */
+.hito h3{font-size:11.5pt;line-height:1.22}
+.hito h3 span{
+  display:inline;
+  font-family:var(--texto);
+  font-size:9.5pt;
+  font-style:italic;
+  color:var(--tinta-suave);
+}
+.hito h3 span::before{content:"— ";font-style:normal;color:var(--oro)}
+
+.lista li{display:flex;justify-content:space-between;gap:4mm;
+  font-size:10.5pt;padding:1.6mm 0;border-bottom:1px solid rgba(138,107,61,.14)}
+.lista li:last-child{border-bottom:0}
+.lista span{color:var(--tinta-suave);font-size:9pt;text-align:right;flex:0 0 auto}
+
+.contacto li{padding:1.8mm 0;border-bottom:1px solid rgba(138,107,61,.14);font-size:10.5pt}
+.contacto li:last-child{border-bottom:0}
+.contacto b{display:block;font-weight:400;font-size:7.5pt;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--oro);margin-bottom:.6mm}
+
+.taller h3{font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--tinta);margin:2.6mm 0 1mm}
+.taller h3:first-child{margin-top:0}
+.taller p{font-size:9.5pt;line-height:1.4;color:var(--tinta-suave)}
+
+/* Proyectos destacados: banda a lo ancho, cuatro columnas */
+.obras{margin-top:3mm;break-inside:avoid}
+.obras > h2{font-size:8pt;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--oro);padding-bottom:1.6mm;margin-bottom:3mm;
+  border-bottom:1px solid var(--filete)}
+.obras__fila{display:grid;grid-template-columns:repeat(4,1fr);gap:6mm}
+.obra{break-inside:avoid}
+.obra__cat{font-size:7pt;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--oro);margin-bottom:.8mm}
+.obra h3{font-size:11pt;margin-bottom:1mm}
+.obra h3 em{font-style:italic;font-size:8pt;color:var(--tinta-suave)}
+.obra p{font-size:8.3pt;line-height:1.33;color:var(--tinta-suave)}
+
+.menudo{font-size:8.5pt;color:var(--tinta-suave)}
+
+.pie{margin-top:3mm;padding-top:2mm;border-top:1.5px solid var(--filete);
+  display:flex;justify-content:space-between;gap:6mm;
+  font-size:8pt;letter-spacing:.16em;text-transform:uppercase;color:var(--oro)}
+
+/* ── Impresión ── */
+@page{size:A4;margin:0}
+@media print{
+  body{background:#fff}
+  .papel{margin:0;box-shadow:none;width:auto;min-height:0;height:auto}
+  .aviso-pantalla{display:none}
+}
+.aviso-pantalla{
+  max-width:210mm;margin:26px auto -10px;padding:0 4px;
+  color:rgba(244,239,228,.55);font-size:13px;letter-spacing:.02em;
+}
+.aviso-pantalla b{font-weight:400;color:#D8B87C}
+
+/* Solo pantalla: el papel mide 794 px al imprimir y este quiebre
+   apilaba las columnas, duplicando la hoja. */
+@media screen and (max-width:900px){
+  .papel{width:auto;padding:9mm 7mm}
+  .cuerpo{grid-template-columns:1fr;gap:0}
+}
+</style>
+</head>
+<body>
+
+<p class="aviso-pantalla"><b>Para guardar en PDF:</b> Ctrl + P → «Guardar como PDF» → tamaño A4, márgenes «Ninguno», y activar «Gráficos de fondo».</p>
+
+<div class="papel">
+
+  <header class="enc">
+    <div>
+      <h1 class="enc__nombre">Laura Michelle<em>Herrera Bedoya</em></h1>
+      <p class="enc__rol">Diseñadora visual y gráfica · Bogotá, Colombia</p>
+    </div>
+    <div class="enc__marca">
+      <svg viewBox="24 14 152 166" fill="currentColor" aria-label="Marca personal">
+        <path fill-rule="evenodd" d="M40 14 L63 57 C74 48 126 48 137 57 L160 14 L167 76 C176 98 170 112 151 118 C141 122 137 127 135 137 C133 148 128 152 121 153 L117 180 L112 153 C108 154 104 154 100 154 C96 154 92 154 88 153 L83 180 L79 153 C72 152 67 148 65 137 C63 127 59 122 49 118 C30 112 24 98 33 76 Z M72 67 C83 67 92 77 92 90 C92 103 83 113 72 113 C61 113 52 103 52 90 C52 77 61 67 72 67 Z M128 67 C139 67 148 77 148 90 C148 103 139 113 128 113 C117 113 108 103 108 90 C108 77 117 67 128 67 Z M100 140 C92 133 86 128 86 122 C86 116 91 113 96 116 C98 117 99 119 100 121 C101 119 102 117 104 116 C109 113 114 116 114 122 C114 128 108 133 100 140 Z"/>
+      </svg>
+    </div>
+  </header>
+
+  <div class="cuerpo">
+
+    <main>
+      <section class="bloque">
+        <h2>Perfil</h2>
+        <p class="perfil">Diseñadora visual con formación profesional en curso y <strong>oficio de planta</strong>: empecé como técnica en postprensa y trabajé en producción gráfica antes de diseñar. Eso significa que entrego archivos que la máquina acepta — sangrados, troquel, perfiles de color y tintas resueltos. Trabajo marca, editorial, empaque y pantalla, y llevo ese mismo criterio de sistema a la interfaz: retícula, componentes y prototipo en Figma.</p>
+      </section>
+
+      <section class="bloque">
+        <h2>Experiencia</h2>
+        <div class="hito">
+          <p class="hito__fecha">2024 — Actualidad</p>
+          <h3>Diseñadora Gráfica Freelance <span>Independiente · Bogotá</span></h3>
+        </div>
+        <div class="hito">
+          <p class="hito__fecha">Ago. 2025 — Dic. 2025</p>
+          <h3>Diseñadora Visual <span>La Lupa de Hoy</span></h3>
+        </div>
+        <div class="hito">
+          <p class="hito__fecha">Sep. 2024 — Ene. 2025</p>
+          <h3>Diseñadora Visual <span>La Lupa de Hoy</span></h3>
+        </div>
+        <div class="hito">
+          <p class="hito__fecha">Ene. 2022 — Jul. 2022</p>
+          <h3>Operaria de Postprensa <span>Xpress Estudio Gráfico S.A.S</span></h3>
+        </div>
+      </section>
+
+      <section class="bloque">
+        <h2>Formación</h2>
+        <div class="hito">
+          <p class="hito__fecha">2023 — Actualidad</p>
+          <h3>Profesional en Diseño Visual <span>F. U. Compensar</span></h3>
+        </div>
+        <div class="hito">
+          <p class="hito__fecha">2026 — Actualidad</p>
+          <h3>Tecnología en Gestión de Proyectos <span>F. U. Compensar</span></h3>
+        </div>
+        <div class="hito">
+          <p class="hito__fecha">2025</p>
+          <h3>Técnico Profesional en Producción Multimedia <span>F. U. Compensar</span></h3>
+        </div>
+        <div class="hito">
+          <p class="hito__fecha">2021</p>
+          <h3>Técnico Laboral en Postprensa <span>SENA — Industria Gráfica</span></h3>
+        </div>
+      </section>
+    </main>
+
+    <aside>
+      <section class="bloque">
+        <h2>Contacto</h2>
+        <ul class="contacto">
+          <li><b>Correo</b>michelherrera0819@gmail.com</li>
+          <li><b>Teléfono</b>+57 310 751 5056</li>
+          <li><b>Ciudad</b>Bogotá, Colombia</li>
+          <li><b>Portafolio</b>michelle.35.196.253.146.sslip.io<br><span class="menudo">13 piezas en catálogo</span></li>
+        </ul>
+      </section>
+
+      <section class="bloque taller">
+        <h2>Herramientas y métodos</h2>
+        <h3>Ilustración y composición</h3>
+        <p>Illustrator · Photoshop · Affinity</p>
+        <h3>Producto e interfaz</h3>
+        <p>Figma — componentes, prototipo y handoff</p>
+        <h3>Editorial y preprensa</h3>
+        <p>InDesign · montaje e imposición · troquel y sangrados · perfiles de color</p>
+        <h3>Movimiento y 3D</h3>
+        <p>Premiere Pro · CapCut Pro · Maya 3D</p>
+        <h3>Web y publicación</h3>
+        <p>WordPress · Canva Pro para parrillas de redes</p>
+        <h3>Método</h3>
+        <p>Levantamiento de brief · ruta gráfica con referentes · sistema de diseño · producción lista para máquina. Uso de IA generativa (Firefly, Midjourney, Generative Fill) como apoyo en ideación.</p>
+      </section>
+
+      <section class="bloque">
+        <h2>Idiomas</h2>
+        <ul class="lista">
+          <li>Español <span>nativo</span></li>
+          <li>Inglés <span>B1</span></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <!-- Banda a lo ancho: cuatro piezas concretas pesan más que una lista
+       de habilidades, y a cuatro columnas caben sin alargar la hoja. -->
+  <section class="obras">
+    <h2>Proyectos destacados</h2>
+    <div class="obras__fila">
+      <div class="obra">
+        <p class="obra__cat">Packaging · 2025</p>
+        <h3>Kaomi Arcana</h3>
+        <p>Empaque conceptual con estética de relicario: filete dorado, damasco tramado y sistema de marca completo.</p>
+      </div>
+      <div class="obra">
+        <p class="obra__cat">Packaging · 2025</p>
+        <h3>Tairons</h3>
+        <p>Estuche de vodka con gráfica ornamental inspirada en cultura Tairona, construida como sistema.</p>
+      </div>
+      <div class="obra">
+        <p class="obra__cat">UI/UX · 2025</p>
+        <h3>AlgoQuest</h3>
+        <p>Plataforma gamificada para aprender algoritmos: sistema de niveles, retícula y componentes en Figma.</p>
+      </div>
+      <div class="obra">
+        <p class="obra__cat">UI/UX · 2025</p>
+        <h3>Valorant <em>(fan-made)</em></h3>
+        <p>Sitio web con navegación e identidad del juego llevadas a una retícula propia.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pie">
+    <span>Laura Michelle Herrera Bedoya</span>
+    <span>Disponible para encargos</span>
+  </footer>
+</div>
+
+</body>
+</html>
