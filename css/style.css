@@ -1196,10 +1196,13 @@ html.tiene-js .lamina__velo{display:block}
 }
 
 .camafeo{position:relative;margin:0}
+/* El aro mide el óvalo, no la figura entera: antes colgaba del figure,
+   que incluye el pie de foto, y por eso el círculo no casaba con la foto. */
+.camafeo__cuerpo{position:relative}
 .camafeo__oval{
   position:relative;
   aspect-ratio:4/5;
-  border-radius:50% 50% 48% 48%/46% 46% 52% 52%;
+  border-radius:50%;
   overflow:hidden;
   background:var(--sangre);
 }
