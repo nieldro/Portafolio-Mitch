@@ -1812,6 +1812,14 @@ body.esta-quieto{overflow:hidden}
   .taller__rejilla{grid-template-columns:1fr}
 }
 
+/* Teléfonos angostos: el nombre de la barra no debe partirse en dos
+   renglones ni engordar la barra */
+@media (max-width:380px){
+  .barra__nombre{font-size:.76rem;letter-spacing:.14em;white-space:nowrap}
+  .barra__marca-sig{width:28px}
+  .barra{gap:1rem}
+}
+
 @media (hover:none){
   .cursor{display:none}
   .lamina__lupa{opacity:1;transform:none}
