@@ -564,6 +564,13 @@ html.tiene-js .cartela-esq{stroke-dashoffset:1200}
   line-height:.84;
   letter-spacing:-.035em;
   margin:.25rem 0 .9rem;
+  /* Bodoni Moda elige sola su «tamaño óptico» según el cuerpo: en un
+     titular grande se queda con el trazo más fino y las líneas de la H y
+     de la M desaparecen sobre fondo oscuro. Fijado en 14 conserva el
+     contraste de la didona con una línea fina que sí se ve. */
+  font-weight:500;
+  font-optical-sizing:none;
+  font-variation-settings:"opsz" 14;
 }
 .masthead__linea{display:block}
 .masthead__linea--dos{
