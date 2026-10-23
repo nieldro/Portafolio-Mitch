@@ -1541,21 +1541,17 @@ a.via:hover .via__val{color:var(--oro-vivo)}
   flex-wrap:wrap;
 }
 
+/* El logo solo, sin círculo ni sello: firma la tarjeta por dentro, al pie */
 .sello{
   position:absolute;
-  bottom:-34px;left:50%;
+  bottom:clamp(1.3rem,3vw,2rem);left:50%;
   transform:translateX(-50%);
-  width:74px;height:74px;
   display:grid;
   place-items:center;
-  border-radius:50%;
-  background:radial-gradient(circle at 34% 30%,var(--carmin),var(--sangre) 58%,#460B15);
-  box-shadow:0 8px 26px rgba(0,0,0,.6),inset 0 2px 5px rgba(255,255,255,.16);
 }
 .sello svg{
-  width:36px;height:auto;
-  color:rgba(10,8,9,.78);
-  filter:drop-shadow(0 1px 0 rgba(255,185,185,.26));
+  width:clamp(40px,6vw,52px);height:auto;
+  color:var(--carmin);
 }
 
 /* ───────────────────────────────────────────
