@@ -809,10 +809,10 @@ html.tiene-js .lamina__velo{display:block}
 }
 
 /* Tira de detalles: ampliaciones de la propia pieza, para que se vea
-   el oficio de cerca. Alto fijo y ancho libre — forzar cuadrado
-   partía por la mitad los logotipos anchos. */
+   el oficio de cerca. */
 .detalles{
   grid-column:1 / -1;
+  min-width:0;   /* sin esto, tres miniaturas fijas ensanchan toda la columna */
   margin-top:clamp(1.8rem,3.2vw,3rem);
   padding-top:1.9rem;
   border-top:1px solid rgba(138,126,110,.18);
@@ -826,17 +826,22 @@ html.tiene-js .lamina__velo{display:block}
 }
 .detalles__tira{
   display:flex;
-  gap:clamp(.8rem,1.6vw,1.3rem);
+  gap:clamp(1.2rem,2.4vw,2rem);
   overflow-x:auto;
   overflow-y:hidden;
   scrollbar-width:none;
   padding-bottom:.4rem;
 }
 .detalles__tira::-webkit-scrollbar{display:none}
-.detalles figure{margin:0;flex:0 0 auto}
+/* Todos los detalles miden lo mismo y son horizontales (3:2): con
+   proporciones libres unos salían cuadrados y otros apaisados y la tira
+   perdía el ritmo. El pie se ajusta al ancho de su imagen, no se sale. */
+.detalles figure{margin:0;flex:0 0 clamp(235px,29vw,330px);width:clamp(235px,29vw,330px)}
 .detalles img{
-  height:clamp(148px,17vw,236px);
-  width:auto;
+  width:100%;
+  aspect-ratio:3/2;
+  height:auto;
+  object-fit:cover;
   display:block;
   background:var(--terciopelo);
   border:1px solid rgba(138,126,110,.22);
@@ -845,11 +850,10 @@ html.tiene-js .lamina__velo{display:block}
 }
 .detalles figure:hover img{filter:saturate(1);border-color:rgba(201,188,166,.5)}
 .detalles figcaption{
-  margin-top:.7rem;
+  margin-top:.8rem;
   font-size:.74rem;
   line-height:1.4;
   color:var(--hueso-tenue);
-  max-width:28ch;
 }
 
 /* ───────────────────────────────────────────
@@ -1676,7 +1680,7 @@ body.esta-quieto{overflow:hidden}
 
 @media (max-width:1080px){
   .lamina,
-  .retrato__rejilla{grid-template-columns:1fr}
+  .retrato__rejilla{grid-template-columns:minmax(0,1fr)}
   .lamina--invertida .lamina__marco,
   .lamina--invertida .lamina__margen{order:0}
   .lamina__marco img{height:clamp(300px,54vw,480px)}
