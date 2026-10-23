@@ -63,8 +63,8 @@ function correrTelon() {
   const salida = telon.querySelector('.telon__cuenta');
 
   gsap.timeline()
-    .to('.telon__aro', { strokeDashoffset: 0, duration: 1.5, stagger: .18, ease: 'power2.inOut' })
-    .to('.telon__marca', { opacity: 1, duration: .9 }, '-=1.0')
+    .to('.telon__marca', { opacity: 1, duration: .9 }, 0)
+    .to('.telon__linea', { scaleX: 1, duration: 1.5, ease: 'power2.inOut' }, 0)
     .to(cuenta, {
       v: 100, duration: 1.5, ease: 'power1.inOut',
       onUpdate: () => { salida.textContent = Math.round(cuenta.v); }

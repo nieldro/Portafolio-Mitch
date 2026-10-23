@@ -206,31 +206,26 @@ html.tiene-js .telon{
   animation:telon-seguro .9s ease 6s forwards;
 }
 @keyframes telon-seguro{to{opacity:0;visibility:hidden}}
-.telon__centro{position:relative;display:grid;place-items:center;text-align:center}
-.telon__sello{width:150px;height:150px;overflow:visible}
-.telon__aro{
-  fill:none;
-  stroke:var(--oro);
-  stroke-width:1.2;
-  stroke-dasharray:340;
-  stroke-dashoffset:340;
-  transform-origin:center;
-}
-.telon__aro--fino{stroke-dasharray:295;stroke-dashoffset:295;opacity:.5}
+/* El logo va solo, centrado en el flujo: sin aro que lo enmarque ni
+   posición absoluta que lo corra. La línea de abajo marca el avance. */
+.telon__centro{display:grid;justify-items:center;text-align:center}
 .telon__marca{
-  position:absolute;
-  top:50%;left:50%;
-  width:68px;height:auto;
-  transform:translate(-50%,-52%);
-  color:var(--hueso);
+  width:clamp(84px,22vw,112px);height:auto;
+  color:var(--carmin);
   opacity:0;
 }
+.telon__linea{
+  display:block;
+  width:clamp(110px,30vw,150px);height:1px;
+  margin-top:2rem;
+  background:var(--oro);
+  transform:scaleX(0);
+}
 .telon__pie{
-  position:absolute;
-  top:calc(50% + 110px);left:50%;
-  transform:translateX(-50%);
+  margin-top:1.1rem;
   font-size:.7rem;
   letter-spacing:.34em;
+  padding-left:.34em;   /* el espaciado de letras descentra el último carácter */
   color:var(--oro);
   font-variant-numeric:tabular-nums;
 }
