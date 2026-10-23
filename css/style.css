@@ -400,6 +400,15 @@ main{position:relative;z-index:1}
   margin-bottom:1.4rem;
 }
 .cejilla__sep{opacity:.45;margin-inline:.4rem}
+/* En celular la cejilla de la portada se parte en dos renglones limpios,
+   sin un punto colgando al inicio de la segunda línea */
+.cejilla--portada span:not(.cejilla__sep){white-space:nowrap}
+@media (max-width:700px){
+  .cejilla--portada{letter-spacing:.28em}
+  .cejilla--portada span:not(.cejilla__sep){display:block}
+  .cejilla--portada .cejilla__sep{display:none}
+  .cejilla--portada span + span{margin-top:.5rem}
+}
 
 .titulo{
   font-family:var(--display);
