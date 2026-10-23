@@ -1784,6 +1784,19 @@ body.esta-quieto{overflow:hidden}
 @media (hover:none){
   .cursor{display:none}
   .lamina__lupa{opacity:1;transform:none}
+  /* El grano era una capa del doble de la pantalla, animada y por encima
+     de todo: en un teléfono se repintaba bajo la rueda a cada fotograma.
+     Queda fijo y del tamaño de la pantalla. */
+  .grano{animation:none;inset:0}
+}
+
+/* Los titulares grandes de didona pierden la línea fina en pantallas
+   chicas; con un tamaño óptico más bajo se mantienen legibles. */
+@media (max-width:860px){
+  .titulo,.tarjeta__tit,.lamina__tit,.ruleta__tit,.pie__nombre{
+    font-optical-sizing:none;
+    font-variation-settings:"opsz" 22;
+  }
 }
 
 /* ───────────────────────────────────────────
