@@ -484,7 +484,9 @@ function montarRuleta() {
   /* La rueda va también en celular: es donde más se nota, y degradarla a
      una tira dejaba la mitad del sitio sin fuerza. Solo se cae con
      movimiento reducido. */
-  const cabe = !quieto;
+  /* En un celular de lado no hay altura para encabezado, ficha y rueda:
+     ahí vuelve la tira. */
+  const cabe = !quieto && window.innerHeight >= 540;
   seguirTira(!cabe);
   gab.classList.toggle('esta-fijado', cabe);
 

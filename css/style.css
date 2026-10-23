@@ -991,6 +991,10 @@ html.tiene-js .lamina__velo{display:block}
   scrollbar-width:none;
 }
 .ruleta__disco::-webkit-scrollbar{display:none}
+/* Si la rueda no se monta (movimiento reducido o pantalla muy baja,
+   como un celular de lado) la sección vuelve a ser una tira normal */
+.gabinete:not(.esta-fijado) .gabinete__pin{height:auto;padding-block:var(--aire)}
+.gabinete:not(.esta-fijado) .ruleta__disco{padding-bottom:1.5rem}
 
 .vitrina{
   flex:0 0 auto;
