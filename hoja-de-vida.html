@@ -124,8 +124,21 @@ a{color:inherit;text-decoration:none}
 /* Solo pantalla: el papel mide 794 px al imprimir y este quiebre
    apilaba las columnas, duplicando la hoja. */
 @media screen and (max-width:900px){
-  .papel{width:auto;padding:9mm 7mm}
-  .cuerpo{grid-template-columns:1fr;gap:0}
+  .papel{width:auto;margin:14px 12px;padding:9mm 7mm}
+  .cuerpo{grid-template-columns:minmax(0,1fr);gap:0}
+  /* Las cuatro columnas de proyectos eran más anchas que la pantalla y
+     se salían por la derecha */
+  .obras__fila{grid-template-columns:repeat(2,minmax(0,1fr));gap:5mm}
+  .contacto li,.hito h3,.taller p{overflow-wrap:anywhere}
+  .aviso-pantalla{margin:14px 12px -4px;padding:0}
+}
+@media screen and (max-width:520px){
+  .papel{padding:8mm 5.5mm}
+  .enc{gap:5mm}
+  .enc__nombre{font-size:19pt}
+  .enc__marca{width:14mm}
+  .obras__fila{grid-template-columns:minmax(0,1fr)}
+  .pie{flex-direction:column;gap:1mm}
 }
 </style>
 </head>
