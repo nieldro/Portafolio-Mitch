@@ -511,7 +511,9 @@ function montarRuleta() {
   giro = ScrollTrigger.create({
     trigger: gab,
     start: 'top top',
-    end: () => '+=' + Math.round(window.innerHeight * 2),
+    /* En pantalla táctil el recorrido es más corto: a dos pantallas el
+       dedo se cansaba y la página parecía atascada dentro del carrusel. */
+    end: () => '+=' + Math.round(window.innerHeight * (fino ? 2 : 1.35)),
     pin: gab.querySelector('.gabinete__pin'),
     invalidateOnRefresh: true,
     onUpdate: self => {
@@ -535,19 +537,29 @@ montarRuleta();
    para que el desplazamiento vertical del celular siga siendo del
    navegador y solo el gesto horizontal llegue aquí. */
 if (!quieto) {
-  let agarrado = false, ultimoX = 0, recorrido = 0;
+  let agarrado = false, ultimoX = 0, ultimoY = 0, recorrido = 0, decidido = false;
 
   /* Nada de setPointerCapture: capturar el puntero en la ruleta hacía que
      el `click` se disparara sobre ella y no sobre la ficha, así que abrir
      una lámina con clic dejaba de funcionar. Se escucha en window. */
   ruleta.addEventListener('pointerdown', e => {
     if (!ruleta.classList.contains('es-ruleta')) return;
-    agarrado = true; ultimoX = e.clientX; recorrido = 0; inercia = 0;
+    agarrado = true; ultimoX = e.clientX; ultimoY = e.clientY;
+    recorrido = 0; inercia = 0; decidido = false;
   });
 
   window.addEventListener('pointermove', e => {
     if (!agarrado) return;
     const dx = e.clientX - ultimoX;
+    const dy = e.clientY - ultimoY;
+    /* El primer gesto decide de quién es: si va más hacia arriba o abajo
+       que hacia los lados, es para desplazar la página y la rueda lo
+       suelta. Antes cualquier roce horizontal del dedo la giraba mientras
+       se intentaba subir o bajar, y se sentía como pelear con ella. */
+    if (!decidido && Math.hypot(dx, dy) > 8) {
+      decidido = true;
+      if (Math.abs(dy) > Math.abs(dx) * .8) { agarrado = false; return; }
+    }
     ultimoX = e.clientX;
     recorrido += Math.abs(dx);
     if (recorrido > 6) {                 // recién entonces es un arrastre
