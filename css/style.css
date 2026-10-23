@@ -1720,28 +1720,34 @@ body.esta-quieto{overflow:hidden}
   .barra__hamb{display:block;z-index:2}
   .trayecto__columnas{grid-template-columns:1fr}
   /* La rueda también va en celular; solo si NO se monta vuelve la tira */
-  .gabinete:not(.esta-fijado) .gabinete__pin{height:auto;padding-block:var(--aire)}
-  .gabinete:not(.esta-fijado) .ruleta__disco{padding-bottom:1.5rem}
-
-  /* Rueda más cerrada, para que quepan tres fichas en un teléfono */
+  /* Rueda más cerrada, para que quepan tres fichas en un teléfono.
+     Todo se apila desde arriba y en orden — encabezado, ficha con el
+     nombre, tarjeta, botones — y la altura sobrante se reparte con
+     `--sobra`. Antes ficha y tarjeta se colocaban por separado (una desde
+     arriba, la otra desde abajo) y en pantallas bajas se pisaban. */
   .ruleta.es-ruleta{
     --radio:clamp(320px,92vw,430px);
-    --alza:clamp(280px,48vh,420px);
     --ancho-f:clamp(116px,34vw,158px);
-    --alto-f:clamp(152px,45vw,212px);
+    --alto-f:clamp(142px,min(45vw,27svh),212px);
+    --sobra:max(0px,calc(100svh - 640px));
+    --ficha-top:calc(9.9rem + var(--sobra) * .2);
+    --ficha-alto:6.7rem;
+    --centro:calc(var(--ficha-top) + var(--ficha-alto) + 1.1rem + var(--alto-f) / 2 + var(--sobra) * .2);
   }
-  /* El encabezado se apila: en una línea, el numeral y la ficha se
-     montaban sobre el título. */
+  .ruleta.es-ruleta .ruleta__disco{top:calc(var(--radio) + var(--centro))}
+  /* Título a la izquierda y numeral a la derecha, en un solo renglón */
   .gabinete__enc{
-    display:grid;
-    justify-items:start;
-    gap:.4rem;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:0 1rem;
   }
+  .gabinete__enc .cejilla{flex:0 0 100%}
   .titulo--gab{font-size:clamp(1.9rem,9vw,2.6rem)}
-  .gabinete__guia{font-size:1rem}
-  .ruleta.es-ruleta .ruleta__ficha{top:clamp(8.5rem,26vh,12rem)}
-  .ruleta__tit{font-size:clamp(1.15rem,5.2vw,1.6rem)}
-  .ruleta__num{font-size:1.1rem;margin-bottom:.3rem}
+  .gabinete__guia{font-size:1rem;line-height:1;white-space:nowrap}
+  .ruleta.es-ruleta .ruleta__ficha{top:var(--ficha-top);height:var(--ficha-alto)}
+  .ruleta__tit{font-size:clamp(1.1rem,5vw,1.5rem);margin-bottom:.5rem}
+  .ruleta__num{font-size:1.1rem;line-height:1;margin-bottom:.4rem}
+  .ruleta__meta{font-size:.62rem;line-height:1.3}
   .ruleta__aguja{padding:.75rem 1.1rem;font-size:.64rem}
   .ruleta__flecha{width:40px;height:40px;font-size:1.4rem}
 
