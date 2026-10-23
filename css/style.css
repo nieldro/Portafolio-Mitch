@@ -1623,20 +1623,26 @@ a.via:hover .via__val{color:var(--oro-vivo)}
   text-transform:uppercase;
   color:var(--oro);
 }
+/* Los controles van por encima de la imagen: la imagen se anima con
+   `transform`, lo que le crea su propia capa y la pintaba encima de la X. */
 .visor__cerrar{
   position:absolute;
+  z-index:3;
   top:clamp(1rem,3vw,2rem);
   right:clamp(1rem,3vw,2rem);
   width:52px;height:52px;
   font-size:2rem;
   line-height:1;
   color:var(--hueso);
+  background:rgba(10,8,9,.72);
   border:1px solid rgba(138,126,110,.3);
   transition:background-color .4s ease,border-color .4s ease;
 }
 .visor__cerrar:hover{background:var(--sangre);border-color:var(--sangre)}
 .visor__flecha{
   position:absolute;
+  z-index:3;
+  background:rgba(10,8,9,.72);
   top:50%;
   transform:translateY(-50%);
   width:56px;height:56px;
@@ -1651,6 +1657,18 @@ a.via:hover .via__val{color:var(--oro-vivo)}
 .visor__flecha--der{right:clamp(.6rem,2.5vw,2rem)}
 
 body.esta-quieto{overflow:hidden}
+
+/* En celular la imagen casi llena la pantalla y la X caía encima de ella:
+   se reserva una franja arriba para el botón y otra abajo para el título. */
+@media (max-width:860px){
+  .visor{padding:5.2rem 1rem 1.2rem}
+  .visor__marco{gap:1rem}
+  .visor__marco figcaption{padding-inline:3.4rem}
+  .visor__marco img{max-height:calc(100svh - 13rem)}
+  .visor__flecha{top:auto;bottom:1.4rem;transform:none}
+  .visor__flecha--izq{left:1rem}
+  .visor__flecha--der{right:1rem}
+}
 
 /* ───────────────────────────────────────────
    ADAPTACIÓN
