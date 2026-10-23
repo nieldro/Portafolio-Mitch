@@ -1,154 +1,32 @@
-"""Genera el sistema de marca de Mitch como SVG limpios.
+"""Genera los archivos del logo de Mitch como SVG limpios.
 
-Una sola idea: una calavera de gato. Sin bigotes, sin destellos, sin
-líneas de movimiento — todo eso era el ruido del logo anterior.
+El logo es el que dibujó Michelle: una calavera de gato, una sola figura
+con las cuencas y la nariz (corazón) como huecos reales. Aquí solo se
+vectorizó su archivo para que escale sin pixelarse; no se redibujó.
+Sale en las tres variantes de color que ella entregó: rojo, blanco y negro.
 """
-import math
 import os
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 
-# ── El símbolo ────────────────────────────────────────────────────────
-# Silueta en un lienzo 0 0 200 200. Las orejas y los colmillos van
-# dentro del mismo contorno: una sola figura, no piezas sueltas.
-SILUETA = (
-    "M40 14 L63 57 "
-    "C74 48 126 48 137 57 "
-    "L160 14 L167 76 "
-    "C176 98 170 112 151 118 "
-    "C141 122 137 127 135 137 "
-    "C133 148 128 152 121 153 "
-    "L117 180 L112 153 "
-    "C108 154 104 154 100 154 "
-    "C96 154 92 154 88 153 "
-    "L83 180 L79 153 "
-    "C72 152 67 148 65 137 "
-    "C63 127 59 122 49 118 "
-    "C30 112 24 98 33 76 Z"
+CAJA = "0 0 1039 1073"
+CALAVERA = (
+    "M341.09 1069.37C340.51 1067.24 339.15 1062.35 338.06 1058.5C334.71 1046.61 329.67 1027.62 324 1005.5C321.89 997.25 318.95 986 317.48 980.5C316.01 975 312.42 961.28 309.5 950C303.56 927.05 296.38 899.38 294.94 893.88C294.06 890.5 293.58 890.15 287.75 888.52C224.97 870.97 184.31 817.59 187.59 757.03C189.26 726.24 175.58 706.7 145 696.19C89.11 676.98 41.03 642.58 16.84 604.5C0.76 579.17 -3.9 548.46 2.98 513C3.46 510.52 4.34 505.8 4.93 502.5C5.53 499.2 8.46 484.12 11.43 469C14.41 453.88 17.53 437.67 18.37 433C19.22 428.33 20.84 419.33 21.98 413C23.12 406.68 24.47 399.7 24.97 397.5C26.5 390.81 32.93 355.57 35.99 337C37.59 327.38 39.81 314.32 40.94 308C42.07 301.68 43.47 293.57 44.03 290C44.6 286.43 46.42 275.18 48.06 265C51.21 245.55 55.32 219.96 57.05 209C57.62 205.43 58.5 200.02 59.01 197C59.53 193.98 60.43 188.12 61.03 184C61.62 179.88 63.43 168.18 65.06 158C70.14 126.15 71.83 115.44 77 82C79.76 64.12 82.46 46.8 82.99 43.5C84.05 36.92 87.55 13.29 88.58 5.74C89.53 -1.21 89.99 -1.08 102.28 9.61C155.38 55.76 206.25 103.99 283.75 181.65C312.48 210.44 336.6 234 337.35 234C338.1 234 343.16 231.92 348.6 229.37C383.12 213.21 418.86 201.74 455.5 195.07C534.54 180.66 622.04 193.76 696.41 231.11L702.33 234.08L747.91 188.69C772.99 163.72 798 139.05 803.5 133.85C809 128.66 818.68 119.48 825.01 113.45C840.03 99.16 877.27 64.62 883.18 59.5C885.72 57.3 894.52 49.43 902.73 42C920.11 26.28 936.63 11.89 942.94 6.97C945.37 5.06 948.19 2.71 949.19 1.75C952.89 -1.82 953.11 -1.38 954.96 13.5C955.58 18.45 956.52 25.42 957.06 29C957.59 32.57 958.94 42.47 960.07 51C962.41 68.77 965.53 91.51 966.93 101C967.45 104.57 968.37 111.1 968.95 115.5C969.54 119.9 971.18 131.6 972.6 141.5C974.02 151.4 975.55 162.2 976 165.5C977.24 174.52 979.94 193.24 981.63 204.5C982.45 210 983.52 217.65 984 221.5C985.07 230.11 987.68 248.43 988.98 256.5C989.51 259.8 990.62 266.77 991.44 272C1001.63 336.86 1004.34 353.1 1013.02 401.5C1016.76 422.3 1019.12 435.51 1020 440.5C1021.6 449.62 1025.98 469.46 1026.95 472C1027.47 473.38 1029.26 479.67 1030.91 486C1050.18 559.58 1032.85 609.11 971.87 654.72C943.84 675.68 924.95 685.63 888.79 698.44C879.05 701.89 871.59 707.22 865.12 715.35C855.65 727.25 853.76 734.09 853.46 757.5C852.68 818.69 817.51 864.85 756 885.41C745.71 888.85 745.48 888.99 744.34 892.71C740.87 904.08 731.92 934.59 730.04 941.5C728.84 945.9 727.24 951.75 726.49 954.5C725.74 957.25 723.27 965.8 721 973.5C718.73 981.2 716.23 989.88 715.44 992.79C713.1 1001.41 699.09 1049.33 695.49 1061C691.75 1073.16 691.34 1073.27 688.5 1063C684.31 1047.87 682.83 1042.59 678 1025.5C675.2 1015.6 672.24 1005.03 671.42 1002C670.6 998.97 668.64 992.22 667.05 987C664.43 978.33 651.81 933.63 649.98 926.5C649.56 924.85 646.3 912.92 642.74 900C639.18 887.08 635.98 875.26 635.62 873.75C634.76 870.16 635.08 870.08 623.41 876.86C555.45 916.35 480.65 915.53 410.25 874.53L404.01 870.89L403.05 873.19C402.52 874.46 399.34 884.95 395.97 896.5C392.61 908.05 387.18 926.5 383.9 937.5C380.62 948.5 377.44 959.3 376.83 961.5C375.12 967.7 374.22 970.76 371.07 981C369.47 986.22 364.5 1002.88 360.03 1018C355.56 1033.12 351.52 1046.62 351.04 1048C350.56 1049.38 348.72 1055.22 346.95 1061C343.1 1073.54 342.48 1074.43 341.09 1069.37ZM533.57 800.75C613.59 719.19 615.96 716.11 617.7 691.51C619.48 666.2 599.4 645.82 573.72 646.89C555.21 647.66 540.21 657.45 525.5 678.36C522.2 683.05 519.27 686.91 519 686.93C518.73 686.96 516.53 684.01 514.13 680.39C487.23 639.9 439.56 635 422.61 671C419.74 677.11 419.55 678.23 419.53 689.5C419.47 713.87 423.14 719.18 478.39 774.75C500.39 796.89 518.67 815 518.99 815C519.32 815 525.88 808.59 533.57 800.75ZM317.5 609.53C377.88 596.78 420.3 546.06 420.38 486.5C420.47 418.37 372.76 366.43 303.15 358.88C222.8 350.17 151.51 427.68 165.57 508.5C177.41 576.59 248.77 624.03 317.5 609.53ZM761 610.55C838.33 598.8 886.73 524.08 865.12 449.82C838.55 358.49 725.12 328.24 656.45 394.16C587.46 460.4 609.08 569.46 698 603.79C717.13 611.17 740.43 613.67 761 610.55Z"
 )
-# Cuencas: grandes y algo inclinadas, que es lo que hace felino un cráneo.
-ORBITA_I = ("M72 67 C83 67 92 77 92 90 C92 103 83 113 72 113 "
-            "C61 113 52 103 52 90 C52 77 61 67 72 67 Z")
-ORBITA_D = ("M128 67 C139 67 148 77 148 90 C148 103 139 113 128 113 "
-            "C117 113 108 103 108 90 C108 77 117 67 128 67 Z")
-# Abertura nasal: corazón invertido.
-NARIZ = ("M100 140 C92 133 86 128 86 122 C86 116 91 113 96 116 "
-         "C98 117 99 119 100 121 C101 119 102 117 104 116 "
-         "C109 113 114 116 114 122 C114 128 108 133 100 140 Z")
 
-CALAVERA = f'{SILUETA} {ORBITA_I} {ORBITA_D} {NARIZ}'
-CAJA_CALAVERA = (24, 14, 152, 166)   # x, y, ancho, alto
-
-# ── El logotipo ───────────────────────────────────────────────────────
-# Dibujado a mano, no tipografía: así el archivo no depende de fuentes.
-# Altura de mayúscula 100, asta 15.
-LETRAS = {
-    "M": (96, "M0 100 L0 0 L20 0 L48 62 L76 0 L96 0 L96 100 L80 100 "
-              "L80 28 L54 84 L42 84 L16 28 L16 100 Z"),
-    "I": (15, "M0 0 L15 0 L15 100 L0 100 Z"),
-    "T": (72, "M0 0 L72 0 L72 15 L43 15 L43 100 L29 100 L29 15 L0 15 Z"),
-    "C": (76, "M76 22 C68 8 54 0 38 0 C17 0 0 22 0 50 C0 78 17 100 38 100 "
-              "C54 100 68 92 76 78 L62 70 C56 80 48 85 39 85 "
-              "C26 85 16 70 16 50 C16 30 26 15 39 15 C48 15 56 20 62 30 Z"),
-    "H": (92, "M0 0 L16 0 L16 43 L76 43 L76 0 L92 0 L92 100 L76 100 "
-              "L76 57 L16 57 L16 100 L0 100 Z"),
+VARIANTES = {
+    "mitch-calavera.svg":        ("currentColor", "Mitch — calavera de gato"),
+    "mitch-calavera-rojo.svg":   ("#A00020", "Mitch — calavera de gato, rojo"),
+    "mitch-calavera-blanco.svg": ("#F4EFE4", "Mitch — calavera de gato, blanco"),
+    "mitch-calavera-negro.svg":  ("#0A0809", "Mitch — calavera de gato, negro"),
 }
-INTERLETRA = 16
 
-
-def logotipo():
-    """Devuelve (ancho, [(x, path), ...]) de la palabra MITCH."""
-    x, piezas = 0, []
-    for letra in "MITCH":
-        ancho, d = LETRAS[letra]
-        piezas.append((x, d))
-        x += ancho + INTERLETRA
-    return x - INTERLETRA, piezas
-
-
-def grupo_logotipo(escala, tx, ty):
-    ancho, piezas = logotipo()
-    cuerpo = "\n".join(
-        f'      <path transform="translate({x},0)" d="{d}"/>' for x, d in piezas)
-    g = (f'    <g transform="translate({tx},{ty}) scale({escala})">\n'
-         f'{cuerpo}\n    </g>')
-    return ancho * escala, 100 * escala, g
-
-
-def grupo_calavera(escala, tx, ty):
-    """Coloca la calavera con su esquina superior izquierda en (tx, ty)."""
-    bx, by, bw, bh = CAJA_CALAVERA
-    g = (f'    <g transform="translate({tx},{ty}) scale({escala}) '
-         f'translate({-bx},{-by})">\n'
-         f'      <path fill-rule="evenodd" d="{CALAVERA}"/>\n    </g>')
-    return bw * escala, bh * escala, g
-
-
-def envolver(caja, cuerpo, titulo):
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{caja}" '
-            f'fill="currentColor" role="img" aria-label="{titulo}">\n'
-            f'  <title>{titulo}</title>\n{cuerpo}\n</svg>\n')
-
-
-def escribir(nombre, texto):
-    ruta = os.path.join(AQUI, nombre)
-    with open(ruta, "w", encoding="utf-8") as f:
-        f.write(texto)
-    print(f"  {nombre:26s} {len(texto):>6} bytes")
-
-
-# ── 1. Símbolo suelto ────────────────────────────────────────────────
-escribir("mitch-calavera.svg", envolver(
-    "24 14 152 166",
-    f'  <path fill-rule="evenodd" d="{CALAVERA}"/>',
-    "Mitch — calavera de gato"))
-
-# ── 2. Medallón: el aro fresado hace de ruleta ───────────────────────
-CENTRO, DIENTES = 200, 36
-dientes = []
-for i in range(DIENTES):
-    dientes.append(
-        f'    <rect x="{CENTRO - 2}" y="{CENTRO - 188}" width="4" height="15" '
-        f'transform="rotate({i * 360 / DIENTES:.4g} {CENTRO} {CENTRO})"/>')
-
-anchoC, altoC, gCalavera = grupo_calavera(1.28, CENTRO - 152 * 1.28 / 2,
-                                          CENTRO - 166 * 1.28 / 2)
-escribir("mitch-medallon.svg", envolver(
-    "0 0 400 400",
-    '  <g fill="none" stroke="currentColor">\n'
-    f'    <circle cx="200" cy="200" r="192" stroke-width="4"/>\n'
-    f'    <circle cx="200" cy="200" r="164" stroke-width="2.5"/>\n'
-    f'    <circle cx="200" cy="200" r="156" stroke-width="1"/>\n'
-    '  </g>\n'
-    '  <g>\n' + "\n".join(dientes) + '\n  </g>\n' + gCalavera,
-    "Mitch — medallón"))
-
-# ── 3. Horizontal ────────────────────────────────────────────────────
-aC, hC, gC = grupo_calavera(0.80, 16, 24)
-aL, hL, gL = grupo_logotipo(0.86, 16 + aC + 44, 24 + hC / 2 - 43)
-escribir("mitch-horizontal.svg", envolver(
-    f"0 0 {round(16 + aC + 44 + aL + 16)} {round(24 + hC + 24)}",
-    gC + "\n" + gL,
-    "Mitch"))
-
-# ── 4. Apilado ───────────────────────────────────────────────────────
-ANCHO_AP = 420
-aC, hC, gC = grupo_calavera(0.85, (ANCHO_AP - 152 * 0.85) / 2, 16)
-aL, hL, gL = grupo_logotipo(0.80, (ANCHO_AP - 415 * 0.80) / 2, 16 + hC + 40)
-escribir("mitch-apilado.svg", envolver(
-    f"0 0 {ANCHO_AP} {round(16 + hC + 40 + hL + 16)}",
-    gC + "\n" + gL,
-    "Mitch"))
-
-# ── 5. Monograma: la M con cola, lo único que valía la pena salvar ───
-anchoM, dM = LETRAS["M"]
-escribir("mitch-monograma.svg", envolver(
-    "-14 -62 124 176",
-    f'  <path d="{dM}"/>\n'
-    '  <path fill="none" stroke="currentColor" stroke-width="16" '
-    'stroke-linecap="round" '
-    'd="M8 4 C4 -20 14 -44 36 -44 C54 -44 62 -28 52 -18 '
-    'C45 -11 33 -15 35 -26"/>',
-    "Mitch — monograma"))
-
+for nombre, (relleno, titulo) in VARIANTES.items():
+    svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{CAJA}" '
+           f'fill="{relleno}" role="img" aria-label="{titulo}">\n'
+           f'  <title>{titulo}</title>\n'
+           f'  <path fill-rule="evenodd" d="{CALAVERA}"/>\n</svg>\n')
+    with open(os.path.join(AQUI, nombre), "w", encoding="utf-8") as f:
+        f.write(svg)
+    print(f"  {nombre:30s} {len(svg):>6} bytes")
 print("\nListo.")
