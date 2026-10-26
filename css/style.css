@@ -2049,7 +2049,9 @@ html{scroll-padding-top:4.5rem;color-scheme:dark}   /* barras de desplazamiento 
   *,*::before,*::after{
     animation-duration:.001ms !important;
     animation-iteration-count:1 !important;
-    transition-duration:.001ms !important;
+    /* no a cero: el cambio de estado de hover y foco se sigue viendo, solo sin recorrido */
+    transition-duration:.15s !important;
+    scroll-behavior:auto !important;
   }
   .telon{display:none}
   .grano{animation:none}
