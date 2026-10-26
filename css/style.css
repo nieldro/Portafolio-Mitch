@@ -13,7 +13,8 @@
   --terciopelo-alto:#241318;
   --sangre:#6E1220;
   --carmin:#B3121F;
-  --oro:#8A7E6E;
+  --carmin-texto:#E5444F;  /* el carmin de marca da 2,9:1 sobre azabache: en texto chico va este (5:1) */
+  --oro:#A09481;
   --oro-vivo:#C9BCA6;
   --hueso:#E6DCC8;
   --hueso-tenue:rgba(230,220,200,.62);
@@ -285,7 +286,7 @@ html.tiene-js .telon{
   font-family:var(--display);
   color:var(--oro);
   margin-right:.45rem;
-  font-size:.68rem;
+  font-size:.72rem;
 }
 .barra__nav a::after{
   content:"";
@@ -362,7 +363,7 @@ html.tiene-js .telon{
   transition:width .55s var(--curva),background-color .45s ease;
 }
 .indice span{
-  font-size:.6rem;
+  font-size:.72rem;
   letter-spacing:.24em;
   text-transform:uppercase;
   opacity:0;
@@ -624,7 +625,7 @@ html.tiene-js .cartela-esq{stroke-dashoffset:1200}
   border-top:1px solid rgba(138,126,110,.18);
 }
 .cifras dt{
-  font-size:.64rem;
+  font-size:.72rem;
   letter-spacing:.26em;
   text-transform:uppercase;
   color:var(--hueso-tenue);
@@ -642,7 +643,7 @@ html.tiene-js .cartela-esq{stroke-dashoffset:1200}
   justify-items:center;
   gap:.85rem;
   margin-top:clamp(1.8rem,4.5vh,3rem);
-  font-size:.63rem;
+  font-size:.72rem;
   letter-spacing:.32em;
   text-transform:uppercase;
   color:var(--hueso-tenue);
@@ -708,9 +709,15 @@ html.tiene-js .cartela-esq{stroke-dashoffset:1200}
 
 /* El passe-partout: la pieza va montada, nunca recortada */
 .lamina__marco{
+  --pad:clamp(1.1rem,2.4vw,2.2rem);
+  --alto:clamp(300px,42vw,560px);   /* alto maximo de la pieza */
   position:relative;
   margin:0;
-  padding:clamp(1.1rem,2.4vw,2.2rem);
+  /* El marco mide lo que mide la pieza: ni bandas oscuras a los lados
+     ni recorte. Cada figura declara su proporcion en --ar (ancho/alto). */
+  width:min(100%,calc(var(--alto) * var(--ar,1.5) + var(--pad) * 2 + 2px));
+  justify-self:center;
+  padding:var(--pad);
   background:
     linear-gradient(150deg,var(--terciopelo-alto),var(--terciopelo) 60%);
   border:1px solid rgba(138,126,110,.26);
@@ -730,9 +737,11 @@ html.tiene-js .cartela-esq{stroke-dashoffset:1200}
   border-color:rgba(201,188,166,.5);
 }
 .lamina__marco img{
+  display:block;
   width:100%;
-  height:clamp(300px,42vw,560px);
-  object-fit:contain;
+  height:auto;
+  aspect-ratio:var(--ar,1.5);
+  object-fit:cover;
   filter:saturate(.82) contrast(1.03);
   transition:filter .8s var(--curva),transform .9s var(--curva);
 }
@@ -755,7 +764,7 @@ html.tiene-js .lamina__velo{display:block}
   z-index:4;
   right:clamp(1.1rem,2.4vw,2.2rem);
   bottom:clamp(1.1rem,2.4vw,2.2rem);
-  font-size:.63rem;
+  font-size:.72rem;
   letter-spacing:.28em;
   text-transform:uppercase;
   color:var(--hueso);
@@ -818,7 +827,7 @@ html.tiene-js .lamina__velo{display:block}
   border-top:1px solid rgba(138,126,110,.18);
 }
 .detalles__rot{
-  font-size:.62rem;
+  font-size:.72rem;
   letter-spacing:.3em;
   text-transform:uppercase;
   color:var(--oro);
@@ -913,7 +922,7 @@ html.tiene-js .lamina__velo{display:block}
   font-family:var(--display);
   font-size:.95rem;
   letter-spacing:.12em;
-  color:var(--carmin);
+  color:var(--carmin-texto);
 }
 .pieza-web__pie h3{
   font-family:var(--display);
@@ -922,7 +931,7 @@ html.tiene-js .lamina__velo{display:block}
   margin:.3rem 0 .5rem;
 }
 .pieza-web__cat{
-  font-size:.66rem;
+  font-size:.72rem;
   letter-spacing:.28em;
   text-transform:uppercase;
   color:var(--oro);
@@ -1041,7 +1050,7 @@ html.tiene-js .lamina__velo{display:block}
 .vitrina__num{
   font-family:var(--display);
   font-size:.95rem;
-  color:var(--carmin);
+  color:var(--carmin-texto);
   letter-spacing:.1em;
 }
 .vitrina__pie h3{
@@ -1050,7 +1059,7 @@ html.tiene-js .lamina__velo{display:block}
   line-height:1.22;
 }
 .vitrina__pie p{
-  font-size:.68rem;
+  font-size:.72rem;
   letter-spacing:.26em;
   text-transform:uppercase;
   color:var(--hueso-tenue);
@@ -1155,7 +1164,7 @@ html.tiene-js .lamina__velo{display:block}
   margin-bottom:.7rem;
 }
 .ruleta__meta{
-  font-size:.68rem;
+  font-size:.72rem;
   letter-spacing:.28em;
   text-transform:uppercase;
   color:var(--hueso-tenue);
@@ -1251,7 +1260,7 @@ html.tiene-js .lamina__velo{display:block}
 .camafeo figcaption{
   margin-top:1.6rem;
   text-align:center;
-  font-size:.68rem;
+  font-size:.72rem;
   letter-spacing:.28em;
   text-transform:uppercase;
   color:var(--oro);
@@ -1275,7 +1284,7 @@ html.tiene-js .lamina__velo{display:block}
 }
 .retrato__datos span{
   flex:0 0 5.5rem;
-  font-size:.66rem;
+  font-size:.72rem;
   letter-spacing:.26em;
   text-transform:uppercase;
   color:var(--oro);
@@ -1313,7 +1322,7 @@ html.tiene-js .lamina__velo{display:block}
 .oficio__num{
   font-family:var(--display);
   font-size:1.05rem;
-  color:var(--carmin);
+  color:var(--carmin-texto);
   letter-spacing:.14em;
 }
 .oficio h3{
@@ -1342,7 +1351,7 @@ html.tiene-js .lamina__velo{display:block}
   display:block;
   font-family:var(--display);
   font-size:clamp(1.7rem,3vw,2.4rem);
-  color:var(--carmin);
+  color:var(--carmin-texto);
   letter-spacing:.1em;
   margin-bottom:1rem;
 }
@@ -1361,7 +1370,7 @@ html.tiene-js .lamina__velo{display:block}
    encabezados grandes para lo mismo y alargaban de más. */
 .taller{padding-top:clamp(1.6rem,3vw,2.6rem)}
 .taller__rotulo{
-  font-size:.68rem;
+  font-size:.72rem;
   letter-spacing:.3em;
   text-transform:uppercase;
   color:var(--oro);
@@ -1376,7 +1385,7 @@ html.tiene-js .lamina__velo{display:block}
   gap:clamp(1.4rem,3vw,2.6rem);
 }
 .taller__grupo h3{
-  font-size:.68rem;
+  font-size:.72rem;
   letter-spacing:.26em;
   text-transform:uppercase;
   color:var(--oro);
@@ -1460,7 +1469,7 @@ html.tiene-js .lamina__velo{display:block}
 .linea li:hover::before{background:var(--hueso);transform:scale(1.22)}
 .linea__fecha{
   display:block;
-  font-size:.66rem;
+  font-size:.72rem;
   letter-spacing:.24em;
   text-transform:uppercase;
   color:var(--oro);
@@ -1530,7 +1539,7 @@ html.tiene-js .lamina__velo{display:block}
 }
 .via{display:grid;gap:.55rem}
 .via__rot{
-  font-size:.64rem;
+  font-size:.72rem;
   letter-spacing:.28em;
   text-transform:uppercase;
   color:var(--oro);
@@ -1587,7 +1596,7 @@ a.via:hover .via__val{color:var(--oro-vivo)}
   margin-bottom:.7rem;
 }
 .pie__nota{
-  font-size:.68rem;
+  font-size:.72rem;
   letter-spacing:.26em;
   text-transform:uppercase;
   color:var(--hueso-tenue);
@@ -1626,7 +1635,7 @@ a.via:hover .via__val{color:var(--oro-vivo)}
   margin-bottom:.5rem;
 }
 .visor__marco p{
-  font-size:.68rem;
+  font-size:.72rem;
   letter-spacing:.28em;
   text-transform:uppercase;
   color:var(--oro);
@@ -1687,7 +1696,7 @@ body.esta-quieto{overflow:hidden}
   .retrato__rejilla{grid-template-columns:minmax(0,1fr)}
   .lamina--invertida .lamina__marco,
   .lamina--invertida .lamina__margen{order:0}
-  .lamina__marco img{height:clamp(300px,54vw,480px)}
+  .lamina__marco{--alto:clamp(380px,72vw,640px)}
   .camafeo{max-width:min(360px,72vw);margin-inline:auto}
   .oficio{grid-template-columns:3.2rem 1fr;row-gap:.6rem}
   .oficio p{grid-column:2}
@@ -1747,8 +1756,8 @@ body.esta-quieto{overflow:hidden}
   .ruleta.es-ruleta .ruleta__ficha{top:var(--ficha-top);height:var(--ficha-alto)}
   .ruleta__tit{font-size:clamp(1.1rem,5vw,1.5rem);margin-bottom:.5rem}
   .ruleta__num{font-size:1.1rem;line-height:1;margin-bottom:.4rem}
-  .ruleta__meta{font-size:.62rem;line-height:1.3}
-  .ruleta__aguja{padding:.75rem 1.1rem;font-size:.64rem}
+  .ruleta__meta{font-size:.72rem;line-height:1.3}
+  .ruleta__aguja{padding:.75rem 1.1rem;font-size:.72rem}
   .ruleta__flecha{width:40px;height:40px;font-size:1.4rem}
 
   /* A la escala de escritorio el damasco se ve como gotas enormes en un
@@ -1806,7 +1815,7 @@ body.esta-quieto{overflow:hidden}
     margin:0;
   }
 
-  .lamina__marco img{height:min(62vw,340px)}
+  .lamina__marco{--alto:min(118vw,540px)}
   .vitrina{width:min(78vw,300px)}
   .pasos,
   .taller__rejilla{grid-template-columns:1fr}
@@ -1838,6 +1847,39 @@ body.esta-quieto{overflow:hidden}
   }
 }
 
+/* ───────────────────────────────────────────
+   ACCESIBILIDAD Y TOQUE
+   Zonas de 44 px sin cambiar lo que se ve, y un salto directo al
+   contenido para quien navega con teclado.
+   ─────────────────────────────────────────── */
+
+.saltar{
+  position:fixed;
+  top:.6rem;left:.6rem;
+  z-index:300;
+  padding:.85rem 1.3rem;
+  background:var(--carmin);
+  color:var(--hueso);
+  font-size:.8rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  transform:translateY(-220%);
+  transition:transform .35s var(--curva);
+}
+.saltar:focus{transform:none}
+main:focus{outline:none}
+
+.barra__hamb::before{content:"";position:absolute;inset:-12px -8px}
+.barra__marca{min-height:44px;display:inline-flex;align-items:center}
+.enlace{position:relative}
+.enlace::before{content:"";position:absolute;inset:-14px -8px}
+.ruleta__flecha{flex:none;min-width:44px;min-height:44px}
+
+@media (max-width:860px){
+  .barra__nav{gap:.4rem}
+  .barra__nav a{display:block;padding:.85rem 1.2rem}
+  .ruleta__aguja{min-height:44px}
+}
 /* ───────────────────────────────────────────
    MOVIMIENTO REDUCIDO
    Todo lo que se anima queda en su estado final.
