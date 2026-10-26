@@ -6,3 +6,7 @@ encargo-michelle.txt
 README.md
 PRODUCT.md
 .impeccable
+assets/img/*.jpg
+assets/img/thumb/*.jpg
+assets/img/detalle/*.jpg
+assets/img/a_webp.py
