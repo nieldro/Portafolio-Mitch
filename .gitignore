@@ -1,3 +1,6 @@
 __pycache__/
 *.pyc
 desplegar.ps1
+
+# capturas y pruebas locales
+/*.png
