@@ -1208,7 +1208,7 @@ html.tiene-js .lamina__velo{display:block}
   font-family:var(--display);
   font-size:clamp(1.4rem,2.6vw,2rem);
   letter-spacing:.14em;
-  color:var(--carmin);
+  color:var(--carmin-texto);
   margin-bottom:.5rem;
 }
 .ruleta__tit{
@@ -1903,6 +1903,7 @@ body.esta-quieto{overflow:hidden}
     font-size:1em;
     line-height:inherit;
     margin:0;
+    color:var(--carmin-texto);
   }
 
   .lamina__marco{--alto:min(118vw,540px)}
