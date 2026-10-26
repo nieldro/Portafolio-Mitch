@@ -1790,8 +1790,6 @@ body.esta-quieto{overflow:hidden}
 
   .camafeo{max-width:min(250px,56vw)}
 
-  /* El marco arrancaba a 16 px del borde, o sea debajo de la barra fija:
-     la voluta de la derecha chocaba con el botón del menú. */
 
   /* Para que la última miniatura pueda entrar entera al deslizar */
   .detalles__tira{padding-right:clamp(1.15rem,5vw,3rem)}
