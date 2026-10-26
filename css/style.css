@@ -1683,10 +1683,16 @@ body.esta-quieto{overflow:hidden}
     height:100svh;
     background:var(--azabache);
     transform:translateY(-100%);
-    transition:transform .7s var(--curva);
+    /* cerrado: ni se ve ni recibe foco (en un celular de lado el contenido
+       desbordaba el panel y asomaba por arriba) */
+    visibility:hidden;
+    overflow-y:auto;
+    justify-content:safe center;
+    padding-block:5.5rem 2rem;
+    transition:transform .7s var(--curva),visibility 0s linear .7s;
     z-index:-1;
   }
-  .barra.esta-abierta .barra__panel{transform:translateY(0)}
+  .barra.esta-abierta .barra__panel{transform:translateY(0);visibility:visible;transition-delay:0s}
   .barra__nav{flex-direction:column;align-items:center;gap:2.2rem}
   .barra__nav a{font-size:1rem;letter-spacing:.3em}
   .barra__cta{font-size:.78rem}
@@ -1805,20 +1811,6 @@ body.esta-quieto{overflow:hidden}
    contenido para quien navega con teclado.
    ─────────────────────────────────────────── */
 
-.saltar{
-  position:fixed;
-  top:.6rem;left:.6rem;
-  z-index:300;
-  padding:.85rem 1.3rem;
-  background:var(--carmin);
-  color:var(--hueso);
-  font-size:.8rem;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  transform:translateY(-220%);
-  transition:transform .35s var(--curva);
-}
-.saltar:focus{transform:none}
 main:focus{outline:none}
 
 .barra__hamb::before{content:"";position:absolute;inset:-12px -8px}
