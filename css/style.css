@@ -965,7 +965,7 @@ html.tiene-js .lamina__velo{display:block}
   font-size:clamp(1.1rem,2.2vw,1.6rem);
   color:var(--oro);
 }
-.gabinete__guia i{font-style:normal;opacity:.42;margin-inline:.5rem}
+.gabinete__guia i{font-style:normal;opacity:.7;margin-inline:.5rem}
 .gabinete__guia span{color:var(--hueso)}
 
 /* ── Reserva: tira horizontal (móvil, sin JS, movimiento reducido) ── */
