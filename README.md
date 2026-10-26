@@ -18,29 +18,31 @@ python -m http.server 8123
 ## Dónde está publicado
 
 **https://michelle.35.196.253.146.sslip.io** — servidor de VISE, nginx sirviendo
-`/var/www/michelle` directo, sin proceso detrás. Público, sin contraseña.
+`/var/www/michelle` directo, sin proceso detrás. Público, sin contraseña. El
+repo también puede salir por Vercel (carpeta estática, sin build, raíz como
+salida); `.vercelignore` deja fuera lo que no es del sitio.
+
+Empaquetado para el servidor (lo que **no** se sube: originales de trabajo,
+generadores, JPG de respaldo, notas internas):
 
 ```powershell
-.\desplegar.ps1              # empaqueta, sube y comprueba
-.\desplegar.ps1 -SoloEstado  # no sube nada: dice cómo está
+tar --exclude='assets/_originales' --exclude='assets/marca/*.py' `
+    --exclude='assets/img/*.jpg' --exclude='assets/img/*/*.jpg' `
+    --exclude='assets/img/a_webp.py' --exclude='encargo*' --exclude='README.md' `
+    --exclude='PRODUCT.md' --exclude='.git' -czf michelle.tgz .
 ```
-
-Editar aquí no cambia lo que ve nadie hasta que se corre eso.
 
 Detalles del montaje que no se adivinan:
 
-- El sitio de nginx es `vise-michelle`. **No lleva `auth_basic`**, a diferencia
-  de los tableros: tiene que poder verlo cualquiera.
+- El vhost es `vise-michelle`. **No lleva `auth_basic`**: tiene que poder verlo
+  cualquiera.
 - Escucha en **8443** (IPv4) y en **[::]:443** (IPv6). El 443 lo reparte el
-  bloque `stream` de `nginx.conf` por SNI hacia el 8443; escuchar en 443 a
-  secas chocaría con él.
-- Certificado de Let's Encrypt, renovación automática ya programada.
+  bloque `stream` de `nginx.conf` por SNI hacia el 8443.
+- El certificado se emite con `lego` por TLS-ALPN-01 (el 80 es de otro
+  servicio) y se renueva con un timer diario.
 - **Desde la red de la oficina el 443 no abre.** Que no cargue desde el PC no
-  significa que esté caído: vale el `curl` que corre en el propio servidor, o
-  abrirlo desde el celular con datos.
-
-Si algún día se quiere un enlace más presentable, es una carpeta estática:
-entra igual en Netlify, Vercel o GitHub Pages con un dominio propio.
+  significa que esté caído: vale un `curl` desde el propio servidor, o abrirlo
+  desde el celular con datos.
 
 ## Estructura
 
