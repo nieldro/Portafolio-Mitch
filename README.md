@@ -84,10 +84,11 @@ gótica genérica — se extendió la que ella ya había diseñado.
 | Token | Valor | Uso |
 |---|---|---|
 | `--azabache` | `#0A0809` | Fondo general |
-| `--terciopelo` | `#1A0E12` | Fondos de sección y passe-partout |
+| `--terciopelo` | `#1A0E12` | Fondos de sección |
 | `--sangre` | `#6E1220` | Rojo de cuerpo, botones |
-| `--carmin` | `#B3121F` | Único acento vivo, muy medido |
-| `--oro` | `#B08D57` | Filetes, versalitas, ornamento |
+| `--carmin` | `#B3121F` | Único acento vivo, solo en lo grande (2,9:1 sobre azabache) |
+| `--carmin-texto` | `#E5444F` | El mismo rojo, aclarado, para texto chico (5:1) |
+| `--oro` | `#A09481` | Ceniza: filetes, versalitas, ornamento (sin dorado) |
 | `--hueso` | `#E6DCC8` | Todo el texto |
 
 Tipografías: **Bodoni Moda** (didona, display), **EB Garamond** (texto y
