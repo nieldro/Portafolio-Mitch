@@ -2063,3 +2063,6 @@ html{scroll-padding-top:4.5rem;color-scheme:dark}   /* barras de desplazamiento 
 /* Titulares equilibrados y parrafos sin palabra huerfana al final */
 h1,h2,h3,.titulo,.lamina__tit{text-wrap:balance}
 p,figcaption,.seccion__nota,.lamina__txt{text-wrap:pretty}
+
+/* Celular: sin retardo de doble toque ni resalte gris al pulsar */
+a,button,[role=button],.lamina__marco,.vitrina,.mas__pieza,.pieza-web{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
