@@ -54,13 +54,15 @@ marca.html            Hoja del sistema de marca «Mitch»
 encargo.html          Cuestionario para Michelle, con miniaturas
 encargo-michelle.txt  El mismo cuestionario para pegar en un correo
 
+manifest.webmanifest  Instalable en la pantalla de inicio del celular
 css/style.css         Tokens de color/tipografía y toda la maqueta
 js/main.js            Telón, cursor, revelados, gabinete fijado y visor
 
-assets/img/           Piezas a 1800 px (las que abre el visor)
-assets/img/thumb/     Piezas a 900 px (las que se ven en la página)
-assets/img/detalle/   Ampliaciones de las cuatro láminas mayores
-assets/marca/         SVG de la marca + los generadores
+assets/img/           Piezas a 1800 px en WebP (las que abre el visor)
+assets/img/thumb/     Piezas a 900 px en WebP (las que se ven en la página)
+assets/img/detalle/   Ampliaciones de las tres láminas mayores, en WebP
+assets/img/a_webp.py  Convierte los JPG de una carpeta a WebP
+assets/marca/         SVG de la marca, iconos PNG y los generadores
 assets/_originales/   Los archivos tal como se descargaron, sin tocar
 ```
 
@@ -70,6 +72,7 @@ salidas a mano:
 ```powershell
 python assets\marca\generar.py    # los SVG de la marca
 python assets\marca\detalles.py   # los recortes de detalle + hoja de contactos
+python -I assets\img\a_webp.py assets\img\thumb   # JPG -> WebP (idem detalle y assets\img)
 ```
 
 ## Dirección de arte
