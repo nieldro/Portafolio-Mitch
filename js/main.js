@@ -212,7 +212,7 @@ if (!quieto) {
 
 const enlacesBarra = [...barra.querySelectorAll('.barra__nav a:not(.solo-movil)')];
 const dueno = {
-  laminas: 'laminas', pantalla: 'laminas', gabinete: 'gabinete', retrato: 'retrato',
+  laminas: 'laminas', mas: 'laminas', pantalla: 'laminas', gabinete: 'gabinete', retrato: 'retrato',
   oficios: 'oficios', metodo: 'oficios', trayectoria: 'oficios'
 };
 const tramos = Object.keys(dueno)
@@ -376,6 +376,16 @@ document.querySelectorAll('[data-lamina]').forEach(lam => {
     gsap.set(velo, { display: 'none' });
   }
 });
+
+/* ───────── Papelería y editorial: entran de a una ───────── */
+
+if (!quieto) {
+  gsap.from('.mas__pieza', {
+    y: 40, opacity: 0, duration: 1, stagger: .14, ease: 'power3.out',
+    scrollTrigger: { trigger: '.mas__fila', start: 'top 86%' },
+    clearProps: 'transform,opacity'
+  });
+}
 
 /* ───────── Tiras de detalle ───────── */
 
