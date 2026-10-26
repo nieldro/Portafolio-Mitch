@@ -28,6 +28,7 @@
   /* Métrica */
   --caja:1280px;
   --aire:clamp(4.5rem,9vw,8rem);      /* respiracion entre secciones */
+  --marco-lado:clamp(1rem,3.5vw,2.6rem);
   --marco-sup:5.8rem;                /* el marco del banner nace bajo la barra */
   --borde:1px solid rgba(138,126,110,.28);
   --curva:cubic-bezier(.22,1,.36,1);
@@ -454,25 +455,29 @@ main{position:relative;z-index:1}
 .cartela{
   position:absolute;
   /* arranca debajo de la barra: antes sus lineas la cruzaban */
-  inset:var(--marco-sup) clamp(1rem,3.5vw,2.6rem) clamp(1rem,3.5vw,2.6rem);
-  width:auto;height:auto;
+  top:var(--marco-sup);
+  left:var(--marco-lado);
+  /* medidas explicitas: un svg posicionado con top+bottom toma su proporcion
+     intrinseca y el rectangulo quedaba mucho mas corto que sus esquinas */
+  width:calc(100% - var(--marco-lado) * 2);
+  height:calc(100% - var(--marco-sup) - var(--marco-lado));
   pointer-events:none;
 }
 .cartela__caja{
+  vector-effect:non-scaling-stroke;   /* 1 px parejo en horizontales y verticales aunque se estire */
   fill:none;
   stroke:var(--oro);
   stroke-width:1;
   opacity:.4;
-  stroke-dasharray:3760;
+  stroke-dasharray:9000;   /* en px de pantalla (trazo no escalable): mayor que cualquier perimetro */
   stroke-dashoffset:0;
 }
-.cartela__caja--fina{opacity:.2;stroke-dasharray:3630}
+.cartela__caja--fina{opacity:.2}
 
 /* Solo con JS el grabado empieza en blanco para entintarse.
    El guion debe ser más largo que el trazo: si no, el ornamento
    sale a rayas en vez de entero. */
-html.tiene-js .cartela__caja{stroke-dashoffset:3760}
-html.tiene-js .cartela__caja--fina{stroke-dashoffset:3630}
+html.tiene-js .cartela__caja{stroke-dashoffset:9000}
 html.tiene-js .cartela-esq{stroke-dashoffset:1200}
 
 .cartela-esq{
@@ -487,10 +492,10 @@ html.tiene-js .cartela-esq{stroke-dashoffset:1200}
   stroke-dasharray:1200;
   stroke-dashoffset:0;
 }
-.cartela-esq--si{top:var(--marco-sup);left:clamp(1rem,3.5vw,2.6rem);transform:scaleX(-1)}
-.cartela-esq--sd{top:var(--marco-sup);right:clamp(1rem,3.5vw,2.6rem)}
-.cartela-esq--ii{bottom:clamp(1rem,3.5vw,2.6rem);left:clamp(1rem,3.5vw,2.6rem);transform:scale(-1,-1)}
-.cartela-esq--id{bottom:clamp(1rem,3.5vw,2.6rem);right:clamp(1rem,3.5vw,2.6rem);transform:scaleY(-1)}
+.cartela-esq--si{top:var(--marco-sup);left:var(--marco-lado);transform:scaleX(-1)}
+.cartela-esq--sd{top:var(--marco-sup);right:var(--marco-lado)}
+.cartela-esq--ii{bottom:var(--marco-lado);left:var(--marco-lado);transform:scale(-1,-1)}
+.cartela-esq--id{bottom:var(--marco-lado);right:var(--marco-lado);transform:scaleY(-1)}
 
 .frontis__cuerpo{position:relative;z-index:2;max-width:62rem}
 
