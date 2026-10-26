@@ -103,27 +103,32 @@ Tres mecánicas, la misma idea: *papel grabado bajo luz de vela*.
    con `stroke-dashoffset` al entrar en pantalla, como una plancha de calcografía.
 2. **El damasco solo se ve donde cae la luz.** El papel pintado de fondo está
    enmascarado con un degradado radial que sigue al cursor.
-3. **La ruleta.** Las 13 piezas van montadas en una rueda enorme
-   (`--radio` ≈ 950 px) cuyo centro cae por debajo de la pantalla: solo se ve
-   el arco de arriba. El scroll la gira, y la ficha que llega a las doce manda.
+3. **La ruleta.** Las 7 piezas verticales van montadas en una rueda cuyo centro
+   cae por debajo de la pantalla: solo se ve el arco de arriba. El scroll la
+   gira, y la ficha que llega a las doce manda. Cada ficha mide exactamente lo
+   que su imagen (`--ar` = ancho/alto): completa, sin recorte ni bandas.
 
 ### Cómo está armada la ruleta
 
 - El disco es un elemento de **0 × 0** posicionado en el centro de la rueda.
   Cada ficha se coloca con `rotate(var(--ang)) translateY(calc(var(--radio) * -1))`,
   así que gira **con** la rueda: la que llega arriba queda derecha y las demás
-  ladeadas. Por eso el título vive fuera, en `.ruleta__ficha` — sobre una
-  tarjeta girada no se podría leer.
+  ladeadas.
+- **No hay texto sobre las imágenes.** El título vive en `.ruleta__ficha`, que
+  queda solo para lectores de pantalla (`aria-live`); el nombre completo sale
+  en el visor.
 - El aro fresado es un `<circle>` con `stroke-dasharray`: las rayas cortas
   hacen de moneda acuñada sin dibujar 120 dientes a mano.
 - `--alza` fija a qué altura queda la ficha activa **independientemente del
-  radio**: `100svh − alza`. Si cambias el radio, la composición no se mueve.
-- En la rueda las imágenes van a sangre (`object-fit:cover`); el
-  passe-partout dejaba la pieza diminuta dentro del marco. La obra completa
-  se ve en el visor.
-- Por debajo de 860 px, o con movimiento reducido, la rueda **no se monta**:
-  las mismas fichas quedan como tira horizontal. Es el mismo marcado.
-- Las cuatro láminas mayores salen dos veces en la página (como lámina y como
+  radio**: `100svh − alza`, y deja libres los puntos y los botones de abajo.
+- Solo se ven la activa y sus vecinas (`.es-lejos` apaga el resto): con pocas
+  fichas en un círculo cerrado, las lejanas se amontonaban detrás de los botones.
+- Los puntos (`#rl-puntos`) llevan a una pieza por el camino más corto.
+- Las piezas **horizontales** no entran en la rueda (se verían recortadas):
+  salen enteras en la sección «Papelería y editorial».
+- Con movimiento reducido, o en un celular de lado (menos de 540 px de alto),
+  la rueda **no se monta**: las mismas fichas quedan como tira horizontal.
+- Las láminas mayores salen dos veces en la página (como lámina y como
   ficha). El visor **deduplica por `data-src`** para que las flechas no repitan.
 
 ## Detalles que cuestan tiempo si no se saben
@@ -148,9 +153,12 @@ Tres mecánicas, la misma idea: *papel grabado bajo luz de vela*.
   escucha en `window` y solo se considera arrastre a partir de 6 px.
 - **El indicador «Descender» va en el flujo, no en absoluto.** Colgado del
   fondo del hero se montaba encima de los botones en pantallas bajas.
-- **La rueda también se monta en celular.** Con `--radio` más cerrado caben
-  tres fichas en un teléfono; degradarla a tira dejaba la mitad del sitio sin
-  fuerza. Solo se cae con movimiento reducido.
+- **La rueda también se monta en celular**, con un radio más cerrado y la
+  ficha más chica. Solo se cae con movimiento reducido o pantalla muy baja.
+- **`gsap.from(img,{scale:1.12})` dentro de un timeline se quedaba pegado en
+  1,12** y recortaba cada lámina (overflow oculto). Va como `fromTo` explícito.
+- **El `<a id="subir">` va antes de los `<script>`**: si queda después,
+  `getElementById` da `null` al cargar `main.js` y el botón nunca se activa.
 - **Todo `[id]` lleva `scroll-margin-top`.** La barra es fija: sin eso, ir a
   una sección desde el menú deja el título escondido detrás de ella.
 - **Cosas que en celular hay que cambiar, no solo encoger:** el damasco va a
@@ -158,8 +166,8 @@ Tres mecánicas, la misma idea: *papel grabado bajo luz de vela*.
   texto), el capitular **no flota** (a 390 px la letra queda despegada de su
   palabra y se lee «E mpaque»), y los instrumentos van en línea y no a
   renglón por herramienta (eran 1.200 px de scroll para una lista).
-- **El marco del frontispicio arranca a 80 px en celular**, no a 16: si no,
-  la voluta derecha choca con el botón del menú.
+- **El marco del frontispicio nace bajo la barra** (`--marco-sup`), en todos los
+  anchos: arrancando arriba, sus líneas cruzaban el logo y el botón.
 - **El `.ps1` necesita BOM.** PowerShell 5.1 lee un `.ps1` sin BOM como ANSI y
   destroza los acentos de los mensajes en pantalla.
 - **En la hoja de vida, el quiebre responsive va con `@media screen`.**
