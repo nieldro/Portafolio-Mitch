@@ -2059,3 +2059,7 @@ html{scroll-padding-top:4.5rem}
   .camafeo__aro ellipse{stroke-dashoffset:0}
   .lamina__velo{display:none}
 }
+
+/* Titulares equilibrados y parrafos sin palabra huerfana al final */
+h1,h2,h3,.titulo,.lamina__tit{text-wrap:balance}
+p,figcaption,.seccion__nota,.lamina__txt{text-wrap:pretty}
