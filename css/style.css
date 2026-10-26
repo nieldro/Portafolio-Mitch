@@ -2068,3 +2068,9 @@ p,figcaption,.seccion__nota,.lamina__txt{text-wrap:pretty}
 
 /* Celular: sin retardo de doble toque ni resalte gris al pulsar */
 a,button,[role=button],.lamina__marco,.vitrina,.mas__pieza,.pieza-web{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+
+/* Celulares con muesca o esquinas redondeadas: la barra y el contenido respetan el area segura */
+@supports (padding:max(0px)){
+  .barra{padding-left:max(clamp(1.1rem,4vw,3rem),env(safe-area-inset-left));padding-right:max(clamp(1.1rem,4vw,3rem),env(safe-area-inset-right))}
+  .pie{padding-bottom:max(2.5rem,calc(env(safe-area-inset-bottom) + 1.5rem))}
+}
