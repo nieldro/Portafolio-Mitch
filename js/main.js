@@ -230,8 +230,11 @@ function actualizarNav() {
       if (t.el.getBoundingClientRect().top + window.scrollY <= linea) aqui = t.id;
     }
     const objetivo = aqui ? dueno[aqui] : null;
-    enlacesBarra.forEach(a =>
-      a.classList.toggle('esta-aqui', a.getAttribute('href') === '#' + objetivo));
+    enlacesBarra.forEach(a => {
+      const aqui = a.getAttribute('href') === '#' + objetivo;
+      a.classList.toggle('esta-aqui', aqui);
+      if (aqui) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+    });
     if (subir) subir.classList.toggle('es-visible', window.scrollY > window.innerHeight * 1.1);
   }
 }
