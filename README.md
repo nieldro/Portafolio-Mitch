@@ -185,3 +185,13 @@ previo mostraba además 15 proyectos de relleno con fotos de banco
 Sainte, Verde Hotel, Nexa, Pop Color, Miel Permaliue, Palenta, Whisper Wedding,
 Cuentos del Bosque). Si alguno corresponde a trabajo real, hay que pedirle los
 archivos y añadirlo con su imagen verdadera.
+
+## Cómo se revisa
+
+Con el sitio servido en local, un navegador sin interfaz mide lo que importa:
+desborde horizontal de 320 a 1920 px, imágenes rotas, zonas táctiles de menos
+de 44 px, errores de consola y, con capturas, que ninguna pieza salga cortada.
+Es `playwright-core` apuntando al Chromium instalado; el detector de
+`impeccable` (`detect --viewport 390x844 http://localhost:8123`) cubre texto
+chico, contraste y patrones sospechosos. Siempre hay que mirar el render:
+compilar o pasar el detector no prueba que algo se vea bien.
