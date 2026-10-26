@@ -447,7 +447,11 @@ main{position:relative;z-index:1}
   min-height:100svh;
   display:grid;
   place-items:center;
-  padding:9rem clamp(1.6rem,6vw,4rem) 7rem;
+  /* el relleno sigue el alto de la pantalla: en un portatil bajo, la portada
+     entera (marco, titulo, botones y Descender) cabe en la primera vista */
+  /* holgura: el contenido arranca bajo el filete interior del marco (que cae al 3,7 %
+     de su alto) y termina antes del inferior, sin tocarlos */
+  padding:clamp(9.6rem,17svh,11rem) clamp(1.8rem,6vw,4rem) clamp(5.8rem,10svh,8rem);
   text-align:center;
   overflow:hidden;
 }
@@ -501,7 +505,7 @@ html.tiene-js .cartela-esq{stroke-dashoffset:1200}
 
 .masthead{
   font-family:var(--display);
-  font-size:clamp(3.2rem,11.5vw,9.4rem);
+  font-size:clamp(3.2rem,min(11.5vw,17svh),9.4rem);
   line-height:.84;
   letter-spacing:-.035em;
   margin:.25rem 0 .9rem;
