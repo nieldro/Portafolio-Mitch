@@ -1,4 +1,4 @@
-﻿"""Convierte los JPG de una carpeta a WebP (calidad 82, esfuerzo maximo).
+"""Convierte los JPG de una carpeta a WebP (calidad 82, esfuerzo maximo).
 
 Uso:  python -I assets/img/a_webp.py assets/img/thumb
 No borra los JPG: quedan como originales de trabajo y no se despliegan.
