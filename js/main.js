@@ -149,18 +149,19 @@ ScrollTrigger.create({
   onUpdate: self => barra.classList.toggle('esta-posada', self.scroll() > 80)
 });
 
-hamb.addEventListener('click', () => {
-  const abierta = barra.classList.toggle('esta-abierta');
+function menu(abierta) {
+  barra.classList.toggle('esta-abierta', abierta);
   hamb.setAttribute('aria-expanded', String(abierta));
+  hamb.setAttribute('aria-label', abierta ? 'Cerrar menú' : 'Abrir menú');
   document.body.classList.toggle('esta-quieto', abierta);
+}
+hamb.addEventListener('click', () => menu(!barra.classList.contains('esta-abierta')));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && barra.classList.contains('esta-abierta')) { menu(false); hamb.focus(); }
 });
 
 barra.querySelectorAll('.barra__nav a, .barra__cta').forEach(a => {
-  a.addEventListener('click', () => {
-    barra.classList.remove('esta-abierta');
-    hamb.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('esta-quieto');
-  });
+  a.addEventListener('click', () => menu(false));
 });
 
 /* ───────── Revelados generales ───────── */
@@ -203,38 +204,41 @@ if (!quieto) {
     })
   });
 }
-/* ───────── Índice lateral ───────── */
+/* ───────── Sección actual en la barra + volver arriba ─────────
+   La posición se mide en vivo, no con un ScrollTrigger por sección: el
+   anclaje del gabinete mete dos pantallas de espaciado y dejaba todas las
+   medidas de más abajo corridas, marcando la sección equivocada. Las
+   secciones sin enlace propio cuentan para la anterior que sí lo tiene. */
 
-const rielIndice = document.getElementById('indice');
-if (rielIndice) {
-  /* La posición se mide en vivo, no con un ScrollTrigger por sección:
-     el anclaje del gabinete mete dos pantallas de espaciado y dejaba
-     todas las medidas de más abajo corridas, marcando la sección
-     equivocada. */
-  const tramos = [...rielIndice.querySelectorAll('a')]
-    .map(a => ({ a, el: document.getElementById(a.dataset.indice) }))
-    .filter(t => t.el);
+const enlacesBarra = [...barra.querySelectorAll('.barra__nav a:not(.solo-movil)')];
+const dueno = {
+  laminas: 'laminas', pantalla: 'laminas', gabinete: 'gabinete', retrato: 'retrato',
+  oficios: 'oficios', metodo: 'oficios', trayectoria: 'oficios'
+};
+const tramos = Object.keys(dueno)
+  .map(id => ({ id, el: document.getElementById(id) }))
+  .filter(t => t.el);
+const subir = document.getElementById('subir');
 
-  ScrollTrigger.create({
-    onUpdate: () => {
-      const linea = window.scrollY + window.innerHeight * .45;
-      let aqui = null;
-      for (const t of tramos) {
-        if (t.el.getBoundingClientRect().top + window.scrollY <= linea) aqui = t;
-      }
-      tramos.forEach(t => t.a.classList.toggle('esta-aqui', t === aqui));
+let pintandoNav = false;
+function actualizarNav() {
+  pintandoNav = false;
+  {
+    const linea = window.scrollY + window.innerHeight * .45;
+    let aqui = null;
+    for (const t of tramos) {
+      if (t.el.getBoundingClientRect().top + window.scrollY <= linea) aqui = t.id;
     }
-  });
-
-  /* Aparece pasado el frontispicio: en la portada estorbaría */
-  gsap.set(rielIndice, { opacity: 0, x: 14 });
-  ScrollTrigger.create({
-    trigger: '#laminas', start: 'top 85%',
-    onEnter:     () => gsap.to(rielIndice, { opacity: 1, x: 0,  duration: .7 }),
-    onLeaveBack: () => gsap.to(rielIndice, { opacity: 0, x: 14, duration: .5 })
-  });
+    const objetivo = aqui ? dueno[aqui] : null;
+    enlacesBarra.forEach(a =>
+      a.classList.toggle('esta-aqui', a.getAttribute('href') === '#' + objetivo));
+    if (subir) subir.classList.toggle('es-visible', window.scrollY > window.innerHeight * 1.1);
+  }
 }
-
+window.addEventListener('scroll', () => {
+  if (!pintandoNav) { pintandoNav = true; requestAnimationFrame(actualizarNav); }
+}, { passive: true });
+actualizarNav();
 /* ───────── Las piezas web se descubren de abajo hacia arriba ───────── */
 
 if (!quieto) {
@@ -296,25 +300,7 @@ gsap.utils.toArray('[data-cesura]').forEach(c => {
                  { opacity: 1, scale: 1, rotate: 0, duration: .8, ease: 'back.out(2.2)' }, '-=.55');
 });
 
-/* ───────── Imán: los botones se acercan al cursor ───────── */
-
 if (fino && !quieto) {
-  /* Las flechas del visor no: ya llevan un translate propio que
-     las centra, y darles x/y lo pisaría. */
-  document.querySelectorAll('.boton, .barra__cta, .ruleta__flecha, .ruleta__aguja')
-    .forEach(el => {
-      el.addEventListener('mousemove', e => {
-        const r = el.getBoundingClientRect();
-        gsap.to(el, {
-          x: (e.clientX - r.left - r.width / 2) * .26,
-          y: (e.clientY - r.top - r.height / 2) * .3,
-          duration: .5, ease: 'power3.out'
-        });
-      });
-      el.addEventListener('mouseleave', () =>
-        gsap.to(el, { x: 0, y: 0, duration: .8, ease: 'elastic.out(1,.45)' }));
-    });
-
   /* ───────── Las láminas se inclinan hacia el cursor ───────── */
   document.querySelectorAll('.lamina__marco').forEach(m => {
     m.addEventListener('mousemove', e => {
@@ -419,11 +405,34 @@ fichas.forEach((f, i) => f.style.setProperty('--ang', (i * PASO).toFixed(4) + 'd
 
 let activo = -1;
 
+/* Puntos: un toque lleva a esa pieza por el camino más corto */
+const contPuntos = document.getElementById('rl-puntos');
+const puntos = fichas.map((f, i) => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'ruleta__punto';
+  b.setAttribute('aria-label', 'Ir a la pieza ' + f.dataset.num + ': ' + f.dataset.titulo);
+  b.addEventListener('click', () => {
+    let d = i - Math.max(activo, 0);
+    const n = fichas.length;
+    if (d > n / 2) d -= n;
+    if (d < -n / 2) d += n;
+    inercia = 0;
+    rotArrastre -= d * PASO;
+  });
+  contPuntos.appendChild(b);
+  return b;
+});
+
 function marcarActiva(i) {
   if (i === activo || !fichas[i]) return;
   activo = i;
   const f = fichas[i];
   fichas.forEach((x, j) => x.classList.toggle('es-activa', j === i));
+  puntos.forEach((p, j) => {
+    p.classList.toggle('es-activo', j === i);
+    p.setAttribute('aria-current', j === i ? 'true' : 'false');
+  });
   /* Solo se ven la activa y sus vecinas: las demás de la rueda se apagan,
      para que no se amontonen detrás de los botones */
   const alcance = window.innerWidth <= 860 ? 1 : 2;

@@ -125,27 +125,18 @@
   <div class="barra__panel">
     <nav class="barra__nav" aria-label="Secciones">
       <a href="#laminas"><span class="num">I</span> Láminas</a>
+      <a class="solo-movil" href="#pantalla">Web e interfaz</a>
       <a href="#gabinete"><span class="num">II</span> Gabinete</a>
       <a href="#retrato"><span class="num">III</span> Retrato</a>
       <a href="#oficios"><span class="num">IV</span> Oficios</a>
+      <a class="solo-movil" href="#metodo">Taller</a>
+      <a class="solo-movil" href="#trayectoria">Trayectoria</a>
     </nav>
     <a class="barra__cta" href="#correspondencia">Correspondencia</a>
   </div>
   <button class="barra__hamb" id="hamb" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
   <i class="barra__aguja" id="aguja" aria-hidden="true"></i>
 </header>
-
-<!-- ═══════ Índice lateral ═══════ -->
-<nav class="indice" id="indice" aria-label="Índice de secciones">
-  <a href="#laminas"      data-indice="laminas"><i></i><span>Láminas</span></a>
-  <a href="#pantalla"     data-indice="pantalla"><i></i><span>Pantalla</span></a>
-  <a href="#gabinete"     data-indice="gabinete"><i></i><span>Gabinete</span></a>
-  <a href="#retrato"      data-indice="retrato"><i></i><span>Retrato</span></a>
-  <a href="#oficios"      data-indice="oficios"><i></i><span>Oficios</span></a>
-  <a href="#metodo"       data-indice="metodo"><i></i><span>Taller</span></a>
-  <a href="#trayectoria"  data-indice="trayectoria"><i></i><span>Trayectoria</span></a>
-  <a href="#correspondencia" data-indice="correspondencia"><i></i><span>Contacto</span></a>
-</nav>
 
 <!-- ═══════ I. Frontispicio ═══════ -->
 <main id="contenido" tabindex="-1">
@@ -383,6 +374,8 @@
         </article>
 
       </div>
+
+      <div class="ruleta__puntos" id="rl-puntos" role="group" aria-label="Elegir pieza"></div>
 
       <div class="ruleta__mando">
         <button class="ruleta__flecha" id="rl-prev" aria-label="Lámina anterior">&#8249;</button>
@@ -663,6 +656,7 @@
   </figure>
 </div>
 
+<a class="subir" id="subir" href="#frontispicio" aria-label="Volver arriba"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6 11.5 12 5.5l6 6"/></svg></a>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="js/main.js"></script>

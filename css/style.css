@@ -298,10 +298,6 @@ html.tiene-js .telon{
   color:var(--hueso);
   transition:background-color .4s ease,border-color .4s ease,color .4s ease;
 }
-@media (hover:hover){
-  .barra__cta:hover,
-  .barra__cta:focus-visible{background:var(--sangre);border-color:var(--sangre)}
-}
 
 /* Aguja de avance: cuánto llevas leído del catálogo */
 .barra__aguja{
@@ -324,57 +320,6 @@ html.tiene-js .telon{
 .barra__hamb span:last-child{bottom:7px}
 .barra.esta-abierta .barra__hamb span:first-child{transform:translateY(4px) rotate(45deg)}
 .barra.esta-abierta .barra__hamb span:last-child{transform:translateY(-4px) rotate(-45deg)}
-
-/* ───────────────────────────────────────────
-   ÍNDICE LATERAL
-   Un riel a la derecha que dice dónde va uno. El nombre solo aparece
-   en la sección activa o al pasar el cursor: si estuvieran todos, sería
-   un segundo menú compitiendo con la barra.
-   ─────────────────────────────────────────── */
-
-.indice{
-  position:fixed;
-  right:clamp(1rem,2.2vw,2.2rem);
-  top:50%;
-  transform:translateY(-50%);
-  z-index:65;
-  display:grid;
-  gap:.95rem;
-  justify-items:end;
-}
-.indice a{
-  display:flex;
-  align-items:center;
-  gap:.7rem;
-  color:var(--hueso-tenue);
-}
-.indice i{
-  width:22px;height:1px;
-  background:rgba(138,126,110,.55);
-  transition:width .55s var(--curva),background-color .45s ease;
-}
-.indice span{
-  font-size:.72rem;
-  letter-spacing:.24em;
-  text-transform:uppercase;
-  opacity:0;
-  transform:translateX(6px);
-  transition:opacity .45s ease,transform .5s var(--curva);
-  white-space:nowrap;
-}
-@media (hover:hover){
-  .indice a:hover i,
-  .indice a:focus-visible i{width:38px;background:var(--hueso)}
-}
-@media (hover:hover){
-  .indice a:hover span,
-  .indice a:focus-visible span{opacity:1;transform:translateX(0)}
-}
-.indice a.esta-aqui i{width:44px;background:var(--carmin)}
-.indice a.esta-aqui span{opacity:1;transform:translateX(0);color:var(--hueso)}
-
-/* El riel lateral solo cabe donde hay margen libre: antes pisaba el contenido */
-@media (max-width:1480px){.indice{display:none}}
 
 /* ───────────────────────────────────────────
    PIEZAS COMUNES
@@ -446,25 +391,7 @@ main{position:relative;z-index:1}
   overflow:hidden;
   transition:color .4s ease,border-color .4s ease;
 }
-.boton::before{
-  content:"";
-  position:absolute;inset:0;
-  background:var(--sangre);
-  transform:scaleX(0);
-  transform-origin:right;
-  transition:transform .55s var(--curva);
-  z-index:-1;
-}
-@media (hover:hover){
-  .boton:hover,
-  .boton:focus-visible{border-color:var(--sangre)}
-}
-@media (hover:hover){
-  .boton:hover::before,
-  .boton:focus-visible::before{transform:scaleX(1);transform-origin:left}
-}
 .boton--lleno{background:var(--sangre);border-color:var(--sangre)}
-.boton--lleno::before{background:var(--carmin)}
 .boton--grande{padding:1.25rem 3rem;font-size:.8rem}
 
 .enlace{
@@ -1081,7 +1008,7 @@ html.tiene-js .lamina__velo{display:block}
 
 .ruleta.es-ruleta{
   --radio:clamp(430px,50vw,720px);
-  --alza:calc(var(--alto-f) / 2 + 8rem);   /* deja libres los botones de abajo */
+  --alza:calc(var(--alto-f) / 2 + 9.6rem);   /* deja libres los botones de abajo */
   --alto-f:clamp(320px,min(46vh,34vw),520px);
   position:absolute;
   inset:0;
@@ -1204,10 +1131,6 @@ html.tiene-js .lamina__velo{display:block}
   border:1px solid rgba(138,126,110,.32);
   padding:.85rem 1.6rem;
   transition:background-color .4s ease,border-color .4s ease;
-}
-@media (hover:hover){
-  .ruleta__aguja:hover,
-  .ruleta__aguja:focus-visible{background:var(--sangre);border-color:var(--sangre)}
 }
 
 /* ───────────────────────────────────────────
@@ -1956,6 +1879,121 @@ html{scroll-padding-top:4.5rem}
   ::view-transition-new(root){animation:vt-entra .55s var(--curva) both}
   @keyframes vt-sale{to{opacity:0}}
   @keyframes vt-entra{from{opacity:0}}
+}
+/* ───────────────────────────────────────────
+   BOTONES: UNA SOLA RECETA
+   Ninguno se desplaza ni cambia de tamaño. Al pasar el mouse (o enfocar
+   con teclado) el relleno entra de izquierda a derecha y el borde toma
+   el mismo color; los redondos solo se rellenan. Al soltar, se retira.
+   ─────────────────────────────────────────── */
+
+.boton,
+.barra__cta,
+.ruleta__aguja{
+  --relleno:var(--sangre);
+  isolation:isolate;
+  background-image:linear-gradient(var(--relleno),var(--relleno));
+  background-repeat:no-repeat;
+  background-position:left center;
+  background-size:0% 100%;
+  text-align:center;
+  transition:background-size .55s var(--curva),color .35s ease,border-color .35s ease;
+}
+.boton--lleno{--relleno:var(--carmin)}
+.ruleta__flecha,
+.visor__cerrar,
+.visor__flecha{transition:background-color .35s ease,border-color .35s ease,color .35s ease}
+
+@media (hover:hover){
+  .boton:hover,
+  .boton:focus-visible,
+  .barra__cta:hover,
+  .barra__cta:focus-visible,
+  .ruleta__aguja:hover,
+  .ruleta__aguja:focus-visible{
+    background-size:100% 100%;
+    border-color:var(--relleno);
+    color:var(--hueso);
+  }
+}
+
+/* Pares de botones: mismo ancho, para que lo que va entre ellos (la
+   calavera de la tarjeta) quede en el eje exacto */
+.frontis__acciones .boton{width:min(15rem,100%);padding-inline:1rem}
+.tarjeta__acciones .boton{width:min(18rem,100%);padding-inline:1rem}
+
+/* ───────────────────────────────────────────
+   NAVEGACIÓN
+   ─────────────────────────────────────────── */
+
+.solo-movil{display:none}
+.barra__nav a.esta-aqui{color:var(--hueso)}
+.barra__nav a.esta-aqui::after{transform:scaleX(1);transform-origin:left;background:var(--carmin-texto)}
+
+.subir{
+  position:fixed;
+  z-index:70;
+  right:max(1rem,env(safe-area-inset-right));
+  bottom:max(1rem,env(safe-area-inset-bottom));
+  display:grid;
+  place-items:center;
+  width:48px;height:48px;
+  border:1px solid rgba(138,126,110,.4);
+  border-radius:50%;
+  background:rgba(10,8,9,.82);
+  color:var(--hueso);
+  opacity:0;
+  visibility:hidden;
+  translate:0 12px;
+  transition:opacity .4s ease,translate .5s var(--curva),visibility .4s,background-color .35s ease,border-color .35s ease;
+}
+.subir.es-visible{opacity:1;visibility:visible;translate:0 0}
+.subir svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+@media (hover:hover){
+  .subir:hover,
+  .subir:focus-visible{background:var(--sangre);border-color:var(--sangre)}
+}
+.subir:active{scale:.94}
+
+/* Puntos del carrusel: solo cuando la rueda está montada */
+.ruleta__puntos{display:none}
+.ruleta.es-ruleta .ruleta__puntos{
+  display:flex;
+  position:absolute;
+  z-index:4;
+  left:50%;
+  bottom:calc(clamp(1.6rem,5vh,3rem) + 46px + .7rem);
+  transform:translateX(-50%);
+  gap:0;
+}
+.ruleta__punto{
+  position:relative;
+  width:30px;height:44px;
+  display:grid;
+  place-items:center;
+}
+.ruleta__punto::before{
+  content:"";
+  width:7px;height:7px;
+  border-radius:50%;
+  background:rgba(201,188,166,.38);
+  transition:width .45s var(--curva),background-color .35s ease,border-radius .45s var(--curva);
+}
+.ruleta__punto.es-activo::before{width:22px;border-radius:4px;background:var(--carmin-texto)}
+@media (hover:hover){
+  .ruleta__punto:hover::before,
+  .ruleta__punto:focus-visible::before{background:var(--hueso)}
+}
+
+@media (max-width:860px){
+  /* Menú del celular: todas las secciones, sin numerales romanos, con
+     toques cómodos y en el orden de la página */
+  .solo-movil{display:block}
+  .barra__nav{gap:0}
+  .barra__nav a{padding:.8rem 1.4rem;font-size:1.02rem}
+  .barra__nav a .num{display:none}
+  .barra__panel{gap:2rem}
+  .barra__nav a.esta-aqui{color:var(--carmin-texto)}
 }
 /* ───────────────────────────────────────────
    MOVIMIENTO REDUCIDO
