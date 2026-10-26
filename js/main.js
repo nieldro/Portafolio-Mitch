@@ -192,6 +192,20 @@ document.querySelectorAll('[data-partir]').forEach(el => {
   }
 });
 
+/* ───────── Listas: entran en escalera ───────── */
+
+if (!quieto) {
+  const listas = '.oficio, .paso, .taller__grupo, .linea li';
+  gsap.set(listas, { opacity: 0, y: 26 });
+  ScrollTrigger.batch(listas, {
+    start: 'top 92%',
+    once: true,
+    onEnter: lote => gsap.to(lote, {
+      opacity: 1, y: 0, duration: .9, stagger: .08, ease: 'power3.out',
+      overwrite: true, clearProps: 'transform'
+    })
+  });
+}
 /* ───────── Índice lateral ───────── */
 
 const rielIndice = document.getElementById('indice');

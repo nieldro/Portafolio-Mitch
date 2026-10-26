@@ -260,9 +260,12 @@ html.tiene-js .telon{
   color:var(--carmin);
   transition:color .45s ease,transform .6s var(--curva);
 }
-.barra__marca:hover .barra__marca-sig{
-  color:var(--hueso);
-  transform:translateY(-3px) rotate(-5deg);
+@media (hover:hover){
+  .barra__marca:hover .barra__marca-sig,
+  .barra__marca:focus-visible .barra__marca-sig{
+    color:var(--hueso);
+    transform:translateY(-3px) rotate(-5deg);
+  }
 }
 .barra__nombre{
   font-family:var(--display);
@@ -298,8 +301,14 @@ html.tiene-js .telon{
   transform-origin:right;
   transition:transform .45s var(--curva);
 }
-.barra__nav a:hover{color:var(--hueso)}
-.barra__nav a:hover::after{transform:scaleX(1);transform-origin:left}
+@media (hover:hover){
+  .barra__nav a:hover,
+  .barra__nav a:focus-visible{color:var(--hueso)}
+}
+@media (hover:hover){
+  .barra__nav a:hover::after,
+  .barra__nav a:focus-visible::after{transform:scaleX(1);transform-origin:left}
+}
 
 .barra__cta{
   font-size:.72rem;
@@ -310,7 +319,10 @@ html.tiene-js .telon{
   color:var(--hueso);
   transition:background-color .4s ease,border-color .4s ease,color .4s ease;
 }
-.barra__cta:hover{background:var(--sangre);border-color:var(--sangre)}
+@media (hover:hover){
+  .barra__cta:hover,
+  .barra__cta:focus-visible{background:var(--sangre);border-color:var(--sangre)}
+}
 
 /* Aguja de avance: cuánto llevas leído del catálogo */
 .barra__aguja{
@@ -371,8 +383,14 @@ html.tiene-js .telon{
   transition:opacity .45s ease,transform .5s var(--curva);
   white-space:nowrap;
 }
-.indice a:hover i{width:38px;background:var(--hueso)}
-.indice a:hover span{opacity:1;transform:translateX(0)}
+@media (hover:hover){
+  .indice a:hover i,
+  .indice a:focus-visible i{width:38px;background:var(--hueso)}
+}
+@media (hover:hover){
+  .indice a:hover span,
+  .indice a:focus-visible span{opacity:1;transform:translateX(0)}
+}
 .indice a.esta-aqui i{width:44px;background:var(--carmin)}
 .indice a.esta-aqui span{opacity:1;transform:translateX(0);color:var(--hueso)}
 
@@ -457,8 +475,14 @@ main{position:relative;z-index:1}
   transition:transform .55s var(--curva);
   z-index:-1;
 }
-.boton:hover{border-color:var(--sangre)}
-.boton:hover::before{transform:scaleX(1);transform-origin:left}
+@media (hover:hover){
+  .boton:hover,
+  .boton:focus-visible{border-color:var(--sangre)}
+}
+@media (hover:hover){
+  .boton:hover::before,
+  .boton:focus-visible::before{transform:scaleX(1);transform-origin:left}
+}
 .boton--lleno{background:var(--sangre);border-color:var(--sangre)}
 .boton--lleno::before{background:var(--carmin)}
 .boton--grande{padding:1.25rem 3rem;font-size:.8rem}
@@ -472,7 +496,10 @@ main{position:relative;z-index:1}
   border-bottom:1px solid rgba(138,126,110,.4);
   transition:border-color .4s ease,color .4s ease;
 }
-.enlace:hover{color:var(--hueso);border-bottom-color:var(--hueso)}
+@media (hover:hover){
+  .enlace:hover,
+  .enlace:focus-visible{color:var(--hueso);border-bottom-color:var(--hueso)}
+}
 
 /* Cesura: el corte entre secciones, marcado con la propia marca */
 .cesura{
@@ -732,9 +759,12 @@ html.tiene-js .cartela-esq{stroke-dashoffset:1200}
   pointer-events:none;
   transition:inset .6s var(--curva),border-color .6s ease;
 }
-.lamina__marco:hover::after{
-  inset:clamp(.3rem,.75vw,.65rem);
-  border-color:rgba(201,188,166,.5);
+@media (hover:hover){
+  .lamina__marco:hover::after,
+  .lamina__marco:focus-visible::after{
+    inset:clamp(.3rem,.75vw,.65rem);
+    border-color:rgba(201,188,166,.5);
+  }
 }
 .lamina__marco img{
   display:block;
@@ -745,7 +775,10 @@ html.tiene-js .cartela-esq{stroke-dashoffset:1200}
   filter:saturate(.82) contrast(1.03);
   transition:filter .8s var(--curva),transform .9s var(--curva);
 }
-.lamina__marco:hover img{filter:saturate(1) contrast(1);transform:scale(1.018)}
+@media (hover:hover){
+  .lamina__marco:hover img,
+  .lamina__marco:focus-visible img{filter:saturate(1) contrast(1);transform:scale(1.018)}
+}
 
 /* El velo que se levanta. Sin JS no cubre nada. */
 .lamina__velo{
@@ -774,7 +807,10 @@ html.tiene-js .lamina__velo{display:block}
   transform:translateY(8px);
   transition:opacity .45s ease,transform .45s var(--curva);
 }
-.lamina__marco:hover .lamina__lupa{opacity:1;transform:translateY(0)}
+@media (hover:hover){
+  .lamina__marco:hover .lamina__lupa,
+  .lamina__marco:focus-visible .lamina__lupa{opacity:1;transform:translateY(0)}
+}
 
 .lamina__margen{position:relative}
 /* Numeral de lámina: relleno y espaciado, que en contorno la «III»
@@ -857,7 +893,10 @@ html.tiene-js .lamina__velo{display:block}
   filter:saturate(.9);
   transition:filter .6s var(--curva),border-color .6s ease;
 }
-.detalles figure:hover img{filter:saturate(1);border-color:rgba(201,188,166,.5)}
+@media (hover:hover){
+  .detalles figure:hover img,
+  .detalles figure:focus-visible img{filter:saturate(1);border-color:rgba(201,188,166,.5)}
+}
 .detalles figcaption{
   margin-top:.8rem;
   font-size:.74rem;
@@ -886,9 +925,12 @@ html.tiene-js .lamina__velo{display:block}
   overflow:hidden;
   transition:border-color .55s ease,transform .7s var(--curva);
 }
-.pieza-web:hover .pieza-web__ventana{
-  border-color:rgba(201,188,166,.55);
-  transform:translateY(-6px);
+@media (hover:hover){
+  .pieza-web:hover .pieza-web__ventana,
+  .pieza-web:focus-visible .pieza-web__ventana{
+    border-color:rgba(201,188,166,.55);
+    transform:translateY(-6px);
+  }
 }
 /* Barra de navegador: sitúa la pieza como producto, no como imagen */
 .pieza-web__barra{
@@ -916,7 +958,10 @@ html.tiene-js .lamina__velo{display:block}
   filter:saturate(.85);
   transition:filter .7s var(--curva);
 }
-.pieza-web:hover .pieza-web__ventana img{filter:saturate(1)}
+@media (hover:hover){
+  .pieza-web:hover .pieza-web__ventana img,
+  .pieza-web:focus-visible .pieza-web__ventana img{filter:saturate(1)}
+}
 .pieza-web__pie{padding-top:1.3rem}
 .pieza-web__num{
   font-family:var(--display);
@@ -1030,15 +1075,24 @@ html.tiene-js .lamina__velo{display:block}
   transition:transform .95s var(--curva);
   pointer-events:none;
 }
-.vitrina:hover .vitrina__caja{border-color:rgba(201,188,166,.6);transform:translateY(-8px)}
-.vitrina:hover .vitrina__caja::after{transform:translateX(110%)}
+@media (hover:hover){
+  .vitrina:hover .vitrina__caja,
+  .vitrina:focus-visible .vitrina__caja{border-color:rgba(201,188,166,.6);transform:translateY(-8px)}
+}
+@media (hover:hover){
+  .vitrina:hover .vitrina__caja::after,
+  .vitrina:focus-visible .vitrina__caja::after{transform:translateX(110%)}
+}
 .vitrina__caja img{
   width:100%;height:100%;
   object-fit:contain;
   filter:saturate(.78) brightness(.94);
   transition:filter .7s var(--curva);
 }
-.vitrina:hover .vitrina__caja img{filter:saturate(1) brightness(1)}
+@media (hover:hover){
+  .vitrina:hover .vitrina__caja img,
+  .vitrina:focus-visible .vitrina__caja img{filter:saturate(1) brightness(1)}
+}
 
 .vitrina__pie{
   display:grid;
@@ -1189,7 +1243,10 @@ html.tiene-js .lamina__velo{display:block}
   border-radius:50%;
   transition:background-color .4s ease,border-color .4s ease;
 }
-.ruleta__flecha:hover{background:var(--sangre);border-color:var(--sangre)}
+@media (hover:hover){
+  .ruleta__flecha:hover,
+  .ruleta__flecha:focus-visible{background:var(--sangre);border-color:var(--sangre)}
+}
 .ruleta__aguja{
   font-size:.7rem;
   letter-spacing:.24em;
@@ -1199,7 +1256,10 @@ html.tiene-js .lamina__velo{display:block}
   padding:.85rem 1.6rem;
   transition:background-color .4s ease,border-color .4s ease;
 }
-.ruleta__aguja:hover{background:var(--sangre);border-color:var(--sangre)}
+@media (hover:hover){
+  .ruleta__aguja:hover,
+  .ruleta__aguja:focus-visible{background:var(--sangre);border-color:var(--sangre)}
+}
 
 /* ───────────────────────────────────────────
    IV · RETRATO
@@ -1240,11 +1300,17 @@ html.tiene-js .lamina__velo{display:block}
   pointer-events:none;
   transition:opacity .9s ease;
 }
-.camafeo:hover .camafeo__oval img{
-  filter:grayscale(0) brightness(1) contrast(1.02);
-  mix-blend-mode:normal;
+@media (hover:hover){
+  .camafeo:hover .camafeo__oval img,
+  .camafeo:focus-visible .camafeo__oval img{
+    filter:grayscale(0) brightness(1) contrast(1.02);
+    mix-blend-mode:normal;
+  }
 }
-.camafeo:hover .camafeo__oval::after{opacity:.35}
+@media (hover:hover){
+  .camafeo:hover .camafeo__oval::after,
+  .camafeo:focus-visible .camafeo__oval::after{opacity:.35}
+}
 .camafeo__aro{
   position:absolute;
   inset:-4%;
@@ -1317,8 +1383,14 @@ html.tiene-js .lamina__velo{display:block}
   transition:transform .65s var(--curva);
   z-index:-1;
 }
-.oficio:hover{padding-left:1.6rem}
-.oficio:hover::before{transform:scaleX(1)}
+@media (hover:hover){
+  .oficio:hover,
+  .oficio:focus-visible{padding-left:1.6rem}
+}
+@media (hover:hover){
+  .oficio:hover::before,
+  .oficio:focus-visible::before{transform:scaleX(1)}
+}
 .oficio__num{
   font-family:var(--display);
   font-size:1.05rem;
@@ -1346,7 +1418,10 @@ html.tiene-js .lamina__velo{display:block}
   border-top:1px solid rgba(138,126,110,.28);
   transition:border-color .5s ease;
 }
-.paso:hover{border-top-color:var(--oro-vivo)}
+@media (hover:hover){
+  .paso:hover,
+  .paso:focus-visible{border-top-color:var(--oro-vivo)}
+}
 .paso__num{
   display:block;
   font-family:var(--display);
@@ -1400,7 +1475,10 @@ html.tiene-js .lamina__velo{display:block}
   color:var(--hueso-tenue);
   transition:color .35s ease;
 }
-.taller__grupo li:hover{color:var(--hueso)}
+@media (hover:hover){
+  .taller__grupo li:hover,
+  .taller__grupo li:focus-visible{color:var(--hueso)}
+}
 
 /* ───────────────────────────────────────────
    VII · INSTRUMENTOS
@@ -1466,7 +1544,10 @@ html.tiene-js .lamina__velo{display:block}
   mask:var(--sig-calavera) center/contain no-repeat;
   transition:background-color .4s ease,transform .5s var(--curva);
 }
-.linea li:hover::before{background:var(--hueso);transform:scale(1.22)}
+@media (hover:hover){
+  .linea li:hover::before,
+  .linea li:focus-visible::before{background:var(--hueso);transform:scale(1.22)}
+}
 .linea__fecha{
   display:block;
   font-size:.72rem;
@@ -1549,7 +1630,10 @@ html.tiene-js .lamina__velo{display:block}
   font-size:clamp(1rem,1.9vw,1.28rem);
   transition:color .4s ease;
 }
-a.via:hover .via__val{color:var(--oro-vivo)}
+@media (hover:hover){
+  a.via:hover .via__val,
+  a.via:focus-visible .via__val{color:var(--oro-vivo)}
+}
 
 .tarjeta__acciones{
   display:flex;
@@ -1655,7 +1739,10 @@ a.via:hover .via__val{color:var(--oro-vivo)}
   border:1px solid rgba(138,126,110,.3);
   transition:background-color .4s ease,border-color .4s ease;
 }
-.visor__cerrar:hover{background:var(--sangre);border-color:var(--sangre)}
+@media (hover:hover){
+  .visor__cerrar:hover,
+  .visor__cerrar:focus-visible{background:var(--sangre);border-color:var(--sangre)}
+}
 .visor__flecha{
   position:absolute;
   z-index:3;
@@ -1669,7 +1756,10 @@ a.via:hover .via__val{color:var(--oro-vivo)}
   border:1px solid rgba(138,126,110,.26);
   transition:background-color .4s ease,border-color .4s ease;
 }
-.visor__flecha:hover{background:var(--sangre);border-color:var(--sangre)}
+@media (hover:hover){
+  .visor__flecha:hover,
+  .visor__flecha:focus-visible{background:var(--sangre);border-color:var(--sangre)}
+}
 .visor__flecha--izq{left:clamp(.6rem,2.5vw,2rem)}
 .visor__flecha--der{right:clamp(.6rem,2.5vw,2rem)}
 
@@ -1879,6 +1969,54 @@ main:focus{outline:none}
   .barra__nav{gap:.4rem}
   .barra__nav a{display:block;padding:.85rem 1.2rem}
   .ruleta__aguja{min-height:44px}
+}
+/* ───────────────────────────────────────────
+   INTERACCIÓN: UNA SOLA RECETA
+   - Los hovers solo actúan con mouse (@media hover:hover) y el teclado
+     ve lo mismo con :focus-visible, así en el celular no se quedan pegados.
+   - Pulsar da respuesta inmediata (escala, que no pisa el imán de GSAP).
+   - Enlaces: la línea se dibuja de izquierda a derecha.
+   ─────────────────────────────────────────── */
+
+html{scroll-padding-top:4.5rem}
+
+.boton:active,
+.barra__cta:active,
+.ruleta__flecha:active,
+.ruleta__aguja:active,
+.visor__cerrar:active,
+.visor__flecha:active,
+.enlace:active{scale:.96}
+
+.enlace::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:-1px;
+  height:1px;
+  background:var(--carmin-texto);
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform .55s var(--curva);
+}
+.pieza-web__ventana img{transition:filter .7s var(--curva),scale .9s var(--curva)}
+
+@media (hover:hover){
+  .enlace:hover::after,
+  .enlace:focus-visible::after{transform:scaleX(1);transform-origin:left}
+  .pieza-web:hover .pieza-web__ventana img,
+  .pieza-web:focus-visible .pieza-web__ventana img{scale:1.04}
+  .paso:hover .paso__num,
+  .oficio:hover .oficio__num{letter-spacing:.14em}
+}
+.paso__num,.oficio__num{transition:letter-spacing .5s var(--curva)}
+
+/* Transición entre páginas (portafolio ⇄ hoja de vida ⇄ marca) */
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+  ::view-transition-old(root){animation:vt-sale .3s var(--curva) both}
+  ::view-transition-new(root){animation:vt-entra .55s var(--curva) both}
+  @keyframes vt-sale{to{opacity:0}}
+  @keyframes vt-entra{from{opacity:0}}
 }
 /* ───────────────────────────────────────────
    MOVIMIENTO REDUCIDO
