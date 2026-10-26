@@ -27,7 +27,8 @@
 
   /* Métrica */
   --caja:1280px;
-  --aire:clamp(3rem,6vw,5.5rem);
+  --aire:clamp(4.5rem,9vw,8rem);      /* respiracion entre secciones */
+  --marco-sup:5.8rem;                /* el marco del banner nace bajo la barra */
   --borde:1px solid rgba(138,126,110,.28);
   --curva:cubic-bezier(.22,1,.36,1);
 
@@ -93,19 +94,14 @@ ol,ul,dl{margin:0;padding:0;list-style:none}
 }
 .salto:focus{transform:translate(-50%,0)}
 
-/* Cursor con la marca sobre las piezas. La posición y la escala las
-   lleva GSAP: ponerlas también en CSS se pisarían. */
+/* El cursor es solo la calavera de la marca. La posicion y la escala las
+   lleva GSAP: ponerlas tambien en CSS se pisarian. */
 .cursor__sig{
   position:absolute;
-  width:32px;height:auto;
+  width:30px;height:auto;
   color:var(--carmin);
   opacity:0;
-}
-.cursor.esta-sobre-pieza .cursor__punto{opacity:0}
-.cursor.esta-sobre-pieza .cursor__anillo{
-  width:88px;height:88px;
-  border-color:rgba(179,18,31,.75);
-  background:rgba(110,18,32,.14);
+  filter:drop-shadow(0 0 6px rgba(0,0,0,.55));
 }
 
 /* La ruleta se puede arrastrar, con mouse y con dedo.
@@ -155,38 +151,21 @@ ol,ul,dl{margin:0;padding:0;list-style:none}
   background:radial-gradient(ellipse 90% 75% at 50% 45%,transparent 40%,rgba(5,4,5,.72) 100%);
 }
 
-/* Cursor de latón */
+/* Cursor: la calavera, sin anillo. Esconde el del sistema solo cuando
+   ya esta viva (clase puesta tras el primer movimiento del mouse). */
 .cursor{
   position:fixed;
   top:0;left:0;
   z-index:80;
   pointer-events:none;
-  mix-blend-mode:screen;
   opacity:0;
   transition:opacity .3s ease;
 }
 .cursor.esta-vivo{opacity:1}
-.cursor__anillo,
-.cursor__punto{
-  position:absolute;
-  border-radius:50%;
-  transform:translate(-50%,-50%);
+@media (hover:hover) and (pointer:fine){
+  html.cursor-marca,
+  html.cursor-marca *{cursor:none !important}
 }
-.cursor__anillo{
-  width:34px;height:34px;
-  border:1px solid rgba(201,188,166,.55);
-  transition:width .3s var(--curva),height .3s var(--curva),border-color .3s ease,background-color .3s ease;
-}
-.cursor__punto{
-  width:4px;height:4px;
-  background:var(--oro-vivo);
-}
-.cursor.esta-sobre .cursor__anillo{
-  width:74px;height:74px;
-  border-color:rgba(201,188,166,.9);
-  background:rgba(138,126,110,.09);
-}
-.cursor.esta-sobre .cursor__punto{opacity:0}
 
 /* ───────────────────────────────────────────
    TELÓN DE ENTRADA
@@ -394,7 +373,8 @@ html.tiene-js .telon{
 .indice a.esta-aqui i{width:44px;background:var(--carmin)}
 .indice a.esta-aqui span{opacity:1;transform:translateX(0);color:var(--hueso)}
 
-@media (max-width:1180px){.indice{display:none}}
+/* El riel lateral solo cabe donde hay margen libre: antes pisaba el contenido */
+@media (max-width:1480px){.indice{display:none}}
 
 /* ───────────────────────────────────────────
    PIEZAS COMUNES
@@ -409,7 +389,7 @@ main{position:relative;z-index:1}
   padding:var(--aire) clamp(1.15rem,5vw,3rem);
 }
 
-.seccion__enc{margin-bottom:clamp(2rem,4vw,3.4rem);max-width:44rem}
+.seccion__enc{margin-bottom:clamp(3rem,5.5vw,5rem);max-width:44rem}
 
 .cejilla{
   font-size:.71rem;
@@ -539,14 +519,15 @@ main{position:relative;z-index:1}
   min-height:100svh;
   display:grid;
   place-items:center;
-  padding:6.5rem clamp(1.15rem,5vw,3rem) 6rem;
+  padding:9rem clamp(1.6rem,6vw,4rem) 7rem;
   text-align:center;
   overflow:hidden;
 }
 
 .cartela{
   position:absolute;
-  inset:clamp(1rem,3.5vw,2.6rem);
+  /* arranca debajo de la barra: antes sus lineas la cruzaban */
+  inset:var(--marco-sup) clamp(1rem,3.5vw,2.6rem) clamp(1rem,3.5vw,2.6rem);
   width:auto;height:auto;
   pointer-events:none;
 }
@@ -579,8 +560,8 @@ html.tiene-js .cartela-esq{stroke-dashoffset:1200}
   stroke-dasharray:1200;
   stroke-dashoffset:0;
 }
-.cartela-esq--si{top:clamp(1rem,3.5vw,2.6rem);left:clamp(1rem,3.5vw,2.6rem);transform:scaleX(-1)}
-.cartela-esq--sd{top:clamp(1rem,3.5vw,2.6rem);right:clamp(1rem,3.5vw,2.6rem)}
+.cartela-esq--si{top:var(--marco-sup);left:clamp(1rem,3.5vw,2.6rem);transform:scaleX(-1)}
+.cartela-esq--sd{top:var(--marco-sup);right:clamp(1rem,3.5vw,2.6rem)}
 .cartela-esq--ii{bottom:clamp(1rem,3.5vw,2.6rem);left:clamp(1rem,3.5vw,2.6rem);transform:scale(-1,-1)}
 .cartela-esq--id{bottom:clamp(1rem,3.5vw,2.6rem);right:clamp(1rem,3.5vw,2.6rem);transform:scaleY(-1)}
 
@@ -726,60 +707,38 @@ html.tiene-js .cartela-esq{stroke-dashoffset:1200}
 .lamina{
   display:grid;
   grid-template-columns:1.32fr .78fr;
-  gap:clamp(2rem,5vw,4.5rem);
+  gap:clamp(2.5rem,6vw,5.5rem);
   align-items:center;
-  margin-bottom:clamp(3rem,6.5vw,6rem);
+  margin-bottom:clamp(5.5rem,11vw,10rem);
 }
 .lamina:last-child{margin-bottom:0}
 .lamina--invertida .lamina__marco{order:2}
 .lamina--invertida .lamina__margen{order:1}
 
-/* El passe-partout: la pieza va montada, nunca recortada */
+/* La pieza va sola: sin marco, sin filete interior y sin recorte. El
+   contenedor mide exactamente lo que mide la imagen (--ar = ancho/alto). */
 .lamina__marco{
-  --pad:clamp(1.1rem,2.4vw,2.2rem);
-  --alto:clamp(300px,42vw,560px);   /* alto maximo de la pieza */
+  --alto:clamp(320px,44vw,600px);   /* alto maximo de la pieza */
   position:relative;
   margin:0;
-  /* El marco mide lo que mide la pieza: ni bandas oscuras a los lados
-     ni recorte. Cada figura declara su proporcion en --ar (ancho/alto). */
-  width:min(100%,calc(var(--alto) * var(--ar,1.5) + var(--pad) * 2 + 2px));
+  width:min(100%,calc(var(--alto) * var(--ar,1.5)));
   justify-self:center;
-  padding:var(--pad);
-  background:
-    linear-gradient(150deg,var(--terciopelo-alto),var(--terciopelo) 60%);
-  border:1px solid rgba(138,126,110,.26);
   cursor:pointer;
   overflow:hidden;
-}
-.lamina__marco::after{
-  content:"";
-  position:absolute;
-  inset:clamp(.55rem,1.2vw,1.05rem);
-  border:1px solid rgba(138,126,110,.22);
-  pointer-events:none;
-  transition:inset .6s var(--curva),border-color .6s ease;
-}
-@media (hover:hover){
-  .lamina__marco:hover::after,
-  .lamina__marco:focus-visible::after{
-    inset:clamp(.3rem,.75vw,.65rem);
-    border-color:rgba(201,188,166,.5);
-  }
 }
 .lamina__marco img{
   display:block;
   width:100%;
   height:auto;
   aspect-ratio:var(--ar,1.5);
-  object-fit:cover;
-  filter:saturate(.82) contrast(1.03);
+  object-fit:contain;
+  filter:saturate(.86) contrast(1.02);
   transition:filter .8s var(--curva),transform .9s var(--curva);
 }
 @media (hover:hover){
   .lamina__marco:hover img,
-  .lamina__marco:focus-visible img{filter:saturate(1) contrast(1);transform:scale(1.018)}
+  .lamina__marco:focus-visible img{filter:saturate(1) contrast(1);transform:scale(1.02)}
 }
-
 /* El velo que se levanta. Sin JS no cubre nada. */
 .lamina__velo{
   display:none;
@@ -795,8 +754,8 @@ html.tiene-js .lamina__velo{display:block}
 .lamina__lupa{
   position:absolute;
   z-index:4;
-  right:clamp(1.1rem,2.4vw,2.2rem);
-  bottom:clamp(1.1rem,2.4vw,2.2rem);
+  right:1rem;
+  bottom:1rem;
   font-size:.72rem;
   letter-spacing:.28em;
   text-transform:uppercase;
@@ -858,8 +817,8 @@ html.tiene-js .lamina__velo{display:block}
 .detalles{
   grid-column:1 / -1;
   min-width:0;   /* sin esto, tres miniaturas fijas ensanchan toda la columna */
-  margin-top:clamp(1.8rem,3.2vw,3rem);
-  padding-top:1.9rem;
+  margin-top:clamp(3rem,5vw,4.6rem);
+  padding-top:2.4rem;
   border-top:1px solid rgba(138,126,110,.18);
 }
 .detalles__rot{
@@ -889,9 +848,8 @@ html.tiene-js .lamina__velo{display:block}
   object-fit:cover;
   display:block;
   background:var(--terciopelo);
-  border:1px solid rgba(138,126,110,.22);
   filter:saturate(.9);
-  transition:filter .6s var(--curva),border-color .6s ease;
+  transition:filter .6s var(--curva);
 }
 @media (hover:hover){
   .detalles figure:hover img,
@@ -914,16 +872,15 @@ html.tiene-js .lamina__velo{display:block}
 .pantalla__par{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:clamp(1.4rem,3vw,2.6rem);
+  gap:clamp(2rem,4.5vw,4rem);
 }
 .pieza-web{cursor:pointer}
 .pieza-web__ventana{
   position:relative;
-  background:linear-gradient(155deg,var(--terciopelo-alto),#120A0D);
-  border:1px solid rgba(138,126,110,.26);
+  background:var(--terciopelo-alto);
   padding-top:30px;
   overflow:hidden;
-  transition:border-color .55s ease,transform .7s var(--curva);
+  transition:transform .7s var(--curva);
 }
 @media (hover:hover){
   .pieza-web:hover .pieza-web__ventana,
@@ -951,10 +908,11 @@ html.tiene-js .lamina__velo{display:block}
 }
 .pieza-web__barra i:first-child{background:rgba(179,18,31,.65)}
 .pieza-web__ventana img{
+  display:block;
   width:100%;
-  height:clamp(160px,20vw,270px);
-  object-fit:cover;
-  object-position:top center;
+  height:auto;
+  aspect-ratio:var(--ar,2.2);
+  object-fit:contain;
   filter:saturate(.85);
   transition:filter .7s var(--curva);
 }
@@ -1005,7 +963,7 @@ html.tiene-js .lamina__velo{display:block}
   position:relative;
   height:100svh;
   overflow:hidden;
-  padding-top:clamp(5rem,10vh,7rem);
+  padding-top:clamp(6.6rem,13vh,8.6rem);
   background:linear-gradient(var(--azabache),var(--terciopelo) 18%,var(--terciopelo) 82%,var(--azabache));
 }
 .gabinete__enc{
@@ -1052,19 +1010,17 @@ html.tiene-js .lamina__velo{display:block}
 
 .vitrina{
   flex:0 0 auto;
-  width:clamp(255px,30vw,400px);
   cursor:pointer;
   display:flex;
   flex-direction:column;
 }
+/* La ficha es la pieza y nada mas: sin marco, sin relleno, completa */
 .vitrina__caja{
   position:relative;
-  height:clamp(290px,42vh,440px);
-  padding:clamp(.9rem,1.6vw,1.5rem);
-  background:linear-gradient(155deg,var(--terciopelo-alto),#120A0D);
-  border:1px solid rgba(138,126,110,.24);
+  height:clamp(300px,50vh,440px);
+  width:calc(clamp(300px,50vh,440px) * var(--ar,.75));
   overflow:hidden;
-  transition:border-color .55s ease,transform .7s var(--curva);
+  transition:transform .7s var(--curva),box-shadow .6s ease,opacity .6s ease;
 }
 .vitrina__caja::after{
   content:"";
@@ -1077,23 +1033,19 @@ html.tiene-js .lamina__velo{display:block}
 }
 @media (hover:hover){
   .vitrina:hover .vitrina__caja,
-  .vitrina:focus-visible .vitrina__caja{border-color:rgba(201,188,166,.6);transform:translateY(-8px)}
-}
-@media (hover:hover){
+  .vitrina:focus-visible .vitrina__caja{transform:translateY(-8px)}
   .vitrina:hover .vitrina__caja::after,
   .vitrina:focus-visible .vitrina__caja::after{transform:translateX(110%)}
+  .vitrina:hover .vitrina__caja img,
+  .vitrina:focus-visible .vitrina__caja img{filter:saturate(1) brightness(1)}
 }
 .vitrina__caja img{
+  display:block;
   width:100%;height:100%;
   object-fit:contain;
   filter:saturate(.78) brightness(.94);
   transition:filter .7s var(--curva);
 }
-@media (hover:hover){
-  .vitrina:hover .vitrina__caja img,
-  .vitrina:focus-visible .vitrina__caja img{filter:saturate(1) brightness(1)}
-}
-
 .vitrina__pie{
   display:grid;
   gap:.35rem;
@@ -1128,10 +1080,9 @@ html.tiene-js .lamina__velo{display:block}
    ──────────────────────────────────────────────────────────── */
 
 .ruleta.es-ruleta{
-  --radio:clamp(560px,66vw,950px);
-  --alza:clamp(290px,36vh,340px);
-  --ancho-f:clamp(180px,19vw,272px);
-  --alto-f:clamp(240px,26vw,352px);
+  --radio:clamp(430px,50vw,720px);
+  --alza:calc(var(--alto-f) / 2 + 8rem);   /* deja libres los botones de abajo */
+  --alto-f:clamp(320px,min(46vh,34vw),520px);
   position:absolute;
   inset:0;
   margin:0;
@@ -1166,44 +1117,42 @@ html.tiene-js .lamina__velo{display:block}
 .ruleta.es-ruleta .vitrina{
   position:absolute;
   left:0;top:0;
-  width:var(--ancho-f);
+  --w:calc(var(--alto-f) * var(--ar,.75));
+  width:var(--w);
   height:var(--alto-f);
-  margin-left:calc(var(--ancho-f) / -2);
+  margin-left:calc(var(--w) / -2);
   margin-top:calc(var(--alto-f) / -2);
   transform:rotate(var(--ang)) translateY(calc(var(--radio) * -1));
 }
 .ruleta.es-ruleta .vitrina__pie{display:none}
 .ruleta.es-ruleta .vitrina__caja{
-  height:100%;
-  padding:0;
-  transition:border-color .6s ease,box-shadow .6s ease,opacity .6s ease;
-  opacity:.62;
+  width:100%;height:100%;
+  opacity:.55;
 }
 /* En la rueda la ficha se recorta a sangre: el passe-partout dejaba
    la pieza diminuta dentro del marco. La obra entera va en el visor. */
 .ruleta.es-ruleta .vitrina__caja img{
-  object-fit:cover;
+  object-fit:contain;      /* completa, nunca recortada */
   filter:saturate(.6) brightness(.82);
 }
 .ruleta.es-ruleta .vitrina.es-activa .vitrina__caja{
   opacity:1;
-  border-color:rgba(201,188,166,.75);
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  box-shadow:0 24px 70px rgba(0,0,0,.65);
 }
 .ruleta.es-ruleta .vitrina.es-activa .vitrina__caja img{filter:saturate(1) brightness(1)}
+.ruleta.es-ruleta .vitrina.es-lejos .vitrina__caja{opacity:0}
 
-/* Ficha del activo: el nombre no puede ir sobre una tarjeta ladeada */
+/* El nombre ya no se pinta sobre la rueda: la imagen habla sola y el
+   titulo completo sale en el visor. La ficha queda solo para lectores de
+   pantalla (aria-live). */
 .ruleta.es-ruleta .ruleta__ficha{
   display:block;
   position:absolute;
-  z-index:2;
-  left:50%;
-  transform:translateX(-50%);
-  top:clamp(7rem,19vh,11rem);   /* por debajo del encabezado, no encima */
-  width:min(90vw,44rem);
-  text-align:center;
-}
-.ruleta__num{
+  width:1px;height:1px;
+  overflow:hidden;
+  clip-path:inset(50%);
+  white-space:nowrap;
+}.ruleta__num{
   display:block;
   font-family:var(--display);
   font-size:clamp(1.4rem,2.6vw,2rem);
@@ -1268,7 +1217,7 @@ html.tiene-js .lamina__velo{display:block}
 .retrato__rejilla{
   display:grid;
   grid-template-columns:minmax(280px,.85fr) 1.15fr;
-  gap:clamp(2.5rem,6vw,6rem);
+  gap:clamp(3rem,7vw,7rem);
   align-items:center;
 }
 
@@ -1368,7 +1317,7 @@ html.tiene-js .lamina__velo{display:block}
   grid-template-columns:4.5rem minmax(0,1.15fr) minmax(0,1fr);
   gap:clamp(1rem,2.4vw,2.2rem);
   align-items:baseline;
-  padding:clamp(1.1rem,2.2vw,1.7rem) 0;
+  padding:clamp(1.5rem,2.8vw,2.3rem) 0;
   border-bottom:1px solid rgba(138,126,110,.2);
   transition:padding-left .55s var(--curva);
 }
@@ -1460,6 +1409,8 @@ html.tiene-js .lamina__velo{display:block}
   gap:clamp(1.4rem,3vw,2.6rem);
 }
 .taller__grupo h3{
+  min-height:2.9em;          /* todos los rotulos a dos renglones: las listas arrancan alineadas */
+  display:flex;align-items:flex-end;
   font-size:.72rem;
   letter-spacing:.26em;
   text-transform:uppercase;
@@ -1574,7 +1525,7 @@ html.tiene-js .lamina__velo{display:block}
   position:relative;
   width:100%;
   max-width:62rem;
-  padding:clamp(2.8rem,7vw,6rem) clamp(1.6rem,6vw,5.5rem) clamp(4.5rem,8vw,6.5rem);
+  padding:clamp(3.2rem,8vw,6.5rem) clamp(1.6rem,6vw,5.5rem) clamp(7.5rem,12vw,10rem);
   text-align:center;
   background:
     radial-gradient(ellipse at 50% 0%,rgba(110,18,32,.4),transparent 62%),
@@ -1786,7 +1737,7 @@ body.esta-quieto{overflow:hidden}
   .retrato__rejilla{grid-template-columns:minmax(0,1fr)}
   .lamina--invertida .lamina__marco,
   .lamina--invertida .lamina__margen{order:0}
-  .lamina__marco{--alto:clamp(380px,72vw,640px)}
+  .lamina__marco{--alto:clamp(380px,78vw,680px)}
   .camafeo{max-width:min(360px,72vw);margin-inline:auto}
   .oficio{grid-template-columns:3.2rem 1fr;row-gap:.6rem}
   .oficio p{grid-column:2}
@@ -1819,19 +1770,13 @@ body.esta-quieto{overflow:hidden}
   .barra__hamb{display:block;z-index:2}
   .trayecto__columnas{grid-template-columns:1fr}
   /* La rueda también va en celular; solo si NO se monta vuelve la tira */
-  /* Rueda más cerrada, para que quepan tres fichas en un teléfono.
-     Todo se apila desde arriba y en orden — encabezado, ficha con el
-     nombre, tarjeta, botones — y la altura sobrante se reparte con
-     `--sobra`. Antes ficha y tarjeta se colocaban por separado (una desde
-     arriba, la otra desde abajo) y en pantallas bajas se pisaban. */
+  /* Rueda cerrada para teléfono. Sin texto sobre las piezas: encabezado,
+     pieza y botones, y la altura sobrante se reparte con `--sobra`. */
   .ruleta.es-ruleta{
-    --radio:clamp(320px,92vw,430px);
-    --ancho-f:clamp(116px,34vw,158px);
-    --alto-f:clamp(142px,min(45vw,27svh),212px);
+    --radio:clamp(260px,78vw,330px);
+    --alto-f:clamp(190px,min(62vw,32svh),300px);
     --sobra:max(0px,calc(100svh - 640px));
-    --ficha-top:calc(9.9rem + var(--sobra) * .2);
-    --ficha-alto:6.7rem;
-    --centro:calc(var(--ficha-top) + var(--ficha-alto) + 1.1rem + var(--alto-f) / 2 + var(--sobra) * .2);
+    --centro:calc(10.4rem + var(--alto-f) / 2 + var(--sobra) * .2);
   }
   .ruleta.es-ruleta .ruleta__disco{top:calc(var(--radio) + var(--centro))}
   /* Título a la izquierda y numeral a la derecha, en un solo renglón */
@@ -1843,10 +1788,6 @@ body.esta-quieto{overflow:hidden}
   .gabinete__enc .cejilla{flex:0 0 100%}
   .titulo--gab{font-size:clamp(1.9rem,9vw,2.6rem)}
   .gabinete__guia{font-size:1rem;line-height:1;white-space:nowrap}
-  .ruleta.es-ruleta .ruleta__ficha{top:var(--ficha-top);height:var(--ficha-alto)}
-  .ruleta__tit{font-size:clamp(1.1rem,5vw,1.5rem);margin-bottom:.5rem}
-  .ruleta__num{font-size:1.1rem;line-height:1;margin-bottom:.4rem}
-  .ruleta__meta{font-size:.72rem;line-height:1.3}
   .ruleta__aguja{padding:.75rem 1.1rem;font-size:.72rem}
   .ruleta__flecha{width:40px;height:40px;font-size:1.4rem}
 
@@ -1870,9 +1811,6 @@ body.esta-quieto{overflow:hidden}
 
   /* El marco arrancaba a 16 px del borde, o sea debajo de la barra fija:
      la voluta de la derecha chocaba con el botón del menú. */
-  .cartela,
-  .cartela-esq--si,
-  .cartela-esq--sd{top:80px}
 
   /* Para que la última miniatura pueda entrar entera al deslizar */
   .detalles__tira{padding-right:clamp(1.15rem,5vw,3rem)}
@@ -1906,7 +1844,7 @@ body.esta-quieto{overflow:hidden}
     color:var(--carmin-texto);
   }
 
-  .lamina__marco{--alto:min(118vw,540px)}
+  .lamina__marco{--alto:min(125vw,560px)}
   .vitrina{width:min(78vw,300px)}
   .pasos,
   .taller__rejilla{grid-template-columns:1fr}

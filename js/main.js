@@ -95,53 +95,50 @@ function entrarFrontispicio() {
 /* ───────── La vela: el damasco solo aparece bajo el cursor ───────── */
 
 const cursor = document.querySelector('.cursor');
-const anillo = { x: innerWidth / 2, y: innerHeight / 2 };
-const punto  = { x: innerWidth / 2, y: innerHeight / 2 };
-let raton    = { x: innerWidth / 2, y: innerHeight / 2 };
+const calavera = { x: innerWidth / 2, y: innerHeight / 2 };
+let raton      = { x: innerWidth / 2, y: innerHeight / 2 };
 
+/* El cursor es la calavera de la marca y nada más: sin anillo ni punto.
+   Sigue al mouse con un pequeño retraso, crece sobre lo que se puede
+   pulsar y se hunde al hacer clic. La clase `cursor-marca` esconde el
+   cursor del sistema solo después del primer movimiento, para que nunca
+   se quede el usuario sin puntero. */
 if (fino) {
+  const sigEl = cursor.querySelector('.cursor__sig');
+  gsap.set(sigEl, { xPercent: -50, yPercent: -50, scale: .6, opacity: 0 });
+
   window.addEventListener('mousemove', e => {
     raton.x = e.clientX;
     raton.y = e.clientY;
-    cursor.classList.add('esta-vivo');
+    if (!cursor.classList.contains('esta-vivo')) {
+      cursor.classList.add('esta-vivo');
+      document.documentElement.classList.add('cursor-marca');
+      calavera.x = raton.x; calavera.y = raton.y;
+      gsap.to(sigEl, { opacity: 1, scale: 1, duration: .4, ease: 'back.out(2)' });
+    }
     document.documentElement.style.setProperty('--mx', e.clientX + 'px');
     document.documentElement.style.setProperty('--my', e.clientY + 'px');
   }, { passive: true });
-
-  const anilloEl = cursor.querySelector('.cursor__anillo');
-  const puntoEl  = cursor.querySelector('.cursor__punto');
-  const sigEl    = cursor.querySelector('.cursor__sig');
-
-  gsap.set(sigEl, { xPercent: -50, yPercent: -50, scale: .2, opacity: 0 });
+  document.addEventListener('mouseleave', () => gsap.to(sigEl, { opacity: 0, duration: .25 }));
+  document.addEventListener('mouseenter', () => {
+    if (cursor.classList.contains('esta-vivo')) gsap.to(sigEl, { opacity: 1, duration: .25 });
+  });
 
   gsap.ticker.add(() => {
-    anillo.x += (raton.x - anillo.x) * .14;
-    anillo.y += (raton.y - anillo.y) * .14;
-    punto.x  += (raton.x - punto.x)  * .42;
-    punto.y  += (raton.y - punto.y)  * .42;
-    gsap.set(anilloEl, { x: anillo.x, y: anillo.y });
-    gsap.set(puntoEl,  { x: punto.x,  y: punto.y  });
-    gsap.set(sigEl,    { x: anillo.x, y: anillo.y });
+    calavera.x += (raton.x - calavera.x) * .32;
+    calavera.y += (raton.y - calavera.y) * .32;
+    gsap.set(sigEl, { x: calavera.x, y: calavera.y });
   });
 
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('esta-sobre'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('esta-sobre'));
+  const crece = () => gsap.to(sigEl, { scale: 1.55, duration: .35, ease: 'back.out(2)', overwrite: 'auto' });
+  const normal = () => gsap.to(sigEl, { scale: 1, duration: .3, ease: 'power2.out', overwrite: 'auto' });
+  document.querySelectorAll('a, button, [data-visor]').forEach(el => {
+    el.addEventListener('mouseenter', crece);
+    el.addEventListener('mouseleave', normal);
   });
-
-  /* Sobre una pieza el cursor se vuelve la marca */
-  document.querySelectorAll('[data-visor]').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.classList.add('esta-sobre', 'esta-sobre-pieza');
-      gsap.to(sigEl, { opacity: 1, scale: 1, duration: .45, ease: 'back.out(2.2)' });
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.classList.remove('esta-sobre', 'esta-sobre-pieza');
-      gsap.to(sigEl, { opacity: 0, scale: .2, duration: .3, ease: 'power2.in' });
-    });
-  });
+  window.addEventListener('mousedown', () => gsap.to(sigEl, { scale: .8, duration: .12, overwrite: 'auto' }));
+  window.addEventListener('mouseup', () => gsap.to(sigEl, { scale: 1, duration: .25, overwrite: 'auto' }));
 }
-
 /* ───────── Barra ───────── */
 
 const barra = document.getElementById('barra');
@@ -381,7 +378,7 @@ document.querySelectorAll('[data-lamina]').forEach(lam => {
     gsap.timeline({ scrollTrigger: { trigger: marco, start: 'top 82%' } })
       .set(velo, { scaleY: 1 })
       .to(velo, { scaleY: 0, duration: 1.25, ease: 'power4.inOut' })
-      .from(img, { scale: 1.12, duration: 1.5, ease: 'power3.out' }, 0)
+      .fromTo(img, { scale: 1.12 }, { scale: 1, duration: 1.5, ease: 'power3.out', clearProps: 'transform' }, 0)
       .from(margen.querySelector('.lamina__num'),
             { yPercent: 60, opacity: 0, duration: .9 }, .35)
       .from([margen.querySelector('.lamina__cat'),
@@ -389,12 +386,6 @@ document.querySelectorAll('[data-lamina]').forEach(lam => {
              margen.querySelector('.lamina__txt'),
              margen.querySelector('.enlace')],
             { y: 26, opacity: 0, duration: .85, stagger: .09 }, .45);
-
-    /* Paralaje suave dentro del passe-partout */
-    gsap.fromTo(img, { yPercent: -3.5 }, {
-      yPercent: 3.5, ease: 'none',
-      scrollTrigger: { trigger: marco, start: 'top bottom', end: 'bottom top', scrub: 1 }
-    });
   } else {
     gsap.set(velo, { display: 'none' });
   }
@@ -410,7 +401,7 @@ gsap.utils.toArray('.detalles').forEach(tira => {
 });
 
 /* ───────── La ruleta ─────────
-   Una rueda de trece fichas cuyo centro queda por debajo de la
+   Una rueda de siete fichas cuyo centro queda por debajo de la
    pantalla. El scroll la gira; la ficha que llega arriba manda.  */
 
 const gab    = document.getElementById('gabinete');
@@ -433,6 +424,13 @@ function marcarActiva(i) {
   activo = i;
   const f = fichas[i];
   fichas.forEach((x, j) => x.classList.toggle('es-activa', j === i));
+  /* Solo se ven la activa y sus vecinas: las demás de la rueda se apagan,
+     para que no se amontonen detrás de los botones */
+  const alcance = window.innerWidth <= 860 ? 1 : 2;
+  fichas.forEach((x, j) => {
+    const d = Math.abs(j - i);
+    x.classList.toggle('es-lejos', Math.min(d, fichas.length - d) > alcance);
+  });
   guia.textContent = f.dataset.num;
 
   if (quieto) {
@@ -536,6 +534,7 @@ function montarRuleta() {
   });
 
   ruedaViva = true;
+  activo = -1;                   // fuerza repintar la vecindad tras un remontaje
   marcarActiva(0);
 }
 
