@@ -4,3 +4,6 @@ desplegar.ps1
 
 # capturas y pruebas locales
 /*.png
+
+# dependencias de las pruebas
+pruebas/node_modules/
