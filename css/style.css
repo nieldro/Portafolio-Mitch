@@ -1069,8 +1069,10 @@ html.tiene-js .lamina__velo{display:block}
 
 .ruleta.es-ruleta{
   --radio:clamp(430px,50vw,720px);
-  --alza:calc(var(--alto-f) / 2 + 9.6rem);   /* deja libres los botones de abajo */
+  /* --alto-f y --centro los calcula main.js midiendo el hueco entre el titulo y
+     los puntos; estos valores solo son el respaldo */
   --alto-f:clamp(320px,min(46vh,34vw),520px);
+  --centro:62%;
   position:absolute;
   inset:0;
   margin:0;
@@ -1081,7 +1083,7 @@ html.tiene-js .lamina__velo{display:block}
   display:block;
   position:absolute;
   left:50%;
-  top:calc(100% + var(--radio) - var(--alza));
+  top:calc(var(--centro) + var(--radio));   /* el centro de la rueda queda un radio debajo de la pieza activa */
   width:0;height:0;
   padding:0;
   overflow:visible;
@@ -1129,6 +1131,9 @@ html.tiene-js .lamina__velo{display:block}
 }
 .ruleta.es-ruleta .vitrina.es-activa .vitrina__caja img{filter:saturate(1) brightness(1)}
 .ruleta.es-ruleta .vitrina.es-lejos .vitrina__caja{opacity:0}
+/* La activa va por encima: las vecinas, ladeadas, se meten detras en vez de taparla */
+.ruleta.es-ruleta .vitrina{z-index:1}
+.ruleta.es-ruleta .vitrina.es-activa{z-index:3}
 
 /* El nombre ya no se pinta sobre la rueda: la imagen habla sola y el
    titulo completo sale en el visor. La ficha queda solo para lectores de
@@ -1639,7 +1644,8 @@ html.tiene-js .lamina__velo{display:block}
 .visor[hidden]{display:none}
 .visor__marco{margin:0;display:grid;gap:1.6rem;justify-items:center;max-height:100%}
 .visor__marco img{
-  max-height:76svh;
+  /* la imagen deja sitio al titulo y al pie: en una pantalla baja el pie se cortaba */
+  max-height:min(76svh,calc(100svh - 14rem));
   max-width:100%;
   width:auto;
   object-fit:contain;
@@ -1764,11 +1770,8 @@ body.esta-quieto{overflow:hidden}
      pieza y botones, y la altura sobrante se reparte con `--sobra`. */
   .ruleta.es-ruleta{
     --radio:clamp(260px,78vw,330px);
-    --alto-f:clamp(190px,min(62vw,32svh),300px);
-    --sobra:max(0px,calc(100svh - 640px));
-    --centro:calc(10.4rem + var(--alto-f) / 2 + var(--sobra) * .2);
+    --alto-f:clamp(200px,60vw,360px);
   }
-  .ruleta.es-ruleta .ruleta__disco{top:calc(var(--radio) + var(--centro))}
   /* Título a la izquierda y numeral a la derecha, en un solo renglón */
   .gabinete__enc{
     flex-wrap:wrap;

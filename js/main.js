@@ -514,6 +514,25 @@ gsap.ticker.add(() => {
   marcarActiva(fichaEnLoAlto());
 });
 
+/* La pieza activa se centra en el hueco entre el titulo y los puntos, y
+   ocupa lo que ese hueco permita: ni choca con el titulo ni deja vacio abajo.
+   Se mide en vivo porque el alto del encabezado depende de la tipografia y
+   del ancho, y el de la pantalla, de la barra del navegador. */
+function medirRueda() {
+  if (!ruleta.classList.contains('es-ruleta')) return;
+  const pin = gab.querySelector('.gabinete__pin');
+  const enc = gab.querySelector('.gabinete__enc');
+  const puntosEl = document.getElementById('rl-puntos');
+  const pr = pin.getBoundingClientRect();
+  const arriba = enc.getBoundingClientRect().bottom - pr.top + 22;      // bajo el titulo
+  const abajo = puntosEl.getBoundingClientRect().top - pr.top - 14;     // sobre los puntos
+  const hueco = abajo - arriba;
+  const tope = window.innerWidth <= 860 ? window.innerWidth * 1.1 : Math.min(520, window.innerWidth * .4);
+  const alto = Math.max(180, Math.min(hueco, tope));
+  ruleta.style.setProperty('--alto-f', Math.round(alto) + 'px');
+  ruleta.style.setProperty('--centro', Math.round(arriba + hueco / 2) + 'px');
+}
+
 function montarRuleta() {
   /* La rueda va también en celular: es donde más se nota, y degradarla a
      una tira dejaba la mitad del sitio sin fuerza. Solo se cae con
@@ -540,6 +559,7 @@ function montarRuleta() {
   }
 
   rotScroll = rotArrastre = rotAplicada = inercia = 0;
+  medirRueda();
 
   /* Sin `scrub`: el progreso se lee a mano para poder sumarle el arrastre */
   giro = ScrollTrigger.create({
@@ -773,7 +793,10 @@ document.addEventListener('keydown', e => {
    rehacía el pin a mitad de scroll: eso era el salto de la ruleta. */
 let remontar;
 let anchoPrevio = window.innerWidth;
+let alturaPrevia = window.innerHeight;
 window.addEventListener('resize', () => {
+  /* solo cambio el alto (barra del navegador, giro): se recoloca la pieza, sin remontar */
+  if (Math.abs(window.innerHeight - alturaPrevia) >= 40) { alturaPrevia = window.innerHeight; medirRueda(); }
   if (Math.abs(window.innerWidth - anchoPrevio) < 40) return;
   anchoPrevio = window.innerWidth;
   clearTimeout(remontar);
@@ -786,4 +809,4 @@ window.addEventListener('resize', () => {
 correrTelon();
 
 window.addEventListener('load', () => ScrollTrigger.refresh());
-document.fonts.ready.then(() => ScrollTrigger.refresh());
+document.fonts.ready.then(() => { medirRueda(); ScrollTrigger.refresh(); });
