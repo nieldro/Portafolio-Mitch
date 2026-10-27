@@ -2,6 +2,16 @@
 
 Portafolio de Laura Michelle Herrera. Los más recientes arriba.
 
+## 2026-10-26
+
+- Piezas verticales completas en el carrusel, sin texto encima; cursor solo con
+  la calavera; botones con una sola receta de hover; sin riel lateral.
+- Celular: menú con todas las secciones, volver arriba, puntos en el carrusel.
+- Imágenes en WebP (de 5 MB a unos 3 MB); sección «Papelería y editorial» con
+  las tres piezas horizontales enteras.
+- Manifiesto web e iconos (instalable en la pantalla de inicio), SRI en los
+  scripts de GSAP, `aria-current` en la barra, README al día.
+
 ## 2026-10-23
 
 - Logo nuevo (calavera de gato) vectorizado; ajustes de celular; correo real.
