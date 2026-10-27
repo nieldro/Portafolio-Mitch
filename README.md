@@ -195,3 +195,11 @@ Es `playwright-core` apuntando al Chromium instalado; el detector de
 `impeccable` (`detect --viewport 390x844 http://localhost:8123`) cubre texto
 chico, contraste y patrones sospechosos. Siempre hay que mirar el render:
 compilar o pasar el detector no prueba que algo se vea bien.
+
+
+## Pruebas e historial
+
+- `pruebas/` tiene las pruebas en navegador (`node todo.mjs`): desborde de 320 a
+  1920 px, marco de la portada, carrusel, visor, teclado y movimiento reducido.
+  Ver `pruebas/README.md`.
+- `CHANGELOG.md` lleva, por fecha, lo que cambió en el sitio.
