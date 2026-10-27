@@ -2,6 +2,19 @@
 
 Portafolio de Laura Michelle Herrera. Los más recientes arriba.
 
+## 2026-10-27
+
+- **Portada:** el marco ornamental ya encierra el contenido. El rectángulo del
+  marco medía 209 px de alto en celular mientras sus esquinas estaban 700 px
+  más abajo, y sus líneas cruzaban el texto y «Descender».
+- **Carrusel:** la pieza activa se centra entre el título y los puntos y usa el
+  espacio disponible; ya no choca con el título en pantallas bajas ni deja
+  vacío abajo en celulares altos.
+- **Visor:** la imagen deja sitio al pie; «Publicidad · 2025» ya no se corta.
+- **Bruma House:** se recorta una franja blanca de 6 px que traía la imagen.
+- **Pruebas en navegador** (`pruebas/`): desborde, portada, carrusel, visor,
+  láminas, teclado, movimiento reducido y páginas internas.
+
 ## 2026-10-26
 
 - Piezas verticales completas en el carrusel, sin texto encima; cursor solo con
