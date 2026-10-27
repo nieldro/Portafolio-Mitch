@@ -1,0 +1,13 @@
+{
+  "name": "portafolio-pruebas",
+  "private": true,
+  "type": "module",
+  "description": "Pruebas en navegador del portafolio de Michelle",
+  "scripts": {
+    "servir": "node servir.mjs",
+    "probar": "node todo.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "^1.64.1"
+  }
+}
