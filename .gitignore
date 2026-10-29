@@ -7,3 +7,8 @@ desplegar.ps1
 
 # dependencias de las pruebas
 pruebas/node_modules/
+
+# basura del sistema y registros
+Thumbs.db
+.DS_Store
+*.log
