@@ -29,6 +29,7 @@ servido en `http://127.0.0.1:8765/` (`node servir.mjs`).
 | `teclado.mjs` | Enlace de salto, contornos de foco, menú cerrado sin foco | Accesibilidad con teclado |
 | `reducido.mjs` | Movimiento reducido y celular de lado: tira en vez de rueda | Modos que casi nadie prueba |
 | `paginas.mjs` | Hoja de vida, hoja de marca y 404 cargan; la 404 responde 404 | Las páginas internas nunca se probaban |
+| `meta.mjs` | Título, descripción, URL canónica, color de barra y `noindex` en la 404 | Hojas internas salieron sin descripción ni canónica |
 
 ## Trampas conocidas
 
