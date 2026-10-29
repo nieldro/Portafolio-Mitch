@@ -1,0 +1,14 @@
+/* DISEÑO */
+Laura Michelle Herrera Bedoya
+Diseñadora visual y gráfica · Bogotá, Colombia
+Marca personal: Mitch
+
+/* DESARROLLO */
+Daniel Páez
+
+/* TECNOLOGÍA */
+HTML, CSS y JavaScript sin framework ni paso de compilación
+GSAP y ScrollTrigger (por CDN)
+Bodoni Moda y EB Garamond (Google Fonts)
+Marca vectorizada con potrace
+Pruebas en navegador con Playwright
