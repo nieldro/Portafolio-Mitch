@@ -204,6 +204,7 @@ compilar o pasar el detector no prueba que algo se vea bien.
 ## Pruebas e historial
 
 - `pruebas/` tiene las pruebas en navegador (`node todo.mjs`): desborde de 320 a
-  1920 px, marco de la portada, carrusel, visor, teclado y movimiento reducido.
+  1920 px, marco de la portada, carrusel, visor, teclado, movimiento reducido,
+  metadatos, enlaces y accesibilidad.
   Ver `pruebas/README.md`.
 - `CHANGELOG.md` lleva, por fecha, lo que cambió en el sitio.
