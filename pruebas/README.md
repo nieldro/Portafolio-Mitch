@@ -30,6 +30,8 @@ servido en `http://127.0.0.1:8765/` (`node servir.mjs`).
 | `reducido.mjs` | Movimiento reducido y celular de lado: tira en vez de rueda | Modos que casi nadie prueba |
 | `paginas.mjs` | Hoja de vida, hoja de marca y 404 cargan; la 404 responde 404 | Las páginas internas nunca se probaban |
 | `meta.mjs` | Título, descripción, URL canónica, color de barra y `noindex` en la 404 | Hojas internas salieron sin descripción ni canónica |
+| `enlaces.mjs` | Anclas con destino, archivos internos que responden 200, `noopener` | Un enlace roto no se ve hasta que alguien lo toca |
+| `accesibilidad.mjs` | `alt` en imágenes, nombre en botones y enlaces, `id` únicos, un solo `<main>` | Lo que un lector de pantalla necesita para no perderse |
 
 ## Trampas conocidas
 
