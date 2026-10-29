@@ -2084,3 +2084,9 @@ a,button,[role=button],.lamina__marco,.vitrina,.mas__pieza,.pieza-web{touch-acti
   .barra{padding-left:max(clamp(1.1rem,4vw,3rem),env(safe-area-inset-left));padding-right:max(clamp(1.1rem,4vw,3rem),env(safe-area-inset-right))}
   .pie{padding-bottom:max(2.5rem,calc(env(safe-area-inset-bottom) + 1.5rem))}
 }
+
+/* Quien pide más contraste en el sistema lo recibe: ceniza más clara y
+   textos tenues menos tenues. */
+@media (prefers-contrast:more){
+  :root{--oro:#D9CEBB;--hueso-tenue:rgba(230,220,200,.86);--hueso-fantasma:rgba(230,220,200,.38)}
+}
