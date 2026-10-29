@@ -11,6 +11,10 @@
   "orientation": "any",
   "background_color": "#0A0809",
   "theme_color": "#0A0809",
+  "shortcuts": [
+    { "name": "Hoja de vida", "short_name": "Hoja de vida", "url": "hoja-de-vida.html" },
+    { "name": "Sistema de marca", "short_name": "Marca", "url": "marca.html" }
+  ],
   "icons": [
     { "src": "assets/marca/icono-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "assets/marca/icono-512.png", "sizes": "512x512", "type": "image/png" },
