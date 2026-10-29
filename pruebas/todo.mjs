@@ -12,11 +12,12 @@ import { teclado } from './teclado.mjs';
 import { reducido } from './reducido.mjs';
 import { paginas } from './paginas.mjs';
 import { meta } from './meta.mjs';
+import { enlaces } from './enlaces.mjs';
 
 const propio = !process.env.BASE_URL ? await servir(new URL(BASE).port) : null;
 const nav = await abrir();
 try {
-  for (const prueba of [desborde, portada, carrusel, visor, laminas, teclado, reducido, paginas, meta]) {
+  for (const prueba of [desborde, portada, carrusel, visor, laminas, teclado, reducido, paginas, meta, enlaces]) {
     await prueba(nav);
   }
 } finally {
