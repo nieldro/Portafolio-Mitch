@@ -3,6 +3,8 @@
   "short_name": "Michelle Herrera",
   "description": "Catálogo de trabajo de Laura Michelle Herrera, diseñadora visual y gráfica en Bogotá.",
   "lang": "es-CO",
+  "id": "/",
+  "categories": ["design", "portfolio", "art"],
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
