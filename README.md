@@ -55,6 +55,10 @@ encargo.html          Cuestionario para Michelle, con miniaturas
 encargo-michelle.txt  El mismo cuestionario para pegar en un correo
 
 manifest.webmanifest  Instalable en la pantalla de inicio del celular
+vercel.json           Cabeceras de seguridad para el despliegue en Vercel
+humans.txt            Créditos: quién diseñó y quién desarrolló
+PRODUCT.md            Para quién es el sitio y qué no se toca ni se inventa
+CHANGELOG.md          Historial de cambios por fecha
 css/style.css         Tokens de color/tipografía y toda la maqueta
 js/main.js            Telón, cursor, revelados, gabinete fijado y visor
 
