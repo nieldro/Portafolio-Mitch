@@ -1894,7 +1894,7 @@ main:focus{outline:none}
    - Enlaces: la línea se dibuja de izquierda a derecha.
    ─────────────────────────────────────────── */
 
-html{scroll-padding-top:4.5rem;color-scheme:dark}   /* barras de desplazamiento y controles oscuros */
+html{scroll-padding-top:4.5rem;color-scheme:dark;scrollbar-color:var(--oro) var(--azabache)}   /* barras de desplazamiento y controles oscuros */
 
 .boton:active,
 .barra__cta:active,
