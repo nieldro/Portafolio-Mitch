@@ -5,7 +5,8 @@
   "description": "Pruebas en navegador del portafolio de Michelle",
   "scripts": {
     "servir": "node servir.mjs",
-    "probar": "node todo.mjs"
+    "probar": "node todo.mjs",
+    "publicado": "node -e \"process.env.BASE_URL||(console.error('Falta BASE_URL'),process.exit(1))\" && node todo.mjs"
   },
   "dependencies": {
     "playwright-core": "^1.64.1"
