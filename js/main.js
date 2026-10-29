@@ -810,3 +810,7 @@ correrTelon();
 
 window.addEventListener('load', () => ScrollTrigger.refresh());
 document.fonts.ready.then(() => { medirRueda(); ScrollTrigger.refresh(); });
+
+/* Firma para quien abra la consola */
+console.info('%cMitch%c · portafolio de Laura Michelle Herrera · Bogotá',
+  'font:500 15px Didot,"Bodoni Moda",serif;color:#B3121F', 'color:inherit');
