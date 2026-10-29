@@ -2,6 +2,19 @@
 
 Portafolio de Laura Michelle Herrera. Los más recientes arriba.
 
+## 2026-10-29
+
+- **Metadatos:** la hoja de vida y la hoja de marca ya llevan URL canónica y
+  color de barra; la hoja de marca tiene descripción; ambas tienen favicon e
+  icono de pantalla de inicio. La portada permite vista previa grande.
+- **Manifiesto:** identificador estable, categorías y accesos directos a la
+  hoja de vida y a la hoja de marca.
+- **Contraste:** quien pide más contraste en el sistema recibe ceniza y textos
+  tenues más claros; la barra de desplazamiento sigue la paleta.
+- **Repo:** `PRODUCT.md`, `humans.txt`, `.gitattributes` y cabeceras de
+  seguridad en `vercel.json`.
+- **Pruebas nuevas:** metadatos, enlaces y accesibilidad.
+
 ## 2026-10-27
 
 - **Portada:** el marco ornamental ya encierra el contenido. El rectángulo del
