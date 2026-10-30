@@ -723,6 +723,12 @@ function pintar(i) {
   vTit.textContent = p.dataset.titulo;
   vPie.textContent = p.dataset.pie;
   gsap.fromTo(vImg, { opacity: 0, scale: .97 }, { opacity: 1, scale: 1, duration: .55 });
+
+  /* Las vecinas de cada lado se bajan de antemano: las flechas no esperan */
+  [indice - 1, indice + 1].forEach(j => {
+    const vecina = piezas[(j + piezas.length) % piezas.length];
+    if (vecina) new Image().src = vecina.dataset.src;
+  });
 }
 
 function abrirVisor(i, disparador) {
