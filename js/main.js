@@ -474,6 +474,7 @@ const PASO   = 360 / fichas.length;
 const fNum  = document.getElementById('ficha-num');
 const fTit  = document.getElementById('ficha-tit');
 const fMeta = document.getElementById('ficha-meta');
+const rlAbrir = document.getElementById('rl-abrir');
 
 fichas.forEach((f, i) => f.style.setProperty('--ang', (i * PASO).toFixed(4) + 'deg'));
 
@@ -515,6 +516,7 @@ function marcarActiva(i) {
     x.classList.toggle('es-lejos', Math.min(d, fichas.length - d) > alcance);
   });
   guia.textContent = f.dataset.num;
+  rlAbrir.setAttribute('aria-label', 'Ver la lámina ' + f.dataset.num + ': ' + f.dataset.titulo);
 
   if (quieto) {
     fNum.textContent = f.dataset.num;
