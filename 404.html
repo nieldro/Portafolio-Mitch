@@ -38,6 +38,10 @@
     transition:background-color .4s ease,border-color .4s ease;
   }
   a:hover{background:#B3121F;border-color:#B3121F}
+  .salidas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  a.sec{background:transparent;border-color:rgba(138,126,110,.45)}
+  a.sec:hover{background:#B3121F;border-color:#B3121F}
+  a[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -48,7 +52,10 @@
     <p class="cejilla">Error 404</p>
     <h1>Esta lámina<em>no existe</em></h1>
     <p>El catálogo tiene trece, y esta no es ninguna de ellas. Puede volver al principio.</p>
-    <a href="/">Volver al catálogo</a>
+    <div class="salidas">
+      <a href="/">Volver al catálogo</a>
+      <a class="sec" href="/hoja-de-vida.html">Ver la hoja de vida</a>
+    </div>
   </main>
 </body>
 </html>
