@@ -160,6 +160,12 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && barra.classList.contains('esta-abierta')) { menu(false); hamb.focus(); }
 });
 
+/* Si la ventana se ensancha (el celular gira) el menú abierto se cierra:
+   en escritorio no hay hoja y el cuerpo se quedaba sin scroll */
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 860 && barra.classList.contains('esta-abierta')) menu(false);
+});
+
 /* Un toque fuera de la barra cierra el menú del celular */
 document.addEventListener('click', e => {
   if (barra.classList.contains('esta-abierta') && !barra.contains(e.target)) menu(false);
