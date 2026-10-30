@@ -1645,6 +1645,26 @@ html.tiene-js .lamina__velo{display:block}
   color:var(--hueso-tenue);
 }
 
+.pie__enlaces{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:0 clamp(1.2rem,4vw,2.4rem);
+  margin-top:1.4rem;
+}
+.pie__enlaces a{
+  font-size:.72rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--hueso-tenue);
+  padding:.95rem .2rem;   /* toque de 44 px */
+  transition:color .35s ease;
+}
+@media (hover:hover){
+  .pie__enlaces a:hover,
+  .pie__enlaces a:focus-visible{color:var(--hueso)}
+}
+
 /* ───────────────────────────────────────────
    VISOR
    ─────────────────────────────────────────── */
