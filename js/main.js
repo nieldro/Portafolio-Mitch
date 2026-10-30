@@ -799,6 +799,7 @@ todosVisor.forEach(el => {
 });
 const indiceDe = el => porFuente.get(el.dataset.src) || 0;
 
+const tituloPagina = document.title;
 let indice = 0;
 let volverA = null;
 
@@ -812,6 +813,7 @@ function pintar(i) {
   vTit.textContent = p.dataset.titulo;
   vPie.textContent = p.dataset.pie;
   vCuenta.textContent = (indice + 1) + ' / ' + piezas.length;
+  document.title = p.dataset.titulo + ' · Michelle Herrera';   // la pestaña dice qué lámina se mira
   gsap.fromTo(vImg, { opacity: 0, scale: .97 }, { opacity: 1, scale: 1, duration: .55 });
 
   /* Las vecinas de cada lado se bajan de antemano: las flechas no esperan */
@@ -835,6 +837,7 @@ function cerrarVisor() {
     opacity: 0, duration: .35,
     onComplete: () => {
       history.replaceState(null, '', location.pathname + location.search);
+      document.title = tituloPagina;
       visor.hidden = true;
       document.body.classList.remove('esta-quieto');
       if (volverA) volverA.focus();
