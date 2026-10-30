@@ -369,6 +369,17 @@ function cinta(el, duracion, sentido) {
 const pista = cinta(document.getElementById('pista'), 34, 1);
 const cintaInstr = cinta(document.getElementById('cinta'), 28, 1);
 
+/* Bajo el cursor, cada cinta frena hasta casi detenerse: así se puede leer */
+const cintas = [[pista, 'pista'], [cintaInstr, 'cinta']].map(([t, id]) => ({
+  t, v: 1, meta: 1, caja: document.getElementById(id).parentElement
+}));
+if (fino) {
+  cintas.forEach(c => {
+    c.caja.addEventListener('mouseenter', () => { c.meta = .12; });
+    c.caja.addEventListener('mouseleave', () => { c.meta = 1; });
+  });
+}
+
 /* La cinta se acelera con el scroll, cambia de sentido según se suba o
    se baje, y vuelve sola a su paso. */
 let empuje = 0;
@@ -383,8 +394,9 @@ ScrollTrigger.create({
 gsap.ticker.add(() => {
   empuje += (0 - empuje) * .06;
   sentidoSuave += (sentido - sentidoSuave) * .05;   // el volantazo se nota feo
-  [pista, cintaInstr].forEach(t => {
-    if (t) t.timeScale(sentidoSuave * (1 + empuje));
+  cintas.forEach(c => {
+    c.v += (c.meta - c.v) * .08;
+    if (c.t) c.t.timeScale(sentidoSuave * (1 + empuje) * c.v);
   });
 });
 
