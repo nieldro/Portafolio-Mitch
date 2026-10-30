@@ -775,6 +775,18 @@ document.getElementById('visor-prev').addEventListener('click', () => pintar(ind
 document.getElementById('visor-next').addEventListener('click', () => pintar(indice + 1));
 visor.addEventListener('click', e => { if (e.target === visor) cerrarVisor(); });
 
+/* En el celular las láminas pasan deslizando el dedo hacia un lado */
+let toqueX = null;
+visor.addEventListener('touchstart', e => {
+  toqueX = e.touches.length === 1 ? e.touches[0].clientX : null;
+}, { passive: true });
+visor.addEventListener('touchend', e => {
+  if (toqueX === null) return;
+  const dx = e.changedTouches[0].clientX - toqueX;
+  toqueX = null;
+  if (Math.abs(dx) > 60) pintar(indice + (dx < 0 ? 1 : -1));
+}, { passive: true });
+
 document.addEventListener('keydown', e => {
   if (visor.hidden) return;
   if (e.key === 'Escape')     cerrarVisor();
