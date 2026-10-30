@@ -1575,6 +1575,23 @@ html.tiene-js .lamina__velo{display:block}
   a.via:focus-visible .via__val{color:var(--oro-vivo)}
 }
 
+/* «Copiar el correo»: pegado a las vías, con el aviso debajo en un sitio
+   reservado para que el botón no se corra cuando aparece */
+.tarjeta__copiar{
+  display:grid;
+  justify-items:center;
+  gap:.7rem;
+  margin:-2.2rem 0 1.4rem;
+}
+.tarjeta__copiar .enlace{position:relative}
+.tarjeta__aviso{
+  min-height:1.3em;
+  font-size:.72rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--carmin-texto);
+}
+
 .tarjeta__acciones{
   display:flex;
   gap:1rem;
