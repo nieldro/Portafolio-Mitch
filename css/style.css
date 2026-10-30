@@ -1701,6 +1701,21 @@ html.tiene-js .lamina__velo{display:block}
   .visor__flecha:hover,
   .visor__flecha:focus-visible{background:var(--sangre);border-color:var(--sangre)}
 }
+/* Dónde va el visitante dentro del catálogo. Arriba a la izquierda, fuera
+   del marco: no le quita alto a la lámina ni empuja el pie. */
+.visor__cuenta{
+  position:absolute;
+  z-index:3;
+  top:clamp(1rem,3vw,2rem);
+  left:clamp(1rem,3vw,2rem);
+  display:flex;
+  align-items:center;
+  min-height:52px;
+  font-family:var(--display);
+  font-size:.95rem;
+  letter-spacing:.22em;
+  color:var(--hueso-tenue);
+}
 .visor__flecha--izq{left:clamp(.6rem,2.5vw,2rem)}
 .visor__flecha--der{right:clamp(.6rem,2.5vw,2rem)}
 
