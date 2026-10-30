@@ -2036,6 +2036,8 @@ html{scroll-padding-top:4.5rem;color-scheme:dark;scrollbar-color:var(--oro) var(
 
 .solo-movil{display:none}
 .barra__nav a.esta-aqui{color:var(--hueso)}
+/* «Correspondencia» se rellena mientras se está en esa parte de la página */
+.barra__cta.esta-aqui{background-size:100% 100%;border-color:var(--relleno)}
 .barra__nav a.esta-aqui::after{transform:scaleX(1);transform-origin:left;background:var(--carmin-texto)}
 
 .subir{
