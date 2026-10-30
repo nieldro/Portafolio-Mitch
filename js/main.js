@@ -692,6 +692,44 @@ if (tarjeta) {
   });
 }
 
+/* ───────── Copiar el correo ───────── */
+
+const botonCopiar  = document.getElementById('copiar-correo');
+const avisoCopiado = document.getElementById('copiado');
+let olvidarAviso;
+
+function avisar(texto) {
+  avisoCopiado.textContent = texto;
+  clearTimeout(olvidarAviso);
+  olvidarAviso = setTimeout(() => { avisoCopiado.textContent = ''; }, 2600);
+}
+
+/* El portapapeles moderno exige https o localhost; si falla, el camino viejo */
+async function copiarTexto(texto) {
+  try {
+    await navigator.clipboard.writeText(texto);
+    return true;
+  } catch {
+    const t = document.createElement('textarea');
+    t.value = texto;
+    t.setAttribute('readonly', '');
+    t.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(t);
+    t.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch { /* sin portapapeles */ }
+    t.remove();
+    return ok;
+  }
+}
+
+if (botonCopiar) {
+  botonCopiar.addEventListener('click', async () => {
+    const correo = botonCopiar.dataset.copiar;
+    avisar(await copiarTexto(correo) ? 'Correo copiado' : 'Cópielo a mano: ' + correo);
+  });
+}
+
 /* ───────── Visor de láminas ───────── */
 
 const visor  = document.getElementById('visor');
