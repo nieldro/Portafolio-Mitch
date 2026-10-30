@@ -246,9 +246,9 @@ if (!quieto) {
 
 const enlacesBarra = [...barra.querySelectorAll('.barra__nav a:not(.solo-movil), .barra__cta')];
 const dueno = {
-  correspondencia: 'correspondencia',
   laminas: 'laminas', mas: 'laminas', pantalla: 'laminas', gabinete: 'gabinete', retrato: 'retrato',
-  oficios: 'oficios', metodo: 'oficios', trayectoria: 'oficios'
+  oficios: 'oficios', metodo: 'oficios', trayectoria: 'oficios',
+  correspondencia: 'correspondencia'     // va al final: el orden es el de la página
 };
 const tramos = Object.keys(dueno)
   .map(id => ({ id, el: document.getElementById(id) }))
