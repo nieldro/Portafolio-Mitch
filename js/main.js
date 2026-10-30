@@ -680,6 +680,12 @@ function girarUnPaso(sentido) {
 }
 document.getElementById('rl-prev').addEventListener('click', () => girarUnPaso(-1));
 document.getElementById('rl-next').addEventListener('click', () => girarUnPaso(1));
+/* Con el teclado dentro del carrusel, ← y → giran la rueda un paso */
+gab.addEventListener('keydown', e => {
+  if (!ruleta.classList.contains('es-ruleta')) return;
+  if (e.key === 'ArrowLeft')  { e.preventDefault(); girarUnPaso(-1); }
+  if (e.key === 'ArrowRight') { e.preventDefault(); girarUnPaso(1); }
+});
 document.getElementById('rl-abrir').addEventListener('click', () => {
   const f = fichas[Math.max(0, activo)];
   if (f) abrirVisor(indiceDe(f), f);
