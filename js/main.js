@@ -46,8 +46,16 @@ function partir(el) {
 
 const telon = document.getElementById('telon');
 
+/* Quien ya vio el telón en esta pestaña lo ve más corto al volver */
+let telonVisto = false;
+try {
+  telonVisto = sessionStorage.getItem('telon-visto') === '1';
+  sessionStorage.setItem('telon-visto', '1');
+} catch { /* sin almacenamiento: siempre el telón completo */ }
+
 function alzarTelon() {
   const t = gsap.timeline();
+  if (telonVisto) t.timeScale(2);
   t.to(telon, { opacity: 0, duration: .8, ease: 'power2.inOut' })
    .set(telon, { display: 'none' })
    .add(entrarFrontispicio, '-=.3');
@@ -62,7 +70,7 @@ function correrTelon() {
   const cuenta = { v: 0 };
   const salida = telon.querySelector('.telon__cuenta');
 
-  gsap.timeline()
+  gsap.timeline({ timeScale: telonVisto ? 2.2 : 1 })
     .to('.telon__marca', { opacity: 1, duration: .9 }, 0)
     .to('.telon__linea', { scaleX: 1, duration: 1.5, ease: 'power2.inOut' }, 0)
     .to(cuenta, {
