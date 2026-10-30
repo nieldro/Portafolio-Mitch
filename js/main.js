@@ -149,6 +149,20 @@ ScrollTrigger.create({
   onUpdate: self => barra.classList.toggle('esta-posada', self.scroll() > 80)
 });
 
+/* La barra se retira al bajar leyendo y vuelve al subir. Nunca se esconde
+   con el menú abierto ni mientras el teclado está dentro de ella. */
+let yPrevio = window.scrollY;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (Math.abs(y - yPrevio) < 6) return;
+  const baja = y > yPrevio;
+  yPrevio = y;
+  const quedaEnFoco = barra.contains(document.activeElement);
+  barra.classList.toggle('esta-escondida',
+    baja && y > 480 && !quedaEnFoco && !barra.classList.contains('esta-abierta'));
+}, { passive: true });
+barra.addEventListener('focusin', () => barra.classList.remove('esta-escondida'));
+
 function menu(abierta) {
   barra.classList.toggle('esta-abierta', abierta);
   hamb.setAttribute('aria-expanded', String(abierta));
