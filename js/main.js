@@ -373,6 +373,13 @@ const cintaInstr = cinta(document.getElementById('cinta'), 28, 1);
 const cintas = [[pista, 'pista'], [cintaInstr, 'cinta']].map(([t, id]) => ({
   t, v: 1, meta: 1, caja: document.getElementById(id).parentElement
 }));
+/* Fuera de la pantalla una cinta no gasta cuadros: se pausa y vuelve sola */
+cintas.forEach(c => {
+  if (!c.t) return;
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) c.t.resume(); else c.t.pause();
+  }).observe(c.caja);
+});
 if (fino) {
   cintas.forEach(c => {
     c.caja.addEventListener('mouseenter', () => { c.meta = .12; });
