@@ -718,6 +718,8 @@ let volverA = null;
 
 function pintar(i) {
   indice = (i + piezas.length) % piezas.length;
+  /* Cada lámina tiene su enlace (#lamina-3): se puede copiar y mandar */
+  history.replaceState(null, '', '#lamina-' + (indice + 1));
   const p = piezas[indice];
   vImg.src = p.dataset.src;
   vImg.alt = p.querySelector('img') ? p.querySelector('img').alt : p.dataset.titulo;
@@ -746,6 +748,7 @@ function cerrarVisor() {
   gsap.to(visor, {
     opacity: 0, duration: .35,
     onComplete: () => {
+      history.replaceState(null, '', location.pathname + location.search);
       visor.hidden = true;
       document.body.classList.remove('esta-quieto');
       if (volverA) volverA.focus();
@@ -807,6 +810,10 @@ document.addEventListener('keydown', e => {
     }
   }
 });
+
+/* Quien llega con un enlace #lamina-N ve esa lámina abierta */
+const enlaceLamina = location.hash.match(/^#lamina-(\d+)$/);
+if (enlaceLamina && piezas[enlaceLamina[1] - 1]) abrirVisor(enlaceLamina[1] - 1, null);
 
 /* ───────── Arranque y remontaje ───────── */
 
