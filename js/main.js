@@ -780,6 +780,8 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape')     cerrarVisor();
   if (e.key === 'ArrowLeft')  pintar(indice - 1);
   if (e.key === 'ArrowRight') pintar(indice + 1);
+  if (e.key === 'Home')       { e.preventDefault(); pintar(0); }
+  if (e.key === 'End')        { e.preventDefault(); pintar(piezas.length - 1); }
 
   /* El foco no se sale del visor mientras está abierto */
   if (e.key === 'Tab') {
