@@ -759,6 +759,19 @@ if (tarjeta) {
   });
 }
 
+/* La hoja de vida se adelanta cuando el cursor, el dedo o el teclado llegan a su enlace */
+document.querySelectorAll('a[href="hoja-de-vida.html"]').forEach(a => {
+  const adelantar = () => {
+    if (document.querySelector('link[rel="prefetch"][href="hoja-de-vida.html"]')) return;
+    const l = document.createElement('link');
+    l.rel = 'prefetch';
+    l.href = 'hoja-de-vida.html';
+    document.head.appendChild(l);
+  };
+  ['pointerenter', 'focus', 'touchstart'].forEach(ev =>
+    a.addEventListener(ev, adelantar, { once: true, passive: true }));
+});
+
 /* ───────── Copiar el correo ───────── */
 
 const botonCopiar  = document.getElementById('copiar-correo');
