@@ -235,8 +235,9 @@ if (!quieto) {
    medidas de más abajo corridas, marcando la sección equivocada. Las
    secciones sin enlace propio cuentan para la anterior que sí lo tiene. */
 
-const enlacesBarra = [...barra.querySelectorAll('.barra__nav a:not(.solo-movil)')];
+const enlacesBarra = [...barra.querySelectorAll('.barra__nav a:not(.solo-movil), .barra__cta')];
 const dueno = {
+  correspondencia: 'correspondencia',
   laminas: 'laminas', mas: 'laminas', pantalla: 'laminas', gabinete: 'gabinete', retrato: 'retrato',
   oficios: 'oficios', metodo: 'oficios', trayectoria: 'oficios'
 };
