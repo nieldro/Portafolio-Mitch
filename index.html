@@ -139,7 +139,7 @@
     </nav>
     <a class="barra__cta" href="#correspondencia">Correspondencia</a>
   </div>
-  <button class="barra__hamb" id="hamb" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+  <button class="barra__hamb" type="button" id="hamb" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
   <i class="barra__aguja" id="aguja" aria-hidden="true"></i>
 </header>
 
@@ -221,7 +221,7 @@
       <p class="lamina__cat">Packaging <span>·</span> 2025</p>
       <h3 class="lamina__tit">Kaomi Arcana<br><span>Packaging conceptual</span></h3>
       <p class="lamina__txt"><span class="capitular">E</span>mpaque con estética gótica para producto premium. La caja toma forma de relicario: filete dorado, damasco tramado y un interior en negro absoluto.</p>
-      <button class="enlace" data-visor-btn>Ver la lámina</button>
+      <button class="enlace" type="button" data-visor-btn>Ver la lámina</button>
     </div>
     <div class="detalles">
       <p class="detalles__rot">Detalle</p>
@@ -245,7 +245,7 @@
       <p class="lamina__cat">Packaging <span>·</span> 2025</p>
       <h3 class="lamina__tit">Tairons<br><span>El vodka de los dioses</span></h3>
       <p class="lamina__txt"><span class="capitular">D</span>iseño inspirado en cultura Tairona con gráfica ornamental. Cenefas, máscara y sol como sistema, no como adorno suelto.</p>
-      <button class="enlace" data-visor-btn>Ver la lámina</button>
+      <button class="enlace" type="button" data-visor-btn>Ver la lámina</button>
     </div>
     <div class="detalles">
       <p class="detalles__rot">Detalle</p>
@@ -269,7 +269,7 @@
       <p class="lamina__cat">Publicidad <span>·</span> 2025</p>
       <h3 class="lamina__tit">Ferrari<br><span>The Icons of the 80s</span></h3>
       <p class="lamina__txt"><span class="capitular">A</span>fiche promocional con estética retro. Ejercicio de época: tipografía, grano y color de una década concreta, sin caricatura.</p>
-      <button class="enlace" data-visor-btn>Ver la lámina</button>
+      <button class="enlace" type="button" data-visor-btn>Ver la lámina</button>
     </div>
     <div class="detalles">
       <p class="detalles__rot">Detalle</p>
@@ -406,9 +406,9 @@
       <div class="ruleta__puntos" id="rl-puntos" role="group" aria-label="Elegir pieza"></div>
 
       <div class="ruleta__mando">
-        <button class="ruleta__flecha" id="rl-prev" aria-label="Lámina anterior">&#8249;</button>
-        <button class="ruleta__aguja" id="rl-abrir">Ver la lámina</button>
-        <button class="ruleta__flecha" id="rl-next" aria-label="Lámina siguiente">&#8250;</button>
+        <button class="ruleta__flecha" type="button" id="rl-prev" aria-label="Lámina anterior">&#8249;</button>
+        <button class="ruleta__aguja" type="button" id="rl-abrir">Ver la lámina</button>
+        <button class="ruleta__flecha" type="button" id="rl-next" aria-label="Lámina siguiente">&#8250;</button>
       </div>
     </div>
   </div>
@@ -678,9 +678,9 @@
 <!-- ═══════ Visor de láminas ═══════ -->
 <div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Lámina ampliada" hidden>
   <p class="visor__cuenta" id="visor-cuenta" aria-hidden="true"></p>
-  <button class="visor__cerrar" id="visor-cerrar" aria-label="Cerrar">&times;</button>
-  <button class="visor__flecha visor__flecha--izq" id="visor-prev" aria-label="Anterior">&#8249;</button>
-  <button class="visor__flecha visor__flecha--der" id="visor-next" aria-label="Siguiente">&#8250;</button>
+  <button class="visor__cerrar" type="button" id="visor-cerrar" aria-label="Cerrar">&times;</button>
+  <button class="visor__flecha visor__flecha--izq" type="button" id="visor-prev" aria-label="Anterior">&#8249;</button>
+  <button class="visor__flecha visor__flecha--der" type="button" id="visor-next" aria-label="Siguiente">&#8250;</button>
   <figure class="visor__marco">
     <img id="visor-img" alt="">
     <figcaption>
