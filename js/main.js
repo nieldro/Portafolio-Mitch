@@ -486,6 +486,7 @@ const puntos = fichas.map((f, i) => {
   const b = document.createElement('button');
   b.type = 'button';
   b.className = 'ruleta__punto';
+  b.title = f.dataset.titulo;      // al pasar el cursor, el nombre de la pieza
   b.setAttribute('aria-label', 'Ir a la pieza ' + f.dataset.num + ': ' + f.dataset.titulo);
   b.addEventListener('click', () => {
     let d = i - Math.max(activo, 0);
