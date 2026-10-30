@@ -698,6 +698,7 @@ const visor  = document.getElementById('visor');
 const vImg   = document.getElementById('visor-img');
 const vTit   = document.getElementById('visor-tit');
 const vPie   = document.getElementById('visor-pie');
+const vCuenta = document.getElementById('visor-cuenta');
 /* Las cuatro láminas mayores salen dos veces en la página (como lámina
    y como ficha de la ruleta). El visor las lista una sola vez, en
    orden de catálogo, para que las flechas no repitan. */
@@ -722,6 +723,7 @@ function pintar(i) {
   vImg.alt = p.querySelector('img') ? p.querySelector('img').alt : p.dataset.titulo;
   vTit.textContent = p.dataset.titulo;
   vPie.textContent = p.dataset.pie;
+  vCuenta.textContent = (indice + 1) + ' / ' + piezas.length;
   gsap.fromTo(vImg, { opacity: 0, scale: .97 }, { opacity: 1, scale: 1, duration: .55 });
 
   /* Las vecinas de cada lado se bajan de antemano: las flechas no esperan */
