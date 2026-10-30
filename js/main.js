@@ -814,6 +814,7 @@ function pintar(i) {
   vPie.textContent = p.dataset.pie;
   vCuenta.textContent = (indice + 1) + ' / ' + piezas.length;
   document.title = p.dataset.titulo + ' · Michelle Herrera';   // la pestaña dice qué lámina se mira
+  visor.setAttribute('aria-label', 'Lámina ampliada: ' + p.dataset.titulo);
   gsap.fromTo(vImg, { opacity: 0, scale: .97 }, { opacity: 1, scale: 1, duration: .55 });
 
   /* Las vecinas de cada lado se bajan de antemano: las flechas no esperan */
