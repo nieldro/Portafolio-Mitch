@@ -160,6 +160,11 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && barra.classList.contains('esta-abierta')) { menu(false); hamb.focus(); }
 });
 
+/* Un toque fuera de la barra cierra el menú del celular */
+document.addEventListener('click', e => {
+  if (barra.classList.contains('esta-abierta') && !barra.contains(e.target)) menu(false);
+});
+
 barra.querySelectorAll('.barra__nav a, .barra__cta').forEach(a => {
   a.addEventListener('click', () => menu(false));
 });
