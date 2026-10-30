@@ -224,9 +224,11 @@ html.tiene-js .telon{
   justify-content:space-between;
   gap:2rem;
   padding:1.15rem clamp(1.1rem,4vw,3rem);
-  transition:background-color .5s ease,border-color .5s ease,backdrop-filter .5s ease;
+  transition:background-color .5s ease,border-color .5s ease,backdrop-filter .5s ease,transform .5s var(--curva);
   border-bottom:1px solid transparent;
 }
+/* Al bajar leyendo, la barra se retira; al subir, vuelve */
+.barra.esta-escondida{transform:translateY(-100%)}
 .barra.esta-posada{
   background:rgba(10,8,9,.82);
   backdrop-filter:blur(14px);
