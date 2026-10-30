@@ -55,7 +55,18 @@
     <div class="salidas">
       <a href="/">Volver al catálogo</a>
       <a class="sec" href="/hoja-de-vida.html">Ver la hoja de vida</a>
+      <a class="sec" id="atras" href="/" hidden>Volver a la página anterior</a>
     </div>
   </main>
+  <script>
+    /* Solo si vino de otra página de este mismo sitio tiene sentido «anterior» */
+    try {
+      if (document.referrer && new URL(document.referrer).origin === location.origin) {
+        var atras = document.getElementById('atras');
+        atras.hidden = false;
+        atras.addEventListener('click', function (e) { e.preventDefault(); history.back(); });
+      }
+    } catch (err) { /* sin referrer legible: queda oculto */ }
+  </script>
 </body>
 </html>
