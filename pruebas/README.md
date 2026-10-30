@@ -32,6 +32,7 @@ servido en `http://127.0.0.1:8765/` (`node servir.mjs`).
 | `meta.mjs` | Título, descripción, URL canónica, color de barra y `noindex` en la 404 | Hojas internas salieron sin descripción ni canónica |
 | `enlaces.mjs` | Anclas con destino, archivos internos que responden 200, `noopener` | Un enlace roto no se ve hasta que alguien lo toca |
 | `accesibilidad.mjs` | `alt` en imágenes, nombre en botones y enlaces, `id` únicos, un solo `<main>` | Lo que un lector de pantalla necesita para no perderse |
+| `uso.mjs` | Contador y teclas del visor, enlace `#lamina-N`, título de la pestaña, «Copiar el correo» | Que un botón se vea no prueba que haga algo |
 
 ## Trampas conocidas
 
