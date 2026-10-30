@@ -70,7 +70,7 @@ function correrTelon() {
   const cuenta = { v: 0 };
   const salida = telon.querySelector('.telon__cuenta');
 
-  gsap.timeline({ timeScale: telonVisto ? 2.2 : 1 })
+  gsap.timeline()
     .to('.telon__marca', { opacity: 1, duration: .9 }, 0)
     .to('.telon__linea', { scaleX: 1, duration: 1.5, ease: 'power2.inOut' }, 0)
     .to(cuenta, {
@@ -78,7 +78,8 @@ function correrTelon() {
       onUpdate: () => { salida.textContent = Math.round(cuenta.v); }
     }, 0)
     .to('.telon__centro', { scale: .94, opacity: 0, duration: .6, ease: 'power2.in' }, '+=.15')
-    .add(alzarTelon);
+    .add(alzarTelon)
+    .timeScale(telonVisto ? 2.2 : 1);
 }
 
 /* ───────── Frontispicio ───────── */
