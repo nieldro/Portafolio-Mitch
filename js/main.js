@@ -680,6 +680,15 @@ function girarUnPaso(sentido) {
 }
 document.getElementById('rl-prev').addEventListener('click', () => girarUnPaso(-1));
 document.getElementById('rl-next').addEventListener('click', () => girarUnPaso(1));
+/* Un gesto lateral del trackpad (o la rueda inclinada) también la gira.
+   Solo si es más horizontal que vertical: el scroll normal no se toca. */
+ruleta.addEventListener('wheel', e => {
+  if (!ruleta.classList.contains('es-ruleta') || Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+  e.preventDefault();
+  inercia = 0;
+  rotArrastre -= e.deltaX * .12;
+}, { passive: false });
+
 /* Con el teclado dentro del carrusel, ← y → giran la rueda un paso */
 gab.addEventListener('keydown', e => {
   if (!ruleta.classList.contains('es-ruleta')) return;
