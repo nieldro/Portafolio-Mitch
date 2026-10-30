@@ -267,6 +267,14 @@ window.addEventListener('scroll', () => {
   if (!pintandoNav) { pintandoNav = true; requestAnimationFrame(actualizarNav); }
 }, { passive: true });
 actualizarNav();
+
+/* «Volver arriba» lleva también el foco al inicio del contenido: el botón
+   se esconde al llegar y el teclado no debe quedarse en el aire */
+if (subir) {
+  subir.addEventListener('click', () => {
+    document.getElementById('contenido').focus({ preventScroll: true });
+  });
+}
 /* ───────── Las piezas web se descubren de abajo hacia arriba ───────── */
 
 if (!quieto) {
