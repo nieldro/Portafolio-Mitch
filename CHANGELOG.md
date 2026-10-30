@@ -2,6 +2,26 @@
 
 Portafolio de Laura Michelle Herrera. Los más recientes arriba.
 
+## 2026-10-30
+
+- **Visor:** contador «3 / 13»; Inicio y Fin saltan a la primera y a la
+  última; deslizar el dedo pasa de lámina; cada lámina tiene su enlace
+  (`#lamina-3`) y se abre al llegar con él; la pestaña y el diálogo nombran la
+  lámina abierta; las vecinas se precargan.
+- **Correspondencia:** botón «Copiar el correo» con aviso y plan B si el
+  navegador no da portapapeles.
+- **Barra:** se retira al bajar y vuelve al subir o al enfocarla con el
+  teclado; «Correspondencia» se rellena al llegar a esa sección.
+- **Menú del celular:** un toque fuera lo cierra y se cierra solo al pasar a
+  ancho de escritorio.
+- **Carrusel:** flechas del teclado y gesto lateral del trackpad giran la rueda;
+  cada punto muestra el nombre de su pieza; «Ver la lámina» dice cuál abre.
+- **Marquesinas:** frenan bajo el cursor y se pausan fuera de pantalla.
+- **Pie, 404 y telón:** enlaces en el pie; la 404 ofrece la hoja de vida y
+  «volver a la página anterior»; el telón es más corto al volver en la misma
+  pestaña; la hoja de vida se precarga al acercarse a su enlace.
+- **Pruebas:** `uso.mjs` comprueba lo anterior en un navegador real.
+
 ## 2026-10-29
 
 - **Metadatos:** la hoja de vida y la hoja de marca ya llevan URL canónica y
